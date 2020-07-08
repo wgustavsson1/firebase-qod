@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quest Or Drink</title>
+    <script defer src="initHome.js"></script>
   </head>
   
   <body>
@@ -18,13 +19,13 @@
 
           function login()
           {
-            FB.login(function(response) {
+            FB.login(function(response) { 
               if (response.status === 'connected') {
                 setupPage();
               } else {
                   alert("Failed to connect to Facebook")
               }
-            });
+            },{scope:'email,user_friends'});
           }
 
           function statusChangeCallback(response){ 
@@ -48,9 +49,13 @@
     <!--Following script is for choosing user language for the SDK. FB-plugin language will be using the language defined here-->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
     
-    <h3 id = "name">Hej</h3>
-
-    <img id = "profile-picture">
+    <center>
+      <h1 id = "name"></h3>
+      <h4>Jag:</h4>
+      <img id = "profile-picture">
+      <h4 id = "friend-name">QOD-Kompis:</h4>
+      <img id = "friend-picture">
+   </center>
 
     <script defer src="/__/firebase/7.15.5/firebase-app.js"></script>
     <script defer src="/__/firebase/7.15.5/firebase-auth.js"></script>
@@ -58,6 +63,5 @@
     <script defer src="/__/firebase/7.15.5/firebase-messaging.js"></script>
     <script defer src="/__/firebase/7.15.5/firebase-storage.js"></script>
     <script defer src="/__/firebase/init.js"></script>
-    <script defer src="initHome.js"></script>
   </body>
 </html>

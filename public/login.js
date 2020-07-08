@@ -2,6 +2,7 @@
 function FBLogin()
 {
     var provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('email,user_friends');
     
     firebase.auth().signInWithPopup(provider).then(function(result) {
         // This gives you a Facebook Access Token. You can use it to access the Facebook graph API to read and write data from/to the users FB-account
@@ -10,7 +11,7 @@ function FBLogin()
         var user = result.user;
         alert("Logged in!");
         console.log(user);
-        window.location = "/home?token=" + token
+        window.location = "/home"
         
         // ...
       }).catch(function(error) {

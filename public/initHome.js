@@ -11,10 +11,25 @@
 
 profilePic = document.getElementById("profile-picture");
 profilePic.setAttribute("src", "");
+var name = "";
+var uid = "";
 
 function setupPage()
 {
     FB.api('/me', function(response) {
-        console.log('Good to see you, ' + response.name + '.');
+        console.log(response)
+        name = response.name;
+        uid = response.id;
+        document.getElementById("name").innerHTML = "Inloggad som " + name;
+        profilePic.setAttribute("src", "http://graph.facebook.com/" + uid + "/picture?type=normal");
+        FB.api('/me/friends','GET',{}, function(response) {
+                console.log(response);
+                friend_uid = response['data'][0]['id'];
+                friend_name = response['data'][0]['name'];
+                document.getElementById("friend-name").innerHTML = "QOD-kompis " + friend_name;
+                document.getElementById("friend-picture").setAttribute("src", "http://graph.facebook.com/" + friend_uid + "/picture?type=normal");
+            }
+        );
     });
+
 }
