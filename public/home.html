@@ -5,9 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quest Or Drink</title>
   </head>
+  
   <body>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId            : '313548656427392',
+          autoLogAppEvents : true,
+          xfbml            : true,
+          version          : 'v7.0'
+        });
+
+          function login()
+          {
+            FB.login(function(response) {
+              if (response.status === 'connected') {
+                setupPage();
+              } else {
+                  alert("Failed to connect to Facebook")
+              }
+            });
+          }
+
+          function statusChangeCallback(response){ 
+            console.log('statusChangeCallback');
+            console.log(response);                   
+            if (response.status === 'connected')
+            {   
+              setupPage();  
+            } 
+            else{                                
+                login();
+              }
+            }
+
+          FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+          });
+      };
+    </script>
+
+    <!--Following script is for choosing user language for the SDK. FB-plugin language will be using the language defined here-->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
     
     <h3 id = "name">Hej</h3>
+
+    <img id = "profile-picture">
 
     <script defer src="/__/firebase/7.15.5/firebase-app.js"></script>
     <script defer src="/__/firebase/7.15.5/firebase-auth.js"></script>
@@ -15,6 +58,6 @@
     <script defer src="/__/firebase/7.15.5/firebase-messaging.js"></script>
     <script defer src="/__/firebase/7.15.5/firebase-storage.js"></script>
     <script defer src="/__/firebase/init.js"></script>
-    <link rel="stylesheet"  type = "text/css" href="style.css"></style>
+    <script defer src="initHome.js"></script>
   </body>
 </html>
