@@ -13,3 +13,6 @@ firebase serve
 
 deploy to firebase hosting:
 firebase deploy
+
+Install Vue.js:
+npm install -g vue-cli

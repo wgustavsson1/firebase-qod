@@ -1,4 +1,3 @@
-
 function FBLogin()
 {
     var provider = new firebase.auth.FacebookAuthProvider();
@@ -9,7 +8,6 @@ function FBLogin()
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-        alert("Logged in!");
         console.log(user);
         window.location = "/home"
         
@@ -22,6 +20,7 @@ function FBLogin()
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
+        console.log("ERROR: " + errorCode)
         // ...
       });
 }
