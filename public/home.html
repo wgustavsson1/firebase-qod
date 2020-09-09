@@ -6,6 +6,7 @@
     <title>Quest Or Drink</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
     <script defer src="initHome.js"></script>
+    <script defer src = "footerMenu.js"></script>
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- TODO: change to production version
@@ -54,33 +55,37 @@
 
     <!--Following script is for choosing user language for the SDK. FB-plugin language will be using the language defined here-->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+    <div id = "page">
     
-    <header id = "header" v-cloak>
-      <h1 class="text-center">Quest Or Drink</h1>
-      <div id = "profile">
-        <img v-bind:src="profile_src" id = "profile-pic"> <h4 id = "name">{{name}}</h4>
-      </div>
-    </header>
-
-    <ul id = "friend-list" v-cloak>
-      <h3 v-if="friend_count == 0" >Du har inga vänner somm spelar Quest Or Drink :(</h3>
-      <h4 v-if="friend_count == 0" >Bjud in dina vänner och spela ihop!</h4>
-      <h3 v-if="friend_count == 1" >Du har {{friend_count}} vän som spelar QOD!</h3>
-      <h3 v-if="friend_count > 1" >Du har {{friend_count}} vänner som spelar QOD!</h3>
-      <h5 v-if="friend_count >= 1" >Bjud in någon av dina vänner till ditt party!</h5>
-      <li v-for="friend in friends">
-        <div id = "profile-item">
-          <img v-bind:src="friend.profile_src" id = "profile-pic"> <h4 id = "name">{{friend.name}}</h4>
+      <header id = "header" v-cloak>
+        <h1 class="text-center">Quest Or Drink</h1>
+        <div id = "profile">
+          <img v-bind:src="profile_src" id = "profile-pic"> <h4 id = "name">{{name}}</h4>
         </div>
-      </li> 
-    </ul>
+      </header>
 
-    <script defer src="/__/firebase/7.15.5/firebase-app.js"></script>
-    <script defer src="/__/firebase/7.15.5/firebase-auth.js"></script>
-    <script defer src="/__/firebase/7.15.5/firebase-database.js"></script>
-    <script defer src="/__/firebase/7.15.5/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/7.15.5/firebase-storage.js"></script>
-    <script defer src="/__/firebase/init.js"></script>
+    </div>
+
+        <footer id = "footer_menu">
+          <ul>
+            <li id = "footer_menu_profile">Profile</li>
+            <li id = "footer_menu_wall">Wall</li>
+            <li id = "footer_menu_friends">Friends</li>
+            <li id = "footer_menu_expansions">Expansions</li>
+          </ul>
+
+      
+
+        </footer>
+
+      <script defer src="/__/firebase/7.15.5/firebase-app.js"></script>
+      <script defer src="/__/firebase/7.15.5/firebase-auth.js"></script>
+      <script defer src="/__/firebase/7.15.5/firebase-database.js"></script>
+      <script defer src="/__/firebase/7.15.5/firebase-messaging.js"></script>
+      <script defer src="/__/firebase/7.15.5/firebase-storage.js"></script>
+      <script defer src="/__/firebase/init.js"></script>
+
 
     <style>
       [v-cloak]
@@ -133,6 +138,19 @@
         width: 10vw;
         height:10vw;
         float:left;
+      }
+      #footer_menu
+      {
+        display: inline;
+        position: fixed;
+        bottom:16vh;
+      }
+      #footer_menu li
+      {
+        margin-left: 2vw;
+        font-family: 'Orbitron', bold;
+        color: #f2f24b;
+        display: inline;
       }
     </style>
 
