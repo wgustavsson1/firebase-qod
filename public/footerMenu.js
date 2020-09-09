@@ -8,6 +8,13 @@ async function loadPage(page) {
     contentDiv.innerHTML = await fetchHtmlAsText(page);
 }
 
+document.getElementById("footer_menu_home").onclick = function()
+{
+    loadPage("home.html").then(function(){
+        setupPage();
+    });
+};
+
 document.getElementById("footer_menu_profile").onclick = function()
 {
     loadPage("profile.html").then(function(){
