@@ -32,7 +32,9 @@ document.getElementById("footer_menu_friends").onclick = function()
 document.getElementById("button-start").onclick = function()
 {
     loadPage("lobby.html").then(function(){
+        document.getElementById("button-create-lobby").addEventListener("click",invite_friends);
         setupPage();
     });
 };
+
 

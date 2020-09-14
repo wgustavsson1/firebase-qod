@@ -7,7 +7,7 @@
   <body>
 
     <div id = "lobby-form">
-        <h3>Game Settings</h3>
+        <h2>Game Settings</h2>
         <h5>Time</h5>
         <select name="time" id="select-time">
             <option value="10">10 minutes</option>
@@ -19,7 +19,7 @@
             <option value="180">3 hours</option>
             <option value="240">4 hours</option>
         </select>
-        <h5>Number of cards</h5>
+        <h5>Cards</h5>
         <select name="cards" id="select-cards">
             <option value="5">5 cards</option>
             <option value="6">6 cards</option>
@@ -33,6 +33,20 @@
             <option value="14">14 cards</option>
             <option value="15">15 cards</option>
         </select>
+           <h5>Skips allowed</h5>
+        <select name="cards" id="select-cards">
+            <option value="1">1 card</option>
+            <option value="2">2 cards</option>
+            <option value="3">3 cards</option>
+            <option value="4">4 cards</option>
+            <option value="5">5 cards</option>
+        </select>
+             <h5>Expansion</h5>
+        <select name="cards" id="select-cards">
+            <option value="free">Basic</option>
+        </select>
+
+        <button id = "button-create-lobby">Create lobby!</button>
     </div>  
 
     <style>
@@ -45,6 +59,18 @@
       {
           margin: 0 auto;
           text-align: center;
+      }
+      #button-create-lobby
+      {
+        margin: 6vh auto 0 auto;
+        color:#f2f24b;
+        background-color: green;
+        font-family: 'Orbitron', bold;
+        display: block;
+        font-size: 1.3em;
+        text-align: center;
+        padding:3vw;
+        border:none;
       }
       select
       {
