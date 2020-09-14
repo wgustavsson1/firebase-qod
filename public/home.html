@@ -6,7 +6,7 @@
     <title>Quest Or Drink</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
     <script defer src="initHome.js"></script>
-    <script defer src = "footerMenu.js"></script>
+    <script defer src = "HTML_router.js"></script>
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- TODO: change to production version
@@ -65,7 +65,10 @@
         </div>
       </header>
 
+      <button id = "button-start">Create Lobby</button>
+
     </div>
+
 
         <footer id = "footer_menu">
           <ul>
@@ -101,6 +104,7 @@
         margin:0;
         height: 100%;
         width: 100%;
+        position: fixed;
         background-color:black;
       }
       h1,h2,h3,h4,h5
@@ -149,6 +153,18 @@
         font-family: 'Orbitron', bold;
         color: #f2f24b;
         display: inline;
+      }
+      #button-start
+      {
+        color:#f2f24b;
+        background-color: green;
+        font-family: 'Orbitron', bold;
+        margin: 0 auto;
+        display: block;
+        font-size: 1.5em;
+        text-align: center;
+        padding:3vw;
+        border:none;
       }
     </style>
 

@@ -29,3 +29,10 @@ document.getElementById("footer_menu_friends").onclick = function()
     });
 };
 
+document.getElementById("button-start").onclick = function()
+{
+    loadPage("lobby.html").then(function(){
+        setupPage();
+    });
+};
+
