@@ -9,10 +9,8 @@ async function loadPage(page) {
 }
 
 document.getElementById("footer_menu_home").onclick = function()
-{
-    loadPage("home.html").then(function(){
+{       document.location.href = "home.html";
         setupFB();
-    });
 };
 
 document.getElementById("footer_menu_profile").onclick = function()

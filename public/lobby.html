@@ -6,7 +6,13 @@
   
   <body>
     <div id = "host">
+        <img v-bind:src="profile_src" id = "profile-pic">
         <h3>{{host}} is host!</h3>
+
+        <h4>{{time}} minutes</h4>
+        <h4>{{cards}} cards</h4>
+        <h4>{{skips}} skip cards</h4>
+        <h4>{{expansion}} expansion</h4>
     </div>
     
     <script defer src="lobby.js"></script>
@@ -21,6 +27,17 @@
       {
         font-family: 'Orbitron', bold;
         color: #f2f24b;
+        text-align: center;
+      }
+      #profile-pic
+      {
+        align-items:center;
+        border-radius: 5em;
+        margin-right: 5vw;
+        margin-left: 5vw;
+        width: 12vw;
+        height:12vw;
+        float:left;
       }
       #host
       {

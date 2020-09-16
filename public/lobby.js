@@ -48,6 +48,19 @@ function firebase_get_host_data()
     console.log("host")
     console.log(snapshot.child("host").val());
     var host_name = snapshot.child("host").val();
-    var host = new Vue({el: '#host', data: {host : host_name} });
+    var profile_src = snapshot.child("profile_picture").val();
+    var time = snapshot.child("time").val();
+    var cards = snapshot.child("cards").val();
+    var skips = snapshot.child("skips").val();
+    var expansion = snapshot.child("expansion").val();
+    var host = new Vue({el: '#host',
+     data: {host : host_name,
+      profile_src:profile_src,
+      time:time,
+      cards:cards,
+      skips:skips,
+      expansion:expansion
+         }
+      });
     });
 }
