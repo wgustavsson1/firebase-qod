@@ -5,11 +5,16 @@
   </head>
   
   <body>
-    <div id = "host">
-        <h3>{{host}} is host!</h3>
+    <div id = "join-form">
+        <h2>Join a party!</h2>
+
+        <h4>Enter the party name</h4>
+
+        <input type = "text" id = "input-party-ref"/>
+
+        <button id = "button-join-party">Join!</button>
     </div>
     
-    <script defer src="lobby.js"></script>
 
     <style>
       [v-cloak]
@@ -22,7 +27,7 @@
         font-family: 'Orbitron', bold;
         color: #f2f24b;
       }
-      #host
+      #join-form
       {
           text-align: center;
           margin-top:20vh;

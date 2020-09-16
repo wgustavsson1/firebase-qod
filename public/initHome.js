@@ -11,7 +11,7 @@
 var name = "";
 var uid = "";
 
-function setupPage()
+function setupFB()
 {
     getFBData();
 }
@@ -22,6 +22,9 @@ function getFBData()
         name = response.name;
         uid = response.id;
         profile_src =  "https://graph.facebook.com/" + uid + "/picture?type=normal"
+        sessionStorage.setItem("name", name);
+        sessionStorage.setItem("fb_uid", uid);
+        sessionStorage.setItem("profile_src", profile_src);
         var header = new Vue({
             el: '#header',
             data: {

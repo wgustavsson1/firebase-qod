@@ -11,29 +11,46 @@ async function loadPage(page) {
 document.getElementById("footer_menu_home").onclick = function()
 {
     loadPage("home.html").then(function(){
-        setupPage();
+        setupFB();
     });
 };
 
 document.getElementById("footer_menu_profile").onclick = function()
 {
     loadPage("profile.html").then(function(){
-        setupPage();
+        setupFB();
     });
 };
 
 document.getElementById("footer_menu_friends").onclick = function()
 {
     loadPage("friends.html").then(function(){
-        setupPage();
+        setupFB();
     });
 };
 
 document.getElementById("button-start").onclick = function()
 {
-    loadPage("lobby.html").then(function(){
-        document.getElementById("button-create-lobby").addEventListener("click",invite_friends);
-        setupPage();
+    loadPage("create_lobby.html").then(function(){
+        setupFB();
+        setUp();
+        document.getElementById("button-create-lobby").addEventListener("click",create_lobby);
+    });
+};
+
+document.getElementById("button-join").onclick = function()
+{
+    loadPage("join_lobby.html").then(function(){
+        setupFB();
+        document.getElementById("button-join-party").onclick = function()
+        {
+            firebase_add_game();
+            loadPage("lobby.html").then(function(){
+            setupFB();
+            firebase_get_current_game();
+            firebase_get_host_data();
+         });
+        };
     });
 };
 

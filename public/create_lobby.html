@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  
+  <body>
+    
+    <div id = "lobby-form" v-if="hide == false">
+        <h2>Game Settings</h2>
+        <h5>Time</h5>
+        <select name="time" id="select-time">
+            <option value="10">10 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="45">45 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="90">1 hour 30 minutes</option>
+            <option value="120">2 hours</option>
+            <option value="180">3 hours</option>
+            <option value="240">4 hours</option>
+        </select>
+        <h5>Cards</h5>
+        <select name="cards" id="select-cards">
+            <option value="5">5 cards</option>
+            <option value="6">6 cards</option>
+            <option value="7">7 cards</option>
+            <option value="8">8 cards</option>
+            <option value="9">9 cards</option>
+            <option value="10">10 cards</option>
+            <option value="11">11 cards</option>
+            <option value="12">12 cards</option>
+            <option value="13">13 cards</option>
+            <option value="14">14 cards</option>
+            <option value="15">15 cards</option>
+        </select>
+           <h5>Skips allowed</h5>
+        <select name="cards" id="select-cards">
+            <option value="1">1 card</option>
+            <option value="2">2 cards</option>
+            <option value="3">3 cards</option>
+            <option value="4">4 cards</option>
+            <option value="5">5 cards</option>
+        </select>
+             <h5>Expansion</h5>
+        <select name="cards" id="select-cards">
+            <option value="free">Basic</option>
+        </select>
+
+        <button id = "button-create-lobby">Create lobby!</button>
+    </div>  
+
+    <div id = "lobby">
+      <h2 v-if="hide == false">Lobby createded!</h2>
+      <h4 id = "lobby-ref" v-if="hide == false">Invite your friends to your game lobby!</h4>
+      <h4 id = "lobby-ref" v-if="hide == false">Lobby name: {{lobby_ref}}</h4>
+    </div>
+    
+
+    <style>
+      [v-cloak]
+      {
+        display: none;
+      }
+
+      #lobby-form
+      {
+          margin: 0 auto;
+          text-align: center;
+      }
+      #lobby
+      {
+        text-align:center;
+      }
+      h1,h2,h3,h4,h5
+      {
+        font-family: 'Orbitron', bold;
+        color: #f2f24b;
+      }
+      #button-create-lobby
+      {
+        margin: 6vh auto 0 auto;
+        color:#f2f24b;
+        background-color: green;
+        font-family: 'Orbitron', bold;
+        display: block;
+        font-size: 1.3em;
+        text-align: center;
+        padding:3vw;
+        border:none;
+      }
+      select
+      {
+        font-size: 1em;
+        font-family: 'Orbitron', bold;
+        color: #f2f24b;
+        background-color: green;
+      }
+      select option
+      {
+          font-size: 1em;
+          font-family: 'Orbitron', bold;
+          color: #f2f24b;
+      }
+
+      h1,h2,h3,h4,h5
+      {
+        font-family: 'Orbitron', bold;
+        color: #f2f24b;
+      }
+      p
+      {
+        color:white;
+        text-align:center;
+        font-size: 0.5em;
+        margin-left: 5vw;
+      }
+      #footer_menu
+      {
+        display: inline;
+        position: fixed;
+        bottom:16vh;
+      }
+      #footer_menu li
+      {
+        margin-left: 2vw;
+        font-family: 'Orbitron', bold;
+        color: #f2f24b;
+        display: inline;
+      }
+    </style>
+
+  </body>
+</html>

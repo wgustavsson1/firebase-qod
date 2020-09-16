@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quest Or Drink</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
+    <script defer src="lobby.js"></script>    
     <script defer src="initHome.js"></script>
-    <script defer src = "HTML_router.js"></script>
     <script defer src="create_lobby.js"></script>
+    <script defer src = "HTML_router.js"></script>
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- TODO: change to production version
@@ -29,7 +30,7 @@
           {
             FB.login(function(response) { 
               if (response.status === 'connected') {
-                setupPage();
+                setupFB();
               } else {
                   alert("Failed to connect to Facebook")
               }
@@ -41,7 +42,7 @@
             console.log(response);                   
             if (response.status === 'connected')
             {   
-              setupPage();  
+              setupFB();  
             } 
             else{                                
                 login();
@@ -66,7 +67,8 @@
         </div>
       </header>
 
-      <button id = "button-start">Play!</button>
+      <button id = "button-start" class = "button-start">Start Party!</button>
+      <button id = "button-join" class = "button-start">Join party!</button>
 
     </div>
 
@@ -154,12 +156,12 @@
         color: #f2f24b;
         display: inline;
       }
-      #button-start
+      .button-start
       {
         color:#f2f24b;
         background-color: green;
         font-family: 'Orbitron', bold;
-        margin: 0 auto;
+        margin: 5vh auto;
         display: block;
         font-size: 1.5em;
         text-align: center;
@@ -167,6 +169,5 @@
         border:none;
       }
     </style>
-
   </body>
 </html>
