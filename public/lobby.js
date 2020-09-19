@@ -2,6 +2,25 @@ var database = firebase.database();
 var current_user = null;
 var lobby_id = null;
 
+var host = null;
+var players = null;
+
+function init_lobby()
+{
+  host = new Vue({el: '#host',
+        data: {host : "",
+        profile_src:null,
+        time:0,
+        cards:0,
+        skips:0,
+        expansion:0
+          }
+        });
+    players = new Vue({el: '#player-list',
+      data: { players:{}}
+      });
+}
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
@@ -24,10 +43,12 @@ function firebase_add_game()
 
 function join_lobby()
 {
+  init_lobby();
   firebase_get_current_game();
   firebase_get_host_data();
   firebase_add_user_as_player();
   firebase_get_player_list();
+  firebase_listen_to_messages();
 }
 
 
@@ -47,7 +68,7 @@ function firebase_add_user_as_player()
     lobby = lobby_id.split("&&")[1]
     console.log(lobby_id);
     var database = firebase.database();
-    firebase.database().ref("users/" + host_id +  "/lobbies/" + lobby + "/players/" + uid).set({
+    var ref = firebase.database().ref("users/" + host_id +  "/lobbies/" + lobby + "/players/" + uid).set({
           name:name,
           profile_src: profile_src,
           uid: uid,
@@ -61,12 +82,18 @@ function firebase_get_player_list()
     var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + "/players");
     db_ref.on('value', function(snapshot) {
     console.log(snapshot.val())
-    var players = new Vue({el: '#player-list',
-     data: {
-          players:snapshot.val()
-         }
-      });
+    players.players = snapshot.val();
     });
+}
+
+function firebase_send_message()
+{
+
+}
+
+function firebase_listen_to_messages()
+{
+ 
 }
 
 function firebase_get_host_data()
@@ -83,8 +110,14 @@ function firebase_get_host_data()
     var cards = snapshot.child("cards").val();
     var skips = snapshot.child("skips").val();
     var expansion = snapshot.child("expansion").val();
-    var host = new Vue({el: '#host',
-     data: {host : host_name,
+    host.host = host_name;
+    host.profile_src = host_profile_src;
+    host.time = time;
+    host.cards = cards;
+    host.skips = skips;
+    host.expansion = expansion;
+   /* host = new Vue({el: '#host',
+      data: {host : host_name,
       profile_src:host_profile_src,
       time:time,
       cards:cards,
@@ -92,5 +125,6 @@ function firebase_get_host_data()
       expansion:expansion
          }
       });
+*/
     });
 }
