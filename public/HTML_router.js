@@ -24,6 +24,7 @@ document.getElementById("footer_menu_friends").onclick = function()
 {
     loadPage("friends.html").then(function(){
         setupFB();
+        get_friends();
     });
 };
 

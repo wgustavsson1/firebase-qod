@@ -1,20 +1,12 @@
 var database = firebase.database();
-var uid = null;
 var current_user = null;
-var name = null;
-var fb_uid = null;
-var profile_src = null;
-var name = sessionStorage.getItem("name");
-var fb_uid = sessionStorage.getItem("fb_uid");
-var profile_src = sessionStorage.getItem("profile_src");
-
 var lobby_id = null;
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
-    uid = user.uid
-    current_user = user;
+    //uid = user.uid
+    //current_user = user;
   } else {
     console.log("no uid")
   }
@@ -55,7 +47,7 @@ function firebase_add_user_as_player()
     lobby = lobby_id.split("&&")[1]
     console.log(lobby_id);
     var database = firebase.database();
-    firebase.database().ref("users/" + uid +  "/lobbies/" + lobby + "/players/" ).push({
+    firebase.database().ref("users/" + host_id +  "/lobbies/" + lobby + "/players/" + uid).set({
           name:name,
           profile_src: profile_src,
           uid: uid,
@@ -86,14 +78,14 @@ function firebase_get_host_data()
     console.log("host")
     console.log(snapshot.child("host").val());
     var host_name = snapshot.child("host").val();
-    var profile_src = snapshot.child("profile_picture").val();
+    var host_profile_src = snapshot.child("profile_picture").val();
     var time = snapshot.child("time").val();
     var cards = snapshot.child("cards").val();
     var skips = snapshot.child("skips").val();
     var expansion = snapshot.child("expansion").val();
     var host = new Vue({el: '#host',
      data: {host : host_name,
-      profile_src:profile_src,
+      profile_src:host_profile_src,
       time:time,
       cards:cards,
       skips:skips,

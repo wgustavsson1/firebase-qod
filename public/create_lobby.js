@@ -2,13 +2,6 @@ var database = firebase.database();
 var uid = null;
 var current_user = null;
 
-var name = null;
-var fb_uid = null;
-var profile_src = null;
-var name = sessionStorage.getItem("name");
-var fb_uid = sessionStorage.getItem("fb_uid");
-var profile_src = sessionStorage.getItem("profile_src");
-
 var lobby = null;
 var lobby_created = null; 
 
@@ -27,8 +20,9 @@ function setUp()
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
-    uid = user.uid
-    current_user = user;
+   // uid = user.uid
+  //  current_user = user;
+    console.log("user:" + uid)
   } else {
     console.log("no uid")
   }
