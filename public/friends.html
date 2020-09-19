@@ -14,7 +14,7 @@
       <h5 v-if="friend_count >= 1" >Bjud in någon av dina vänner till ditt party!</h5>
       <li v-for="friend in friends">
         <div id = "profile-item">
-          <img v-bind:src="friend.profile_src" id = "profile-pic"> <h4 id = "name">{{friend.name}}</h4>
+          <img v-bind:src="friend.profile_src" id = "profile-pic"> <h4 class = "name">{{friend.name}}</h4>
         </div>
       </li> 
     </ul>
@@ -34,7 +34,7 @@
       {
         text-align: center;
       }
-      #name
+      .name
       {
         line-height: 10vw;
       }

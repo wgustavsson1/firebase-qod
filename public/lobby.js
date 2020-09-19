@@ -30,12 +30,50 @@ function firebase_add_game()
          });
 }
 
+function join_lobby()
+{
+  firebase_get_current_game();
+  firebase_get_host_data();
+  firebase_add_user_as_player();
+  firebase_get_player_list();
+}
+
+
+
 function firebase_get_current_game()
 {
     var db_ref = firebase.database().ref('users/' + uid + '/current_game/');
     db_ref.on('value', function(snapshot) {
     console.log(snapshot.child("lobby_id").val());
     lobby_id = snapshot.child("lobby_id").val()
+    });
+}
+
+function firebase_add_user_as_player()
+{
+    host_id = lobby_id.split("&&")[0]
+    lobby = lobby_id.split("&&")[1]
+    console.log(lobby_id);
+    var database = firebase.database();
+    firebase.database().ref("users/" + uid +  "/lobbies/" + lobby + "/players/" ).push({
+          name:name,
+          profile_src: profile_src,
+          uid: uid,
+         });
+}
+
+function firebase_get_player_list()
+{
+    host_id = lobby_id.split("&&")[0]
+    lobby = lobby_id.split("&&")[1]
+    var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + "/players");
+    db_ref.on('value', function(snapshot) {
+    console.log(snapshot.val())
+    var players = new Vue({el: '#player-list',
+     data: {
+          players:snapshot.val()
+         }
+      });
     });
 }
 

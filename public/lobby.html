@@ -5,15 +5,26 @@
   </head>
   
   <body>
-    <div id = "host">
-        <img v-bind:src="profile_src" id = "profile-pic">
-        <h3>{{host}} is host!</h3>
+    <div id = "host" v-cloak>
+        <img v-bind:src="profile_src" id = "profile-pic"> <h3 class = "name">{{host}}</h3>
 
-        <h4>{{time}} minutes</h4>
-        <h4>{{cards}} cards</h4>
-        <h4>{{skips}} skip cards</h4>
-        <h4>{{expansion}} expansion</h4>
+        <h5 class = "lobby-item">{{time}} minutes</h5>
+        <h5 class = "lobby-item">{{cards}} cards</h5>
+        <h5 class = "lobby-item">{{skips}} skips</h5>
+        <h5 class = "lobby-item">{{expansion}} expansion</h5>
     </div>
+
+    <div id = "clear-div"></div>
+
+    <h3>Players</h3>
+
+    <ul id = "player-list" v-cloak>
+      <li v-for="player in players">
+        <div id = "profile-item">
+          <img v-bind:src="player.profile_src" id = "profile-pic"> <h4 class = "name">{{player.name}}</h4>
+        </div>
+      </li> 
+    </ul>
     
     <script defer src="lobby.js"></script>
 
@@ -22,27 +33,44 @@
       {
         display: none;
       }
-
+      
       h1,h2,h3,h4,h5
       {
         font-family: 'Orbitron', bold;
         color: #f2f24b;
         text-align: center;
       }
+      .lobby-item
+      {
+        float:left;
+        margin-left:2vw;
+      }
+      #clear-div
+      {
+        clear:both;
+      }
+      .name
+      {
+        line-height: 10vw;
+        margin-left: 10vw;
+        text-align: left;
+        padding:1vw;
+      }
       #profile-pic
       {
+        padding:1vw;
         align-items:center;
         border-radius: 5em;
-        margin-right: 5vw;
-        margin-left: 5vw;
-        width: 12vw;
-        height:12vw;
+        margin-left: 10vw;
+        width: 10vw;
+        height:10vw;
         float:left;
       }
       #host
       {
           text-align: center;
-          margin-top:20vh;
+          border-radius: 1em 1em 0  0;
+          background-color:green;
       }
       #button-join-party
       {

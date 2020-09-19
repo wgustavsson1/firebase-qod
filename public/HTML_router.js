@@ -45,8 +45,7 @@ document.getElementById("button-join").onclick = function()
             firebase_add_game();
             loadPage("lobby.html").then(function(){
             setupFB();
-            firebase_get_current_game();
-            firebase_get_host_data();
+            join_lobby();
          });
         };
     });

@@ -9,7 +9,7 @@
     <header id = "header" v-cloak>
       <div id = "profile">
         <h1 class="text-center">Your Profile</h1>
-        <img v-bind:src="profile_src" id = "profile-pic"> <h4 id = "name">{{name}}</h4>
+        <img v-bind:src="profile_src" id = "profile-pic"> <h4 class = "name">{{name}}</h4>
       </div>
     </header>
 
@@ -52,7 +52,7 @@
         text-align: center;
         border-radius: 0;
       }
-      #name
+       .name
       {
         line-height: 10vw;
       }
