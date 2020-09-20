@@ -3,6 +3,7 @@ var current_user = null;
 var lobby_id = null;
 
 var host = null;
+var settings = null;
 var players = null;
 var log_list = [];
 var logs = null;
@@ -12,6 +13,14 @@ function init_lobby()
   host = new Vue({el: '#host',
         data: {host : "",
         profile_src:null,
+        time:0,
+        cards:0,
+        skips:0,
+        expansion:0
+          }
+        });
+    settings = new Vue({el: '#lobby-items',
+        data: {
         time:0,
         cards:0,
         skips:0,
@@ -50,11 +59,27 @@ function firebase_add_game()
 function join_lobby()
 {
   init_lobby();
+  setup_invite();
   firebase_get_current_game();
   firebase_get_host_data();
   firebase_add_user_as_player();
   firebase_get_player_list();
   firebase_listen_to_messages();
+}
+
+function setup_invite()
+{
+  var invite = new Vue({el: '#invite',
+      data: { id:lobby_id}
+      });
+  var qrcode = new QRCode("invite", {
+    text: lobby_id,
+    width: 130,
+    height: 130,
+    colorDark : "#000000",
+    colorLight : "#f2f24b",
+    correctLevel : QRCode.CorrectLevel.H
+});
 }
 
 
@@ -113,10 +138,10 @@ function firebase_get_host_data()
     var expansion = snapshot.child("expansion").val();
     host.host = host_name;
     host.profile_src = host_profile_src;
-    host.time = time;
-    host.cards = cards;
-    host.skips = skips;
-    host.expansion = expansion;
+    settings.time = time;
+    settings.cards = cards;
+    settings.skips = skips;
+    settings.expansion = expansion;
    /* host = new Vue({el: '#host',
       data: {host : host_name,
       profile_src:host_profile_src,

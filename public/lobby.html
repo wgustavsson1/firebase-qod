@@ -6,22 +6,29 @@
   
   <body>
     <div id = "host" v-cloak>
-        <img v-bind:src="profile_src" id = "profile-pic"> <h3 class = "name">{{host}}</h3>
-
-        <h5 class = "lobby-item">{{time}} minutes</h5>
-        <h5 class = "lobby-item">{{cards}} cards</h5>
-        <h5 class = "lobby-item">{{skips}} skips</h5>
-        <h5 class = "lobby-item">{{expansion}} expansion</h5>
+        <h4 class = "name">Welcome to {{host}}´s Party!</h4>
     </div>
+        <h4>Game Settings</h4>
+        <div id = "lobby-items">
+          <h5 v-cloak class = "lobby-item">{{time}} minutes</h5>
+          <h5 v-cloak class = "lobby-item">{{cards}} cards</h5>
+          <h5 v-cloak class = "lobby-item">{{skips}} skips</h5>
+          <h5 v-cloak class = "lobby-item">{{expansion}}</h5>
+        </div>
 
     <div id = "clear-div"></div>
+    
+    <h3>Invite friends!</h3>
+    <div id = "invite">
+      <h5 id = "lobby-id">{{id}}</h5>
+      </div id = "invite-qr"></div>
+    </div>
 
-    <h3>Players</h3>
-
+    <h4>Players</h4>
     <ul id = "player-list" v-cloak>
       <li v-for="player in players">
         <div id = "profile-item">
-          <img v-bind:src="player.profile_src" id = "profile-pic"> <h4 class = "name">{{player.name}}</h4>
+          <img v-bind:src="player.profile_src" id = "profile-pic"> <h5 class = "name">{{player.name}}</h4>
         </div>
       </li> 
     </ul>
@@ -49,7 +56,8 @@
       .lobby-item
       {
         float:left;
-        margin-left:2vw;
+        margin-left:5vw;
+        text-align: center;
       }
       .log-item
       {
@@ -62,25 +70,53 @@
       .name
       {
         line-height: 10vw;
-        margin-left: 10vw;
+        margin-left: 0vw;
         text-align: left;
-        padding:1vw;
       }
       #profile-pic
       {
-        padding:1vw;
         align-items:center;
         border-radius: 5em;
-        margin-left: 10vw;
+        margin-left: 0.5vw;
         width: 10vw;
         height:10vw;
         float:left;
       }
       #host
       {
+          margin-top:0;
           text-align: center;
-          border-radius: 1em 1em 0  0;
+          border-radius: 1em 1em 0em  0em;
           background-color:green;
+      }
+      #lobby-items
+      {
+        float:left;
+        width:100vw;
+        background-color:blue;
+      }
+      #player-list
+      {
+        list-style: none;
+        background-color:indigo;
+      }
+      #host h4
+      {
+        text-align: center;
+        margin-left:1vw;
+        padding:3vw;
+      }
+      #invite
+      {
+        padding:1vw;
+        width:80vw;
+        margin-left: 10vw;
+      }
+      #invite img
+      {
+        display:block;
+        margin-left:auto;
+        margin-right:auto;
       }
       #button-join-party
       {
@@ -131,7 +167,7 @@
       {
         display: inline;
         position: fixed;
-        bottom:16vh;
+        bottom:10vh;
       }
       #footer_menu li
       {

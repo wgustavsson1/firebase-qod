@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quest Or Drink</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
-    <script defer src="qr/qrcode.min.js"></script> 
-    <script defer src="lobby.js"></script>    
-    <script defer src="initHome.js"></script>
-    <script defer src="create_lobby.js"></script>
-    <script defer src="friends.js"></script>
-    <script defer src = "HTML_router.js"></script>
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- TODO: change to production version
@@ -19,60 +13,9 @@
   </head>
   
   <body>
-    <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId            : '313548656427392',
-          autoLogAppEvents : true,
-          xfbml            : true,
-          version          : 'v7.0'
-        });
-
-          function login()
-          {
-            FB.login(function(response) { 
-              if (response.status === 'connected') {
-                setupFB();
-              } else {
-                  alert("Failed to connect to Facebook")
-              }
-            },{scope:'email,user_friends'});
-          }
-
-        function statusChangeCallback(response){ 
-            console.log('statusChangeCallback');
-            console.log(response);                   
-            if (response.status === 'connected')
-            {   
-              setupFB();  
-            } 
-            else{                                
-              login();
-              }
-            }
-
-          FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-          });
-      };
-    </script>
-
-    <!--Following script is for choosing user language for the SDK. FB-plugin language will be using the language defined here-->
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-
-    <div id = "page">
-
-      <header id = "header" v-cloak>
-        <h1 class="text-center">Quest Or Drink</h1>
-        <div id = "profile">
-          <img v-bind:src="profile_src" id = "profile-pic"> <h4 id = "name">{{name}}</h4>
-        </div>
-      </header>
-
       <button id = "button-start" class = "button-start">Start Party!</button>
       <button id = "button-join" class = "button-start">Join party!</button>
 
-    </div>
 
         <footer id = "footer_menu">
           <ul>
@@ -83,13 +26,6 @@
             <li id = "footer_menu_expansions">Expansions</li>
           </ul>
         </footer>
-
-      <script defer src="/__/firebase/7.15.5/firebase-app.js"></script>
-      <script defer src="/__/firebase/7.15.5/firebase-auth.js"></script>
-      <script defer src="/__/firebase/7.15.5/firebase-database.js"></script>
-      <script defer src="/__/firebase/7.15.5/firebase-messaging.js"></script>
-      <script defer src="/__/firebase/7.15.5/firebase-storage.js"></script>
-      <script defer src="/__/firebase/init.js"></script>
 
     <style>
       [v-cloak]
@@ -109,12 +45,6 @@
         width: 100%;
         position: fixed;
         background-color:black;
-      }
-      #page
-      {
-        height:100%;
-        width: 100%;
-        margin-top:0;
       }
       h1,h2,h3,h4,h5
       {
