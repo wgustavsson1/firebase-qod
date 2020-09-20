@@ -4,6 +4,8 @@ var lobby_id = null;
 
 var host = null;
 var players = null;
+var log_list = [];
+var logs = null;
 
 function init_lobby()
 {
@@ -18,6 +20,10 @@ function init_lobby()
         });
     players = new Vue({el: '#player-list',
       data: { players:{}}
+      });
+
+    logs = new Vue({el: '#log-list',
+      data: { logs:log_list}
       });
 }
 
@@ -84,11 +90,6 @@ function firebase_get_player_list()
     console.log(snapshot.val())
     players.players = snapshot.val();
     });
-}
-
-function firebase_send_message()
-{
-
 }
 
 function firebase_listen_to_messages()

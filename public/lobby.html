@@ -25,6 +25,12 @@
         </div>
       </li> 
     </ul>
+
+    <ul id = "log-list" v-cloak>
+      <li v-for="log in logs">
+           <h5 class = "log-item">{{log.message}}</h5>
+      </li> 
+    </ul>
     
     <script defer src="lobby.js"></script>
 
@@ -44,6 +50,10 @@
       {
         float:left;
         margin-left:2vw;
+      }
+      .log-item
+      {
+        color:green;
       }
       #clear-div
       {
