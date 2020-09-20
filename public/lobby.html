@@ -8,7 +8,6 @@
     <div id = "host" v-cloak>
         <h4 class = "name">Welcome to {{host}}´s Party!</h4>
     </div>
-        <h4>Game Settings</h4>
         <div id = "lobby-items">
           <h5 v-cloak class = "lobby-item">{{time}} minutes</h5>
           <h5 v-cloak class = "lobby-item">{{cards}} cards</h5>
@@ -17,14 +16,11 @@
         </div>
 
     <div id = "clear-div"></div>
-    
-    <h3>Invite friends!</h3>
     <div id = "invite">
       <h5 id = "lobby-id">{{id}}</h5>
       </div id = "invite-qr"></div>
     </div>
 
-    <h4>Players</h4>
     <ul id = "player-list" v-cloak>
       <li v-for="player in players">
         <div id = "profile-item">
@@ -98,7 +94,7 @@
       #player-list
       {
         list-style: none;
-        background-color:indigo;
+        background-color:indigo;  
       }
       #host h4
       {
@@ -110,6 +106,7 @@
       {
         padding:1vw;
         width:80vw;
+        text-align: center;
         margin-left: 10vw;
       }
       #invite img
@@ -167,7 +164,7 @@
       {
         display: inline;
         position: fixed;
-        bottom:10vh;
+        bottom:5vh;
       }
       #footer_menu li
       {
