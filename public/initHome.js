@@ -19,17 +19,22 @@ function setupFB()
 function getFBData()
 {
     FB.api('/me', function(response) {
-        console.log(response)
         name = response.name;
         fb_uid = response.id;
         uid = response.id;
-        profile_src =  "https://graph.facebook.com/" + fb_uid + "/picture?type=normal"
-        var header = new Vue({
+        console.log(response.id + " id")
+        uid = response.id;
+        FB.api("/" + uid +  "/picture?redirect=false", function (response) {
+            console.log(response);
+            console.log(response.data.url);
+            profile_src = response.data.url;
+            var header = new Vue({
             el: '#header',
             data: {
               name: name,
               profile_src: profile_src
             }
-          })
+          });
+        });
     });
 }

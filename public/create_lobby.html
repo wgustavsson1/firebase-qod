@@ -10,7 +10,7 @@
         <h2>Game Settings</h2>
         <h5>Time</h5>
         <select name="time" id="select-time">
-            <option value="10">10 minutes</option>
+            <option value="15">15 minutes</option>
             <option value="30">30 minutes</option>
             <option value="45">45 minutes</option>
             <option value="60">1 hour</option>
@@ -22,16 +22,12 @@
         <h5>Cards</h5>
         <select name="cards" id="select-cards">
             <option value="5">5 cards</option>
-            <option value="6">6 cards</option>
-            <option value="7">7 cards</option>
-            <option value="8">8 cards</option>
-            <option value="9">9 cards</option>
             <option value="10">10 cards</option>
-            <option value="11">11 cards</option>
-            <option value="12">12 cards</option>
-            <option value="13">13 cards</option>
-            <option value="14">14 cards</option>
             <option value="15">15 cards</option>
+            <option value="20">20 cards</option>
+            <option value="30">30 cards</option>
+            <option value="40">40 cards</option>
+            <option value="50">50 cards</option>
         </select>
            <h5>Skips allowed</h5>
         <select name="cards" id="select-skips">
@@ -48,14 +44,6 @@
 
         <button id = "button-create-lobby">Create lobby!</button>
     </div>  
-
-    <div id = "lobby">
-      <h2 v-if="hide == false">Lobby createded!</h2>
-      <h4 id = "lobby-ref" v-if="hide == false">Invite your friends to your game lobby!</h4>
-      <h4 id = "lobby-ref" v-if="hide == false">Lobby name: {{lobby_ref}}</h4>
-    </div>
-    
-
     <style>
       [v-cloak]
       {

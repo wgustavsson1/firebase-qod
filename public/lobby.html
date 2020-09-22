@@ -6,7 +6,8 @@
   
   <body>
     <div id = "host" v-cloak>
-        <h4 class = "name">Welcome to {{host}}´s Party!</h4>
+        <h4 v-if="user_is_host" v-cloak class = "name">You are the party host!</h4>
+        <h4 v-else v-cloak class = "name">Welcome to {{host}}´s Party!</h4>
     </div>
         <div id = "lobby-items">
           <h5 v-cloak class = "lobby-item">{{time}} minutes</h5>

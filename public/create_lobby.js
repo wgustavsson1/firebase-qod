@@ -8,13 +8,6 @@ var lobby_created = null;
 function setUp()
 {
         lobby_form = new Vue({el: '#lobby-form', data: {hide : false} });
-        lobby = new Vue({
-                el: '#lobby',
-                data: {
-                lobby_ref: null,
-                hide : true
-                }
-        });
 }
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -62,6 +55,5 @@ function create_lobby()
         expansion:select['expansion'],
          });
         lobby_form.hide = true;
-        lobby.lobby_ref = uid + "&&" + lobby_id; 
-        lobby.hide = false;
+        join_lobby(uid + "&&" + lobby_id);
 }

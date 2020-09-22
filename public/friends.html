@@ -7,11 +7,10 @@
   <body>
 
     <ul id = "friend-list" v-cloak>
-      <h3 v-if="friend_count == 0" >Du har inga vänner somm spelar Quest Or Drink :(</h3>
-      <h4 v-if="friend_count == 0" >Bjud in dina vänner och spela ihop!</h4>
-      <h3 v-if="friend_count == 1" >Du har {{friend_count}} vän som spelar QOD!</h3>
-      <h3 v-if="friend_count > 1" >Du har {{friend_count}} vänner som spelar QOD!</h3>
-      <h5 v-if="friend_count >= 1" >Bjud in någon av dina vänner till ditt party!</h5>
+      <h3 v-if="friend_count == 0" >You have no friends playing Quest Or Drink :(</h3>
+      <h4 v-if="friend_count == 0" >Invite friends to play!</h4>
+      <h3 v-if="friend_count == 1" >{{friend_count}} of your friend play Quest Or Drink aswell!</h3>
+      <h3 v-if="friend_count > 1" >{{friend_count}} of your friends play Quest Or Drink aswell!</h3>
       <li v-for="friend in friends">
         <div id = "profile-item">
           <img v-bind:src="friend.profile_src" id = "profile-pic"> <h4 class = "name">{{friend.name}}</h4>

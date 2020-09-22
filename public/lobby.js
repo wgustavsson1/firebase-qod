@@ -2,7 +2,8 @@ var database = firebase.database();
 var current_user = null;
 var lobby_id = null;
 
-var host = null;
+var lobby = null;
+var host_id = null;
 var settings = null;
 var players = null;
 var log_list = [];
@@ -12,6 +13,7 @@ function init_lobby()
 {
   host = new Vue({el: '#host',
         data: {host : "",
+        user_is_host: false,
         profile_src:null,
         time:0,
         cards:0,
@@ -61,7 +63,6 @@ function firebase_add_game(lobby)
 
 function setup_scanner()
 {
-    alert("test")
      let scanner = new Instascan.Scanner(
             {
                 video: document.getElementById('preview')
@@ -74,17 +75,13 @@ function setup_scanner()
         {
             if(cameras.length > 0){
                 scanner.start(cameras[1]);
-                alert("camera started!");
             } else {
                 console.error("No camera available!");
-                alert("No camera available!");
             }
         });
 }
-
 function join_lobby(lobby)
 {
-
   if(lobby)
   {
     loadPage("lobby.html").then(function(){
@@ -93,6 +90,7 @@ function join_lobby(lobby)
             init_lobby();
             setup_invite();
             firebase_get_current_game();
+            if(is_host()) host.user_is_host = true;
             firebase_get_host_data();
             firebase_add_user_as_player();
             firebase_get_player_list();
@@ -104,11 +102,21 @@ else
     init_lobby();
     setup_invite();
     firebase_get_current_game();
+    if(is_host()) host.user_is_host = true;
     firebase_get_host_data();
     firebase_add_user_as_player();
     firebase_get_player_list();
     firebase_listen_to_messages();
 }
+
+}
+
+function is_host()
+{
+  if(host_id == uid)
+    return true;
+  else
+    return false;
 }
 
 function setup_invite()
@@ -134,13 +142,13 @@ function firebase_get_current_game()
     db_ref.on('value', function(snapshot) {
     console.log(snapshot.child("lobby_id").val());
     lobby_id = snapshot.child("lobby_id").val()
+    host_id = lobby_id.split("&&")[0]
+    lobby = lobby_id.split("&&")[1]
     });
 }
 
 function firebase_add_user_as_player()
 {
-    host_id = lobby_id.split("&&")[0]
-    lobby = lobby_id.split("&&")[1]
     console.log(lobby_id);
     var database = firebase.database();
     var ref = firebase.database().ref("users/" + host_id +  "/lobbies/" + lobby + "/players/" + uid).set({
@@ -152,8 +160,6 @@ function firebase_add_user_as_player()
 
 function firebase_get_player_list()
 {
-    host_id = lobby_id.split("&&")[0]
-    lobby = lobby_id.split("&&")[1]
     var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + "/players");
     db_ref.on('value', function(snapshot) {
     console.log(snapshot.val())
@@ -168,8 +174,6 @@ function firebase_listen_to_messages()
 
 function firebase_get_host_data()
 {
-    host_id = lobby_id.split("&&")[0]
-    lobby = lobby_id.split("&&")[1]
     var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby);
     db_ref.on('value', function(snapshot) {
     console.log("host")
