@@ -46,9 +46,12 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-function firebase_add_game()
+function firebase_add_game(lobby)
 {
-    lobby_id = document.getElementById("input-party-ref").value;
+    if(lobby == null)
+      lobby_id = document.getElementById("input-party-ref").value;
+    else
+      lobby_id = lobby;
     console.log(lobby_id);
     var database = firebase.database();
     firebase.database().ref("users/" + uid +  "/current_game/" ).set({
@@ -65,7 +68,6 @@ function setup_scanner()
             }
         );
         scanner.addListener('scan', function(content) {
-            alert(content);
             join_lobby(content);
         });
         Instascan.Camera.getCameras().then(cameras => 
@@ -85,20 +87,28 @@ function join_lobby(lobby)
 
   if(lobby)
   {
-    lobby_id = lobby;
     loadPage("lobby.html").then(function(){
-            firebase_add_game();
             setupFB();
+            firebase_add_game(lobby);
+            init_lobby();
+            setup_invite();
+            firebase_get_current_game();
+            firebase_get_host_data();
+            firebase_add_user_as_player();
+            firebase_get_player_list();
+            firebase_listen_to_messages();
          });
   }
-
-  init_lobby();
-  setup_invite();
-  firebase_get_current_game();
-  firebase_get_host_data();
-  firebase_add_user_as_player();
-  firebase_get_player_list();
-  firebase_listen_to_messages();
+else
+{
+    init_lobby();
+    setup_invite();
+    firebase_get_current_game();
+    firebase_get_host_data();
+    firebase_add_user_as_player();
+    firebase_get_player_list();
+    firebase_listen_to_messages();
+}
 }
 
 function setup_invite()
