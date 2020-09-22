@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script>	
     <script defer src="qr/qrcode.min.js"></script> 
+    <script defer src="tools/formatting.js"></script> 
     <script defer src="lobby.js"></script>    
     <script defer src="initHome.js"></script>
     <script defer src="create_lobby.js"></script>
@@ -93,10 +94,8 @@
       <script defer src="/__/firebase/init.js"></script>
 
     <style>
-      [v-cloak]
-      {
-        display: none;
-      }
+      [v-cloak] > * { display:none }
+      [v-cloak]::before { content: "loading…" }
       html
       {
         padding: 0;

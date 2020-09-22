@@ -9,8 +9,8 @@
     <ul id = "friend-list" v-cloak>
       <h3 v-if="friend_count == 0" >You have no friends playing Quest Or Drink :(</h3>
       <h4 v-if="friend_count == 0" >Invite friends to play!</h4>
-      <h3 v-if="friend_count == 1" >{{friend_count}} of your friend play Quest Or Drink aswell!</h3>
-      <h3 v-if="friend_count > 1" >{{friend_count}} of your friends play Quest Or Drink aswell!</h3>
+      <h3 v-if="friend_count == 1" >{{friend_count_word}} of your friend play Quest Or Drink!</h3>
+      <h3 v-if="friend_count > 1" >{{friend_count_word}} of your friends play Quest Or Drink!</h3>
       <li v-for="friend in friends">
         <div id = "profile-item">
           <img v-bind:src="friend.profile_src" id = "profile-pic"> <h4 class = "name">{{friend.name}}</h4>
@@ -23,7 +23,6 @@
       {
         display: none;
       }
-
       h1,h2,h3,h4,h5
       {
         font-family: 'Orbitron', bold;

@@ -5,15 +5,15 @@
   </head>
   
   <body>
-    <div id = "host" v-cloak>
-        <h4 v-if="user_is_host" v-cloak class = "name">You are the party host!</h4>
-        <h4 v-else v-cloak class = "name">Welcome to {{host}}´s Party!</h4>
+    <div id = "host">
+        <h4 v-if="user_is_host" class = "name">You are the party host!</h4>
+        <h4 v-else class = "name">Welcome to {{host}}´s Party!</h4>
     </div>
         <div id = "lobby-items">
-          <h5 v-cloak class = "lobby-item">{{time}} minutes</h5>
-          <h5 v-cloak class = "lobby-item">{{cards}} cards</h5>
-          <h5 v-cloak class = "lobby-item">{{skips}} skips</h5>
-          <h5 v-cloak class = "lobby-item">{{expansion}}</h5>
+          <h5  class = "lobby-item">{{time}} minutes</h5>
+          <h5  class = "lobby-item">{{cards}} cards</h5>
+          <h5  class = "lobby-item">{{skips}} skips</h5>
+          <h5  class = "lobby-item">{{expansion}}</h5>
         </div>
 
     <div id = "clear-div"></div>
@@ -39,10 +39,8 @@
     <script defer src="lobby.js"></script>
 
     <style>
-      [v-cloak]
-      {
-        display: none;
-      }
+      [v-cloak] > * { display:none }
+      [v-cloak]::before { content: "loading…" }
       
       h1,h2,h3,h4,h5
       {

@@ -158,7 +158,7 @@ function firebase_add_user_as_player()
          });
 }
 
-function firebase_get_player_list()
+async function firebase_get_player_list()
 {
     var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + "/players");
     db_ref.on('value', function(snapshot) {
@@ -172,7 +172,7 @@ function firebase_listen_to_messages()
  
 }
 
-function firebase_get_host_data()
+async function firebase_get_host_data()
 {
     var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby);
     db_ref.on('value', function(snapshot) {

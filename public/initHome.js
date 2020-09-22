@@ -12,11 +12,11 @@ var uid = null;
 var fb_uid = null;
 var profile_src = null;
 
-function setupFB()
+async function setupFB()
 {
-    getFBData();
+    await getFBData();
 }
-function getFBData()
+async function getFBData()
 {
     FB.api('/me', function(response) {
         name = response.name;

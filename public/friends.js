@@ -15,12 +15,14 @@ function get_friends()
                         });
                     });
                     friend_count = response['data'].length;
+                    friend_count_word = inWords(friend_count);
 
                     var friend_list = new Vue({
                         el: '#friend-list',
                         data: {
                         friends:friends,
-                        friend_count: friend_count
+                        friend_count: friend_count,
+                        friend_count_word
                         }
                     })
                 }
