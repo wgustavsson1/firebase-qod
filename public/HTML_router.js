@@ -41,6 +41,7 @@ document.getElementById("button-join").onclick = function()
 {
     loadPage("join_lobby.html").then(function(){
         setupFB();
+        setup_scanner();
         document.getElementById("button-join-party").onclick = function()
         {
             firebase_add_game();

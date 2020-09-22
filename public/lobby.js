@@ -56,8 +56,42 @@ function firebase_add_game()
          });
 }
 
-function join_lobby()
+function setup_scanner()
 {
+    alert("test")
+     let scanner = new Instascan.Scanner(
+            {
+                video: document.getElementById('preview')
+            }
+        );
+        scanner.addListener('scan', function(content) {
+            alert(content);
+            join_lobby(content);
+        });
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.start(cameras[1]);
+                alert("camera started!");
+            } else {
+                console.error("No camera available!");
+                alert("No camera available!");
+            }
+        });
+}
+
+function join_lobby(lobby)
+{
+
+  if(lobby)
+  {
+    lobby_id = lobby;
+    loadPage("lobby.html").then(function(){
+            firebase_add_game();
+            setupFB();
+         });
+  }
+
   init_lobby();
   setup_invite();
   firebase_get_current_game();
@@ -77,7 +111,7 @@ function setup_invite()
     width: 130,
     height: 130,
     colorDark : "#000000",
-    colorLight : "#f2f24b",
+    colorLight : "#ffffff",
     correctLevel : QRCode.CorrectLevel.H
 });
 }
