@@ -1,4 +1,3 @@
-var database = firebase.database();
 var uid = null;
 var current_user = null;
 
@@ -10,7 +9,7 @@ function setUp()
         lobby_form = new Vue({el: '#lobby-form', data: {hide : false} });
 }
 
-firebase.auth().onAuthStateChanged(function(user) {
+/*firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
    // uid = user.uid
@@ -19,7 +18,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   } else {
     console.log("no uid")
   }
-});
+});*/
 
 
 function getSelectedData()

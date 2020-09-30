@@ -1,4 +1,3 @@
-var database = firebase.database();
 var current_user = null;
 var lobby_id = null;
 
@@ -38,7 +37,7 @@ function init_lobby()
       });
 }
 
-firebase.auth().onAuthStateChanged(function(user) {
+/*firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
     //uid = user.uid
@@ -46,7 +45,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   } else {
     console.log("no uid")
   }
-});
+}); */
 
 function firebase_add_game(lobby)
 {
@@ -85,7 +84,6 @@ function join_lobby(lobby)
   if(lobby)
   {
     loadPage("lobby.html").then(function(){
-            setupFB();
             firebase_add_game(lobby);
             init_lobby();
             setup_invite();

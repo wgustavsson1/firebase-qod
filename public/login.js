@@ -1,19 +1,18 @@
-function fb_login()
+async function fb_login()
 {
-  window.fbAsyncInit = function() {
-        FB.init({
-          appId            : '313548656427392',
-          autoLogAppEvents : true,
-          xfbml            : true,
-          version          : 'v7.0'
-        });
+    window.fbAsyncInit = function() {
+          FB.init({
+            appId            : '313548656427392',
+            autoLogAppEvents : true,
+            xfbml            : true,
+            version          : 'v7.0'
+          });
 
        function login()
-          {
+        {
             FB.login(function(response) { 
               if (response.status === 'connected') {
-                sessionStorage.setItem("fb_response", response);
-                setupFB();
+                fb_get_user_data();
               } else {
                   alert("Failed to connect to Facebook")
               }
@@ -25,7 +24,7 @@ function fb_login()
             console.log(response);                   
             if (response.status === 'connected')
             {   
-              setupFB();  
+               fb_get_user_data();
             } 
             else{                                
               login();
@@ -44,10 +43,8 @@ function firebase_login()
     var user = firebase.auth().currentUser;
 
     if (user) {
-        alert("inloggad")
       // User is signed in.
     } else {
-        alert("inte inloggad")
       // No user is signed in.
     }
 

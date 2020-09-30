@@ -20,7 +20,6 @@ function add_buttons_listeners()
     document.getElementById("button-start").onclick = function()
         {
             loadPage("create_lobby.html").then(function(){
-                setupFB();
                 setUp();
                 document.getElementById("button-create-lobby").addEventListener("click",create_lobby);
             });
@@ -29,13 +28,11 @@ function add_buttons_listeners()
         document.getElementById("button-join").onclick = function()
         {
             loadPage("join_lobby.html").then(function(){
-                setupFB();
                 setup_scanner();
                 document.getElementById("button-join-party").onclick = function()
                 {
                     firebase_add_game(null);
                     loadPage("lobby.html").then(function(){
-                    setupFB();
                     join_lobby();
                 });
                 };
@@ -47,22 +44,21 @@ function add_footer_menu_listeners()
 {
     document.getElementById("footer_menu_home").onclick = function()
     {       loadPage("play.html").then(function(){
+            fb_get_user_data();
             add_home_click_listeners();
-            setupFB();
         });
     };
 
     document.getElementById("footer_menu_profile").onclick = function()
     {
         loadPage("profile.html").then(function(){
-            setupFB();
+             fb_get_user_data();
         });
     };
 
     document.getElementById("footer_menu_friends").onclick = function()
     {
         loadPage("friends.html").then(function(){
-            setupFB();
             get_friends();
         });
     };
