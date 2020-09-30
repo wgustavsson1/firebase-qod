@@ -6,13 +6,13 @@
     <title>Quest Or Drink</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script>	
+    <script src="login.js"></script>
     <script defer src="qr/qrcode.min.js"></script> 
     <script defer src="tools/formatting.js"></script> 
     <script defer src="lobby.js"></script>    
     <script defer src="initHome.js"></script>
     <script defer src="create_lobby.js"></script>
     <script defer src="friends.js"></script>
-    <script defer src = "HTML_router.js"></script>
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- TODO: change to production version
@@ -22,57 +22,13 @@
   
   <body>
     <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId            : '313548656427392',
-          autoLogAppEvents : true,
-          xfbml            : true,
-          version          : 'v7.0'
-        });
-
-          function login()
-          {
-            FB.login(function(response) { 
-              if (response.status === 'connected') {
-                setupFB();
-              } else {
-                  alert("Failed to connect to Facebook")
-              }
-            },{scope:'email,user_friends'});
-          }
-
-        function statusChangeCallback(response){ 
-            console.log('statusChangeCallback');
-            console.log(response);                   
-            if (response.status === 'connected')
-            {   
-              setupFB();  
-            } 
-            else{                                
-              login();
-              }
-            }
-
-          FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-          });
-      };
+      fb_login();
     </script>
 
     <!--Following script is for choosing user language for the SDK. FB-plugin language will be using the language defined here-->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
     <div id = "page">
-
-      <header id = "header" v-cloak>
-        <h1 class="text-center">Quest Or Drink</h1>
-        <div id = "profile">
-          <img v-bind:src="profile_src" id = "profile-pic"> <h4 id = "name">{{name}}</h4>
-        </div>
-      </header>
-
-      <button id = "button-start" class = "button-start">Start Party!</button>
-      <button id = "button-join" class = "button-start">Join party!</button>
 
     </div>
 
@@ -92,6 +48,14 @@
       <script defer src="/__/firebase/7.15.5/firebase-messaging.js"></script>
       <script defer src="/__/firebase/7.15.5/firebase-storage.js"></script>
       <script defer src="/__/firebase/init.js"></script>
+      <script src = "HTML_router.js"></script>
+
+      <script>
+      let result = loadPage("play.html").then(function(){
+        setupFB();
+        add_home_click_listeners()
+      });
+    </script>
 
     <style>
       [v-cloak] > * { display:none }

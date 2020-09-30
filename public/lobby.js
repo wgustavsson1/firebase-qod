@@ -94,7 +94,6 @@ function join_lobby(lobby)
             firebase_get_host_data();
             firebase_add_user_as_player();
             firebase_get_player_list();
-            firebase_listen_to_messages();
          });
   }
 else
@@ -166,12 +165,6 @@ async function firebase_get_player_list()
     players.players = snapshot.val();
     });
 }
-
-function firebase_listen_to_messages()
-{
- 
-}
-
 async function firebase_get_host_data()
 {
     var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby);

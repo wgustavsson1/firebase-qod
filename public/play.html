@@ -1,37 +1,24 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quest Or Drink</title>
-    <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
-    <!-- development version, includes helpful console warnings -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!-- TODO: change to production version
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    -->
-  </head>
   
   <body>
+    <!--Following script is for choosing user language for the SDK. FB-plugin language will be using the language defined here-->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+      <header id = "header" v-cloak>
+        <h1 class="text-center">Quest Or Drink</h1>
+        <div id = "profile">
+          <img v-bind:src="profile_src" id = "profile-pic"> <h4 id = "name">{{name}}</h4>
+        </div>
+      </header>
+
       <button id = "button-start" class = "button-start">Start Party!</button>
       <button id = "button-join" class = "button-start">Join party!</button>
 
-
-        <footer id = "footer_menu">
-          <ul>
-            <li id = "footer_menu_home">Home</li>
-            <li id = "footer_menu_profile">Profile</li>
-            <li id = "footer_menu_wall">Wall</li>
-            <li id = "footer_menu_friends">Friends</li>
-            <li id = "footer_menu_expansions">Expansions</li>
-          </ul>
-        </footer>
+    </div>
 
     <style>
-      [v-cloak]
-      {
-        display: none;
-      }
+      [v-cloak] > * { display:none }
+      [v-cloak]::before { content: "loading…" }
       html
       {
         padding: 0;
@@ -45,6 +32,12 @@
         width: 100%;
         position: fixed;
         background-color:black;
+      }
+      #page
+      {
+        height:100%;
+        width: 100%;
+        margin-top:0;
       }
       h1,h2,h3,h4,h5
       {

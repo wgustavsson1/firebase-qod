@@ -1,5 +1,56 @@
-function FBLogin()
+function fb_login()
 {
+  window.fbAsyncInit = function() {
+        FB.init({
+          appId            : '313548656427392',
+          autoLogAppEvents : true,
+          xfbml            : true,
+          version          : 'v7.0'
+        });
+
+       function login()
+          {
+            FB.login(function(response) { 
+              if (response.status === 'connected') {
+                sessionStorage.setItem("fb_response", response);
+                setupFB();
+              } else {
+                  alert("Failed to connect to Facebook")
+              }
+            },{scope:'email,user_friends'});
+          }
+
+        function statusChangeCallback(response){ 
+            console.log('statusChangeCallback');
+            console.log(response);                   
+            if (response.status === 'connected')
+            {   
+              setupFB();  
+            } 
+            else{                                
+              login();
+              }
+            }
+
+          FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+          });
+      };
+}
+
+
+function firebase_login()
+{
+    var user = firebase.auth().currentUser;
+
+    if (user) {
+        alert("inloggad")
+      // User is signed in.
+    } else {
+        alert("inte inloggad")
+      // No user is signed in.
+    }
+
     var provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('email,user_friends');
     
@@ -9,6 +60,7 @@ function FBLogin()
         // The signed-in user info.
         var user = result.user;
         console.log(user);
+        test = "hej hej hej!"
         window.location = "/home"
         
         // ...
