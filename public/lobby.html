@@ -6,7 +6,7 @@
   
   <body>
     <div id = "host">
-        <h4 v-if="user_is_host" class = "name">You are the party host!</h4>
+        <h4 v-if="user_is_host" class = "name">Invite friends to your party!</h4>
         <h4 v-else class = "name">Welcome to {{host}}´s Party!</h4>
     </div>
         <div id = "lobby-items">
@@ -22,6 +22,7 @@
       </div id = "invite-qr"></div>
     </div>
 
+    <h3>Players</h3>
     <ul id = "player-list" v-cloak>
       <li v-for="player in players">
         <div id = "profile-item">
@@ -92,8 +93,13 @@
       }
       #player-list
       {
+        overflow: scroll;
         list-style: none;
         background-color:indigo;  
+      }
+      #player-list li
+      {
+        padding: 1px;  
       }
       #host h4
       {
@@ -104,7 +110,6 @@
       #invite
       {
         text-align: center;
-        background-color:white;
       }
       #invite img
       {
@@ -112,7 +117,7 @@
         margin-left:auto;
         margin-right:auto;
         background-color:white;
-        padding:10vw;
+        padding:2vw;
       }
       #invite-qr
       {

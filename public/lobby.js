@@ -148,11 +148,15 @@ function firebase_add_user_as_player()
 {
     console.log(lobby_id);
     var database = firebase.database();
-    var ref = firebase.database().ref("users/" + host_id +  "/lobbies/" + lobby + "/players/" + uid).set({
+    var ref = firebase.database().ref("users/" + host_id +  "/lobbies/" + lobby + "/players/" + uid);
+    ref.set({
           name:name,
           profile_src: profile_src,
           uid: uid,
          });
+    /*ref.onDisconnect().remove(function(error){
+        alert("removed!");
+    });*/
 }
 
 async function firebase_get_player_list()

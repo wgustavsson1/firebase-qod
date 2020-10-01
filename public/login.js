@@ -35,10 +35,7 @@ async function fb_login()
             statusChangeCallback(response);
           });
       };
-}
-
-
-function firebase_login()
+}function firebase_login()
 {
     var user = firebase.auth().currentUser;
 
@@ -72,4 +69,16 @@ function firebase_login()
         console.log("ERROR: " + errorCode)
         // ...
       });
+}
+async function sign_out()
+{
+    firebase.auth().signOut().then(function() {
+    // Sign-out successful.
+    FB.logout(function(response) {
+      document.location.href = "/";
+  // user is now logged out
+      });
+    }).catch(function(error) {
+    // An error happened.
+    });
 }
