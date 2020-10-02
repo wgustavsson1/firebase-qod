@@ -8,6 +8,8 @@ var players = null;
 var log_list = [];
 var logs = null;
 
+var player_uid_list = [];
+
 function init_lobby()
 {
   host = new Vue({el: '#host',
@@ -163,8 +165,17 @@ async function firebase_get_player_list()
 {
     var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + "/players");
     db_ref.on('value', function(snapshot) {
-    console.log(snapshot.val())
-    players.players = snapshot.val();
+        console.log(snapshot.val());
+        new_player_list = snapshot.val();
+        for (var p in new_player_list)
+        {
+            if(!player_uid_list.includes(new_player_list[p].uid) && new_player_list[p].uid != uid)
+            {   
+                player_uid_list.push(new_player_list[p].uid);
+                alert(new_player_list[p].name + " joined the party!");
+            }
+        }
+        players.players = new_player_list;
     });
 }
 async function firebase_get_host_data()
