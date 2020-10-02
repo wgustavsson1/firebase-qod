@@ -8,6 +8,8 @@ var players = null;
 var log_list = [];
 var logs = null;
 
+var player_list_db_ref;
+
 var player_uid_list = [];
 
 function init_lobby()
@@ -155,28 +157,43 @@ function firebase_add_user_as_player()
           name:name,
           profile_src: profile_src,
           uid: uid,
+          status: "joined"
          });
-    /*ref.onDisconnect().remove(function(error){
-        alert("removed!");
-    });*/
 }
 
 async function firebase_get_player_list()
 {
-    var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + "/players");
-    db_ref.on('value', function(snapshot) {
+    player_list_db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + "/players");
+    player_list_db_ref.on('value', function(snapshot) {
         console.log(snapshot.val());
         new_player_list = snapshot.val();
         for (var p in new_player_list)
         {
-            if(!player_uid_list.includes(new_player_list[p].uid) && new_player_list[p].uid != uid)
-            {   
-                player_uid_list.push(new_player_list[p].uid);
-                alert(new_player_list[p].name + " joined the party!");
+            if(new_player_list[p].status == "joined")
+            {
+                //If it´s me then set status to connectet
+                if(new_player_list[p].uid == uid)
+                {
+                    var updates = {};
+                    updates["/" + uid + "/status"] = "connected";
+                    player_list_db_ref.update(updates);
+                }
+                //else alert my friends
+                else
+                {
+                    alert(new_player_list[p].name + " joined the party!");
+                }
+            }
+            else if(new_player_list[p].status == "disconnected")
+            {
+                alert(new_player_list[p].name + " disconnected :(");
             }
         }
         players.players = new_player_list;
     });
+    var updates = {};
+    updates["/" + uid + "/status"] = "disconnected";
+    player_list_db_ref.onDisconnect().update(updates);
 }
 async function firebase_get_host_data()
 {
