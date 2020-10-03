@@ -14,6 +14,8 @@ var player_uid_list = [];
 
 let scanner = null;
 
+var game = null;
+
 function init_lobby()
 {
   host = new Vue({el: '#host',
@@ -38,9 +40,13 @@ function init_lobby()
       data: { players:{}}
       });
 
+    game = new Vue({el: '#start-game',
+    data: {user_is_host: false}});
+
     logs = new Vue({el: '#log-list',
       data: { logs:log_list}
       });
+    
 }
 
 function start_game()
@@ -129,7 +135,11 @@ function join_lobby(lobby)
             init_lobby();
             setup_invite();
             firebase_get_current_game();
-            if(is_host()) host.user_is_host = true;
+            if(is_host()) 
+            {
+                host.user_is_host = true;
+                game.user_is_host = true;
+            }
             firebase_get_host_data();
             firebase_add_user_as_player();
             firebase_get_player_list();
@@ -140,7 +150,11 @@ else
     init_lobby();
     setup_invite();
     firebase_get_current_game();
-    if(is_host()) host.user_is_host = true;
+    if(is_host()) 
+    {
+        host.user_is_host = true;
+        game.user_is_host = true;
+    }
     firebase_get_host_data();
     firebase_add_user_as_player();
     firebase_get_player_list();
@@ -243,7 +257,7 @@ async function firebase_get_host_data()
 {
     var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby);
     db_ref.on('value', function(snapshot) {
-    console.log("host")
+    console.log("host");
     console.log(snapshot.child("host").val());
     var host_name = snapshot.child("host").val();
     var status = snapshot.child("status").val();
