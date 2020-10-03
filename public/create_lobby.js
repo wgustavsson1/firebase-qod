@@ -47,6 +47,7 @@ function create_lobby()
         var database = firebase.database();
         firebase.database().ref("users/" + uid +  "/lobbies/" + lobby_id ).set({
         host: name,
+        status: "init",
         profile_picture : profile_src,
         time:select['time'],
         cards:select['cards'],

@@ -43,6 +43,11 @@ function init_lobby()
       });
 }
 
+function start_game()
+{
+    firebase_start_game();
+}
+
 function leave_lobby()
 {
     firebase_player_leave();
@@ -87,6 +92,13 @@ function firebase_add_game(lobby)
     firebase.database().ref("users/" + uid +  "/current_game/" ).set({
         lobby_id: lobby_id
          });
+}
+
+function firebase_start_game()
+{   
+    var database = firebase.database();
+    var ref = firebase.database().ref("users/" + host_id +  "/lobbies/" + lobby);
+    ref.update({status:"started"});
 }
 
 function setup_scanner()
@@ -234,6 +246,7 @@ async function firebase_get_host_data()
     console.log("host")
     console.log(snapshot.child("host").val());
     var host_name = snapshot.child("host").val();
+    var status = snapshot.child("status").val();
     var host_profile_src = snapshot.child("profile_picture").val();
     var time = snapshot.child("time").val();
     var cards = snapshot.child("cards").val();
@@ -245,15 +258,13 @@ async function firebase_get_host_data()
     settings.cards = cards;
     settings.skips = skips;
     settings.expansion = expansion;
-   /* host = new Vue({el: '#host',
-      data: {host : host_name,
-      profile_src:host_profile_src,
-      time:time,
-      cards:cards,
-      skips:skips,
-      expansion:expansion
-         }
-      });
-*/
+
+    if(status == "started")
+    {
+        loadPage("game.html").then(function(){
+            fb_get_user_data();
+    });
+    }
+
     });
 }

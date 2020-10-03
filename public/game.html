@@ -5,40 +5,8 @@
   </head>
   
   <body>
-    <div id = "host">
-        <h4 v-if="user_is_host" class = "name">Invite friends to your party!</h4>
-        <h4 v-else class = "name">Welcome to {{host}}´s Party!</h4>
-    </div>
-        <div id = "lobby-items">
-          <h5  class = "lobby-item">{{time}} minutes</h5>
-          <h5  class = "lobby-item">{{cards}} cards</h5>
-          <h5  class = "lobby-item">{{skips}} skips</h5>
-          <h5  class = "lobby-item">{{expansion}}</h5>
-        </div>
-
-    <div id = "clear-div"></div>
-    <div id = "invite">
-      <h5 id = "lobby-id">id: {{id}}</h5>
-      </div id = "invite-qr"></div>
-    </div>
-
-    <h3>Players</h3>
-    <ul id = "player-list" v-cloak>
-      <li v-for="player in players">
-        <div v-if="player.status == 'connected'" id = "profile-item">
-          <img v-bind:src="player.profile_src" id = "profile-pic"> <h5 class = "name">{{player.name}}</h4>
-        </div>
-      </li> 
-    </ul>
-
-    <button v-if="user_is_host" class = "button green-button" onclick="start_game()">Start Game!</h4>
-    <button class = "button orange-button" onclick="leave_lobby()">Leave</button>
-
-    <ul id = "log-list" v-cloak>
-      <li v-for="log in logs">
-           <h5 class = "log-item">{{log.message}}</h5>
-      </li> 
-    </ul>
+    
+    <h2>Game started!</h2>
 
     <style>
       [v-cloak] > * { display:none }
@@ -139,17 +107,11 @@
         box-shadow: none;
         border:0;
         font-weight: bold;
-        margin-top:1.5vh;
       }
       .orange-button
       {
         font-family: 'Orbitron', bold;
         background-color:orange;
-      }
-      .green-button
-      {
-        font-family: 'Orbitron', bold;
-        background-color:green;
       }
       #button-join-party
       {
