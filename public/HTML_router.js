@@ -46,6 +46,7 @@ function add_footer_menu_listeners()
     {       loadPage("play.html").then(function(){
             fb_get_user_data();
             add_home_click_listeners();
+            leave_lobby();
         });
     };
 
@@ -53,6 +54,7 @@ function add_footer_menu_listeners()
     {
         loadPage("profile.html").then(function(){
              fb_get_user_data();
+             leave_lobby();
         });
     };
 
@@ -60,6 +62,7 @@ function add_footer_menu_listeners()
     {
         loadPage("friends.html").then(function(){
             get_friends();
+            leave_lobby();
         });
     };
 }

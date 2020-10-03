@@ -31,13 +31,13 @@
       </li> 
     </ul>
 
+    <button class = "button button-orange">Leave</button>
+
     <ul id = "log-list" v-cloak>
       <li v-for="log in logs">
            <h5 class = "log-item">{{log.message}}</h5>
       </li> 
     </ul>
-    
-    <script defer src="lobby.js"></script>
 
     <style>
       [v-cloak] > * { display:none }
@@ -122,6 +122,25 @@
       #invite-qr
       {
         background-color: white;
+        padding:2vw;
+      }
+      .button
+      {
+        color:black;
+        text-align: center;
+        padding: 2vw;
+        font-style: bold;
+        font-size: 1em;
+        margin: 0 auto;
+        display: block;
+        outline:none;
+        box-shadow: none;
+        border:0;
+        font-weight: bold;
+      }
+      .orange-button
+      {
+        background-color:orange;
       }
       #button-join-party
       {

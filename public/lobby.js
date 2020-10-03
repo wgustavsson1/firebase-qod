@@ -41,6 +41,22 @@ function init_lobby()
       });
 }
 
+function leave_lobby()
+{
+    //**TODO: This is not working */
+    var current_user = null;
+    var lobby_id = null;
+
+    var lobby = null;
+    var host_id = null;
+    var settings = null;
+    var players = null;
+    var log_list = [];
+    var logs = null;
+    var player_list_db_ref;
+    var player_uid_list = [];
+}
+
 /*firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
