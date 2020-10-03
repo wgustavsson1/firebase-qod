@@ -8,9 +8,11 @@ var players = null;
 var log_list = [];
 var logs = null;
 
-var player_list_db_ref;
+var player_list_db_ref = null;
 
 var player_uid_list = [];
+
+let scanner = null;
 
 function init_lobby()
 {
@@ -43,18 +45,25 @@ function init_lobby()
 
 function leave_lobby()
 {
-    //**TODO: This is not working */
+    firebase_player_leave();
+    if(scanner != null)
+        scanner.stop();
+    scanner = null;
     var current_user = null;
     var lobby_id = null;
-
-    var lobby = null;
-    var host_id = null;
-    var settings = null;
-    var players = null;
-    var log_list = [];
-    var logs = null;
-    var player_list_db_ref;
-    var player_uid_list = [];
+    lobby = null;
+    host_id = null;
+    settings = null;
+    players = null;
+    log_list = [];
+    logs = null;
+    player_list_db_ref.off();
+    player_list_db_ref = null;
+    player_uid_list = [];
+    loadPage("play.html").then(function(){
+            fb_get_user_data();
+            add_home_click_listeners();
+    });
 }
 
 /*firebase.auth().onAuthStateChanged(function(user) {
@@ -82,7 +91,7 @@ function firebase_add_game(lobby)
 
 function setup_scanner()
 {
-     let scanner = new Instascan.Scanner(
+        scanner = new Instascan.Scanner(
             {
                 video: document.getElementById('preview')
             }
@@ -123,7 +132,6 @@ else
     firebase_get_host_data();
     firebase_add_user_as_player();
     firebase_get_player_list();
-    firebase_listen_to_messages();
 }
 
 }
@@ -200,7 +208,7 @@ async function firebase_get_player_list()
                     alert(new_player_list[p].name + " joined the party!");
                 }
             }
-            else if(new_player_list[p].status == "disconnected")
+            else if(new_player_list[p].status == "disconnected" && new_player_list[p].uid != uid)
             {
                 alert(new_player_list[p].name + " disconnected :(");
             }
@@ -211,6 +219,14 @@ async function firebase_get_player_list()
     updates["/" + uid + "/status"] = "disconnected";
     player_list_db_ref.onDisconnect().update(updates);
 }
+
+async function firebase_player_leave()
+{
+    var updates = {};
+    updates["/" + uid + "/status"] = "disconnected";
+    player_list_db_ref.update(updates);
+}
+
 async function firebase_get_host_data()
 {
     var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby);

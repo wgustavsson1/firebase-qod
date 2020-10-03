@@ -31,7 +31,7 @@
       </li> 
     </ul>
 
-    <button class = "button button-orange">Leave</button>
+    <button class = "button orange-button" onclick="leave_lobby()">Leave</button>
 
     <ul id = "log-list" v-cloak>
       <li v-for="log in logs">
@@ -110,6 +110,7 @@
       #invite
       {
         text-align: center;
+        background-color:white;
       }
       #invite img
       {
@@ -128,7 +129,7 @@
       {
         color:black;
         text-align: center;
-        padding: 2vw;
+        padding: 3vw;
         font-style: bold;
         font-size: 1em;
         margin: 0 auto;
@@ -140,6 +141,7 @@
       }
       .orange-button
       {
+        font-family: 'Orbitron', bold;
         background-color:orange;
       }
       #button-join-party
