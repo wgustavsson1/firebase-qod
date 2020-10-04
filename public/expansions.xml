@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<expansions>
+	<expansion name = "vanilla">
+		<name lang ="se">Original</name>
+		<name lang ="eng">Vanilla</name>
+
+		<description lang ="se">Quest or Drink original</description>
+		<description lang ="eng">Quest or Drink vanilla</description>
+
+		<disclaimer lang = "se">Alkoholhets</disclaimer>
+		<disclaimer lang = "eng">Alcohol Group Pressure</disclaimer>
+
+		<task>
+			<text lang = "se">Få någon att avslöja sin skostorlek</text>
+			<text lang = "eng">Get someone to reveal its shoe size</text>
+		</task>
+
+		<task>
+			<text lang = "se">Bjud någon på en öl</text>
+			<text lang = "eng">Give someone a beer</text>
+		</task>
+
+		<task>
+			<text lang = "se">Få någon att bjuda dig på dryck</text>
+			<text lang = "eng">Get someone to give you a drink</text>
+		</task>
+	</expansion>
+
+	<expansion name = "moonshine">
+		<name lang ="se">Hembränt</name>
+		<name lang ="eng">Moonshine</name>
+
+		<description lang ="se">Quest or Drink Hembränt</description>
+		<description lang ="eng">Quest or Drink Moonshine</description>
+
+		<disclaimer lang = "se">Alkoholhets</disclaimer>
+		<disclaimer lang = "eng">Alcohol Group Pressure</disclaimer>
+
+		<disclaimer lang = "se">Alkoholförgiftning</disclaimer>
+		<disclaimer lang = "eng">Alcohol Intoxication</disclaimer>
+
+		<disclaimer lang = "se">Alkoholstöld</disclaimer>
+		<disclaimer lang = "eng">Alcohol theft</disclaimer>
+
+		<task>
+			<text lang = "se">Sno någons dryck och svep den mitt framför den</text>
+			<text lang = "eng">Steal someone's drink and drink all of it infront of him</text>
+		</task>
+  
+    	<task>
+			<text lang = "se">Utmana någon eller några personer på beerpong, när spelet är slut får du överlämna kortet till någon i förlorarlaget</text>
+			<text lang = "eng">Challenge one or more persons at beerpong, when the game is over you may hand over this card to someone in the losing team</text>
+		</task>
+	</expansion>
+
+	<expansion name = "dirty">
+		<name lang ="se">Snusk &amp; Vågat</name>
+		<name lang ="eng">Dirty &amp; Daring</name>
+
+		<description lang ="se">Quest or Drink Snusk &amp; Vågat</description>
+		<description lang ="eng">Quest or Drink Dirty &amp; Daring</description>
+
+		<disclaimer lang = "se">Sexuella trakasserier</disclaimer>
+		<disclaimer lang = "eng">Sexual Harassments</disclaimer>
+
+		<disclaimer lang = "se">Våldprovokation</disclaimer>
+		<disclaimer lang = "eng"></disclaimer>
+
+		<task>
+			<text lang = "se"></text>
+			<text lang = "eng"></text>
+		</task>
+
+	</expansion>
+
+</expansions>
