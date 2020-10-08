@@ -49,19 +49,15 @@ function init_lobby()
     
 }
 
-function start_game()
-{
-    firebase_start_game();
-}
-
 function leave_lobby()
 {
     firebase_player_leave();
     if(scanner != null)
         scanner.stop();
     scanner = null;
-    var current_user = null;
-    var lobby_id = null;
+    current_user = null;
+    lobby_id = null;
+    expansion = null;
     lobby = null;
     host_id = null;
     settings = null;
@@ -265,18 +261,20 @@ async function firebase_get_host_data()
     var time = snapshot.child("time").val();
     var cards = snapshot.child("cards").val();
     var skips = snapshot.child("skips").val();
-    var expansion = snapshot.child("expansion").val();
+    var expan = snapshot.child("expansion").val();
     host.host = host_name;
     host.profile_src = host_profile_src;
     settings.time = time;
     settings.cards = cards;
     settings.skips = skips;
-    settings.expansion = expansion;
+    settings.expansion = expan;
 
     if(status == "started")
     {
+        loadExpansion(expan,"se");
         loadPage("game.html").then(function(){
             fb_get_user_data();
+            start_game();
     });
     }
 

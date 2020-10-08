@@ -26,6 +26,7 @@ async function parseExpansion(xml,name,lang) {
   console.log(expansion);
 }
 
+
 function parseElements(xmlDoc,xPath)
 {
     var nodes = xmlDoc.evaluate(xPath, xmlDoc, null, XPathResult.ANY_TYPE,null);

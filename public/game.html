@@ -6,7 +6,22 @@
   
   <body>
     
-    <h2>Game started!</h2>
+
+    <div id = "expansion">
+      <h2>{{name}}</h2>
+      <h3>{{description}}</h3>
+
+        <div id = "disclaimer-approval" v-if="not_approved">
+            <h4>Please read the disclaimers down below and only press OK if you approve of them</h4>
+            <ul id = "disclaimers" v-cloak>
+              <li v-for="disclaimer in disclaimers">
+                <h4>{{disclaimer}}</h4>
+              </li> 
+            </ul>
+            <button class = "button button-green" onclick="approve_disclaimers()">Approve</button>
+        </div>
+    </div>
+
 
     <style>
       [v-cloak] > * { display:none }
@@ -18,133 +33,52 @@
         color: #f2f24b;
         text-align: center;
       }
-      .lobby-item
+      #disclaimer-approval
       {
-        float:left;
-        margin-left:5vw;
-        text-align: center;
-      }
-      .log-item
-      {
-        color:green;
-      }
-      #clear-div
-      {
-        clear:both;
-      }
-      .name
-      {
-        line-height: 10vw;
-        margin-left: 0vw;
-        text-align: left;
-      }
-      #profile-pic
-      {
-        align-items:center;
-        border-radius: 5em;
-        margin-left: 0.5vw;
-        width: 10vw;
-        height:10vw;
-        float:left;
-      }
-      #host
-      {
-          margin-top:0;
-          text-align: center;
-          border-radius: 1em 1em 0em  0em;
-          background-color:green;
-      }
-      #lobby-items
-      {
-        float:left;
-        width:100vw;
+        border-radius: 1em 1em 1em 1em;
+        margin-left:10vw;
+        margin-right:10vw;
         background-color:blue;
-      }
-      #player-list
-      {
-        overflow: scroll;
-        list-style: none;
-        background-color:indigo;  
-      }
-      #player-list li
-      {
-        padding: 1px;  
-      }
-      #host h4
-      {
-        text-align: center;
-        margin-left:1vw;
-        padding:3vw;
-      }
-      #invite
-      {
-        text-align: center;
-        background-color:white;
-      }
-      #invite img
-      {
-        display:block;
-        margin-left:auto;
-        margin-right:auto;
-        background-color:white;
         padding:2vw;
+        text-align: center;
       }
-      #invite-qr
+       #disclaimer-approval ul
       {
-        background-color: white;
-        padding:2vw;
+          list-style-type: none;
+          padding: 0;
+          margin:0;
       }
-      .button
+      button
       {
         color:black;
-        text-align: center;
         padding: 3vw;
         font-style: bold;
         font-size: 1em;
+        display:inline-block;
         margin: 0 auto;
         display: block;
         outline:none;
         box-shadow: none;
         border:0;
         font-weight: bold;
+        margin-left:10vw;
+      }
+      .button-red
+      {
+        font-family: 'Orbitron', bold;
+        background-color:red;
+      }
+      .button-green
+      {
+        font-family: 'Orbitron', bold;
+        background-color:green;
+        color: #f2f24b;
+        font-size: 1em;
       }
       .orange-button
       {
         font-family: 'Orbitron', bold;
         background-color:orange;
-      }
-      #button-join-party
-      {
-        margin: 3vh auto 0 auto;
-        color:#f2f24b;
-        background-color: green;
-        font-family: 'Orbitron', bold;
-        display: block;
-        font-size: 1.3em;
-        text-align: center;
-        padding:3vw;
-        border:none;
-      }
-      #join-form input
-      {
-          background-color:green;
-          border:none;
-          padding:1vw;
-          font-family: 'Orbitron', bold;
-          color:#f2f24b;
-          font-size:1em;
-      }
-      #button-join-lobby
-      {
-        margin: 6vh auto 0 auto;
-        color:#f2f24b;
-        background-color: green;
-        font-family: 'Orbitron', bold;
-        display: block;
-        font-size: 1.3em;
-        text-align: center;
-        padding:3vw;
-        border:none;
       }
       h1,h2,h3,h4,h5
       {
