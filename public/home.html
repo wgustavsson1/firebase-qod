@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Quest Or Drink</title>
+    <link href="/fonts/main.ttf" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script>	
     <script src="login.js"></script>
@@ -60,6 +61,19 @@
     <style>
       [v-cloak] > * { display:none }
       [v-cloak]::before { content: "loading…" }
+
+      @font-face {
+      font-family: "main";
+      src: url("/fonts/main.ttf");
+      letter-spacing: 1em !important;
+      } 
+
+      .main-font
+      {
+        font-family: 'main';
+        letter-spacing: 0.15em;
+      }
+
       html
       {
         padding: 0;
@@ -82,12 +96,17 @@
       }
       h1,h2,h3,h4,h5
       {
-        font-family: 'Orbitron', bold;
+        font-family: 'main';
         color: #f2f24b;
       }
       .text-center
       {
         text-align: center;
+      }
+      .clear-font
+      {
+        font-family: 'Orbitron', bold;
+        /*TODO: Consider this as BS */
       }
       #name
       {
@@ -123,7 +142,7 @@
       #footer_menu li
       {
         margin-left: 2vw;
-        font-family: 'Orbitron', bold;
+        font-family: 'main';
         color: #f2f24b;
         display: inline;
       }
@@ -131,7 +150,7 @@
       {
         color:#f2f24b;
         background-color: green;
-        font-family: 'Orbitron', bold;
+        font-family: 'main';
         margin: 5vh auto;
         display: block;
         font-size: 1.5em;

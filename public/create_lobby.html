@@ -8,7 +8,7 @@
     
     <div id = "lobby-form" v-if="hide == false">
         <h2>Game Settings</h2>
-        <h5>Time</h5>
+        <h5 class = "clear-font">Time</h5>
         <select name="time" id="select-time">
             <option value="15">15 minutes</option>
             <option value="30">30 minutes</option>
@@ -19,7 +19,7 @@
             <option value="180">3 hours</option>
             <option value="240">4 hours</option>
         </select>
-        <h5>Cards</h5>
+        <h5 class = "clear-font">Cards</h5>
         <select name="cards" id="select-cards">
             <option value="5">5 cards</option>
             <option value="10">10 cards</option>
@@ -29,7 +29,7 @@
             <option value="40">40 cards</option>
             <option value="50">50 cards</option>
         </select>
-           <h5>Skips allowed</h5>
+           <h5 class = "clear-font">Skip Cards</h5>
         <select name="cards" id="select-skips">
             <option value="1">1 card</option>
             <option value="2">2 cards</option>
@@ -37,7 +37,7 @@
             <option value="4">4 cards</option>
             <option value="5">5 cards</option>
         </select>
-             <h5>Expansion</h5>
+             <h5 class = "clear-font">Expansion</h5>
         <select name="cards" id="select-expansion">
             <option value="vanilla">Vanilla</option>
         </select>
@@ -61,7 +61,6 @@
       }
       h1,h2,h3,h4,h5
       {
-        font-family: 'Orbitron', bold;
         color: #f2f24b;
       }
       #button-create-lobby
@@ -69,7 +68,7 @@
         margin: 6vh auto 0 auto;
         color:#f2f24b;
         background-color: green;
-        font-family: 'Orbitron', bold;
+        font-family: 'main';
         display: block;
         font-size: 1.3em;
         text-align: center;
@@ -94,6 +93,10 @@
       {
         font-family: 'Orbitron', bold;
         color: #f2f24b;
+      }
+      .clear-font
+      {
+        font-family: 'Orbitron', bold
       }
       p
       {

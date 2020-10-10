@@ -12,10 +12,10 @@
       <h3>{{description}}</h3>
 
         <div id = "disclaimer-approval" v-if="not_approved">
-            <h4>Please read the disclaimers down below and only press OK if you approve of them</h4>
+            <h4 class = "clear-font">Please read the disclaimers down below and only press OK if you approve of them</h4>
             <ul id = "disclaimers" v-cloak>
               <li v-for="disclaimer in disclaimers">
-                <h4>{{disclaimer}}</h4>
+                <h4 class = "clear-font">{{disclaimer}}</h4>
               </li> 
             </ul>
             <button class = "button button-green" onclick="approve_disclaimers()">Approve</button>
@@ -65,12 +65,12 @@
       }
       .button-red
       {
-        font-family: 'Orbitron', bold;
+        font-family: 'main', bold;
         background-color:red;
       }
       .button-green
       {
-        font-family: 'Orbitron', bold;
+        font-family: 'main', bold;
         background-color:green;
         color: #f2f24b;
         font-size: 1em;
