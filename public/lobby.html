@@ -6,14 +6,14 @@
   
   <body>
     <div id = "host">
-        <h4 v-if="user_is_host" class = "name">Invite friends to your party!</h4>
+        <h4 v-if="user_is_host" class = "name clear-font">Invite friends to your party!</h4>
         <h4 v-else class = "name">Welcome to {{host}}´s Party!</h4>
     </div>
         <div id = "lobby-items">
-          <h5  class = "lobby-item">{{time}} minutes</h5>
-          <h5  class = "lobby-item">{{cards}} cards</h5>
-          <h5  class = "lobby-item">{{skips}} skips</h5>
-          <h5  class = "lobby-item">{{expansion}}</h5>
+          <h5  class = "lobby-item clear-font">{{time}} minutes</h5>
+          <h5  class = "lobby-item clear-font">{{cards}} cards</h5>
+          <h5  class = "lobby-item clear-font">{{skips}} skips</h5>
+          <h5  class = "lobby-item clear-font">{{expansion}}</h5>
         </div>
 
     <div id = "clear-div"></div>
@@ -26,13 +26,13 @@
     <ul id = "player-list" v-cloak>
       <li v-for="player in players">
         <div v-if="player.status == 'connected'" id = "profile-item">
-          <img v-bind:src="player.profile_src" id = "profile-pic"> <h5 class = "name">{{player.name}}</h4>
+          <img v-bind:src="player.profile_src" id = "profile-pic"> <h5 class = "name clear-font">{{player.name}}</h4>
         </div>
       </li> 
     </ul>
 
-    <button v-if="user_is_host" id = "start-game" class = "button green-button" onclick="start_game()">Start Game!</h4>
-    <button class = "button orange-button" onclick="leave_lobby()">Leave</button>
+    <button v-if="user_is_host" id = "start-game" class = "button green-button main-font" onclick="start_game()">Start Game!</h4>
+    <button class = "button orange-button main-font" onclick="leave_lobby()">Leave</button>
 
     <ul id = "log-list" v-cloak>
       <li v-for="log in logs">

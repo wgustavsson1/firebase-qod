@@ -14,16 +14,19 @@
 		<disclaimer lang = "eng">Drunk</disclaimer>
 
 		<task>
+			<id>vanilla1</id>
 			<text lang = "se">Få någon att avslöja sin skostorlek</text>
 			<text lang = "eng">Get someone to reveal its shoe size</text>
 		</task>
 
 		<task>
+			<id>vanilla2</id>
 			<text lang = "se">Bjud någon på en öl</text>
 			<text lang = "eng">Give someone a beer</text>
 		</task>
 
 		<task>
+			<id>vanilla3</id>
 			<text lang = "se">Få någon att bjuda dig på dryck</text>
 			<text lang = "eng">Get someone to give you a drink</text>
 		</task>
@@ -46,11 +49,13 @@
 		<disclaimer lang = "eng">Alcohol theft</disclaimer>
 
 		<task>
+			<id>moonshine1</id>
 			<text lang = "se">Sno någons dryck och svep den mitt framför den</text>
 			<text lang = "eng">Steal someone's drink and drink all of it infront of him</text>
 		</task>
   
     	<task>
+			<id>moonshine2</id>
 			<text lang = "se">Utmana någon eller några personer på beerpong, när spelet är slut får du överlämna kortet till någon i förlorarlaget</text>
 			<text lang = "eng">Challenge one or more persons at beerpong, when the game is over you may hand over this card to someone in the losing team</text>
 		</task>
@@ -70,6 +75,7 @@
 		<disclaimer lang = "eng"></disclaimer>
 
 		<task>
+			<id>dirty1</id>
 			<text lang = "se"></text>
 			<text lang = "eng"></text>
 		</task>

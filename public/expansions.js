@@ -19,10 +19,20 @@ async function parseExpansion(xml,name,lang) {
   expansions_description = await parseElements(xmlDoc,"/expansions/expansion[@name='" + name + "']" + "/description[@lang='" + lang + "']");
   expansion_disclaimers = await parseElements(xmlDoc,"/expansions/expansion[@name='" + name + "']" + "/disclaimer[@lang='" + lang + "']");
   expansion_tasks = await parseElements(xmlDoc,"/expansions/expansion[@name='" + name + "']" + "/task/text[@lang='" + lang + "']");
-  
+  expansion_ids = await parseElements(xmlDoc,"/expansions/expansion[@name='" + name + "']" + "/task/id");
+
+  console.log("IDS: " + expansion_ids);
+
+  var tasks_map = {};
+  var index = 0;
+  expansion_ids.forEach(function(id){
+    tasks_map[id] = expansion_tasks[index];
+    index++;
+  });
 
   expansion = {name:expansion_name,description:expansions_description,
-    disclaimers:expansion_disclaimers,tasks:expansion_tasks};
+    disclaimers:expansion_disclaimers,tasks:expansion_tasks,ids:expansion_ids,tasks_map:tasks_map};
+  console.log(expansion.tasks_map);
   console.log(expansion);
 }
 

@@ -12,7 +12,7 @@
       <h3>{{description}}</h3>
 
         <div id = "disclaimer-approval" v-if="not_approved">
-            <h4 class = "clear-font">Please read the disclaimers down below and only press OK if you approve of them</h4>
+            <h4 class = "clear-font">Please read the disclaimers down below</h4>
             <ul id = "disclaimers" v-cloak>
               <li v-for="disclaimer in disclaimers">
                 <h4 class = "clear-font">{{disclaimer}}</h4>
@@ -20,6 +20,10 @@
             </ul>
             <button class = "button button-green" onclick="approve_disclaimers()">Approve</button>
         </div>
+    </div>
+
+    <div id = "card">
+      <h2>Quest Or Drink</h2>
     </div>
 
 
@@ -32,6 +36,135 @@
         font-family: 'Orbitron', bold;
         color: #f2f24b;
         text-align: center;
+      }
+      #card
+      {
+        width:80vw;
+        height:80vw;
+        margin-left: 10vw;
+        background-color: grey; 
+      }
+      #disclaimer-approval
+      {
+        border-radius: 1em 1em 1em 1em;
+        margin-left:10vw;
+        margin-right:10vw;
+        background-color:blue;
+        padding:2vw;
+        text-align: center;
+      }
+       #disclaimer-approval ul
+      {
+          list-style-type: none;
+          padding: 0;
+          margin:0;
+      }
+      button
+      {
+        color:black;
+        padding: 3vw;
+        font-style: bold;
+        font-size: 1em;
+        display:inline-block;
+        margin: 0 auto;
+        display: block;
+        outline:none;
+        box-shadow: none;
+        border:0;
+        font-weight: bold;
+        margin-left:10vw;
+      }
+      .button-red
+      {
+        font-family: 'main', bold;
+        background-color:red;
+      }
+      .button-green
+      {
+        font-family: 'main', bold;
+        background-color:green;
+        color: #f2f24b;
+        font-size: 1em;
+      }
+      .orange-button
+      {
+        font-family: 'Orbitron', bold;
+        background-color:orange;
+      }
+      h1,h2,h3,h4,h5
+      {
+        font-family: 'Orbitron', bold;
+        color: #f2f24b;
+      }
+      p
+      {
+        color:white;
+        text-align:center;
+        font-size: 0.5em;
+        margin-left: 5vw;
+      }
+      #footer_menu
+      {
+        display: inline;
+        position: fixed;
+        bottom:5vh;
+      }
+      #footer_menu li
+      {
+        margin-left: 2vw;
+        font-family: 'Orbitron', bold;
+        color: #f2f24b;
+        display: inline;
+      }
+    </style>
+
+  </body>
+</html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  
+  <body>
+    
+
+    <div id = "expansion">
+      <h2>{{name}}</h2>
+      <h3>{{description}}</h3>
+
+        <div id = "disclaimer-approval" v-if="not_approved">
+            <h4 class = "clear-font">Please read the disclaimers down below</h4>
+            <ul id = "disclaimers" v-cloak>
+              <li v-for="disclaimer in disclaimers">
+                <h4 class = "clear-font">{{disclaimer}}</h4>
+              </li> 
+            </ul>
+            <button class = "button button-green" onclick="approve_disclaimers()">Approve</button>
+        </div>
+    </div>
+
+    <div id = "card">
+      <h2>Quest Or Drink</h2>
+      <h2>Quest Or Drink</h2>
+    </div>
+
+
+    <style>
+      [v-cloak] > * { display:none }
+      [v-cloak]::before { content: "loading…" }
+      
+      h1,h2,h3,h4,h5
+      {
+        font-family: 'Orbitron', bold;
+        color: #f2f24b;
+        text-align: center;
+      }
+      #card
+      {
+        width:80vw;
+        margin-left: 10vw;
+        background-color: 
       }
       #disclaimer-approval
       {

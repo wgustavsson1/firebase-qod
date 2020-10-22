@@ -7,13 +7,13 @@
   <body>
 
     <ul id = "friend-list" v-cloak>
-      <h3 v-if="friend_count == 0" >You have no friends playing Quest Or Drink :(</h3>
-      <h4 v-if="friend_count == 0" >Invite friends to play!</h4>
-      <h3 v-if="friend_count == 1" >{{friend_count_word}} of your friend play Quest Or Drink!</h3>
-      <h3 v-if="friend_count > 1" >{{friend_count_word}} of your friends play Quest Or Drink!</h3>
+      <h3 v-if="friend_count == 0" class = "clear-font" >You have no friends playing Quest Or Drink :(</h3>
+      <h4 v-if="friend_count == 0" class = "clear-font">Invite friends to play!</h4>
+      <h3 v-if="friend_count == 1" class = "clear-font">{{friend_count_word}} of your friend play Quest Or Drink!</h3>
+      <h3 v-if="friend_count > 1" class = "clear-font">{{friend_count_word}} of your friends play Quest Or Drink!</h3>
       <li v-for="friend in friends">
         <div id = "profile-item">
-          <img v-bind:src="friend.profile_src" id = "profile-pic"> <h4 class = "name">{{friend.name}}</h4>
+          <img v-bind:src="friend.profile_src" id = "profile-pic"> <h4 class = "name clear-font">{{friend.name}}</h4>
         </div>
       </li> 
     </ul>
