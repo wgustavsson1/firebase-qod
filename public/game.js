@@ -2,6 +2,8 @@ var exp = null;
 var card_box = null;
 var db_ref_cards = null;
 
+var card_elements = null;
+
 async function start_game()
 {
     firebase_start_game();
@@ -21,11 +23,70 @@ async function start_game()
         cards: []
         }
     });
-    firebase_hand_cards(hand_cards());
+    hand = await firebase_hand_cards(hand_cards());
+    listen_for_swipes();
     firebase_wait_for_ready_status();
 }
 
-function hand_cards()
+async function listen_for_swipes()
+{
+    card_elements = document.querySelectorAll('.card');
+
+    card_elements.forEach(function(card){
+        card.addEventListener('touchstart', handleTouchStart, false);
+        card.addEventListener('touchmove', handleTouchMove, false);
+    });
+}
+
+var xDown = null;                                                        
+var yDown = null;
+
+function getTouches(evt) {
+  return evt.touches ||             // browser API
+         evt.originalEvent.touches; // jQuery
+}                                                     
+
+function handleTouchStart(evt) {
+    const firstTouch = getTouches(evt)[0];                                      
+    xDown = firstTouch.clientX;                                      
+    yDown = firstTouch.clientY;                                      
+};                                                
+
+async function handleTouchMove(evt) {
+    if ( ! xDown || ! yDown ) {
+        return;
+    }
+
+    var xUp = evt.touches[0].clientX;                                    
+    var yUp = evt.touches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    var box =  document.getElementById("card-box");
+    var offsets = box.getBoundingClientRect();
+    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
+        if ( xDiff > 0 ) {
+            xDiff = xDiff * 0.05;
+            new_left = offsets.left - xDiff;
+            box.style.left = new_left + "px";
+        } else {
+            /* right swipe */
+            xDiff = xDiff * 0.05;
+            new_left = offsets.left - xDiff;
+            if(new_left < 200)
+            {
+                box.style.left = new_left + "px";
+            }
+            else
+            {
+               box.style.left = 200 + "px";  
+            }        
+        }                                                                 
+    }                                         
+};
+
+async function hand_cards()
 {
     var task_list = expansion.tasks;
     task_list =  shuffle(expansion.tasks).slice(0,4);
@@ -79,7 +140,7 @@ function firebase_wait_for_ready_status()
     });
 }
 
-function firebase_hand_cards(task_map)
+async function firebase_hand_cards(task_map)
 {
     //TODO:splice the number of cards selected in lobby settings
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
@@ -93,8 +154,8 @@ function add_qr_codes(map)
     {
         var qrcode = new QRCode(id, {
         text:id,
-        width: 130,
-        height: 130,
+        width: 120,
+        height: 120,
         colorDark : "#000000",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
