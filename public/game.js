@@ -1,7 +1,8 @@
 var exp = null;
+var card_box = null;
 var db_ref_cards = null;
 
-function start_game()
+async function start_game()
 {
     firebase_start_game();
     console.log(expansion);
@@ -15,8 +16,38 @@ function start_game()
         not_approved:true
         }
     });
+    card_box = new Vue({el: '#card-box',
+    data: {
+        cards: []
+        }
+    });
+    firebase_hand_cards(hand_cards());
     firebase_wait_for_ready_status();
-    firebase_hand_cards();
+}
+
+function hand_cards()
+{
+    var task_list = expansion.tasks;
+    task_list =  shuffle(expansion.tasks).slice(0,4);
+
+    var task_list_map =  [];
+    var task_map = {};
+
+    for(var id in expansion.tasks_map)
+    {
+        if(task_list.includes(expansion.tasks_map[id])) 
+        {
+            task_list_map.push({id:id,text: expansion.tasks_map[id]});
+            task_map[id] = expansion.tasks_map[id];
+        }
+    }
+    console.log(task_list);
+
+    card_box.cards = task_list_map;
+    Vue.nextTick(function () {
+        add_qr_codes(task_map);
+    });
+    return task_map;
 }
 
 function approve_disclaimers()
@@ -48,14 +79,27 @@ function firebase_wait_for_ready_status()
     });
 }
 
-function firebase_hand_cards()
+function firebase_hand_cards(task_map)
 {
     //TODO:splice the number of cards selected in lobby settings
-    expansion.tasks = shuffle(expansion.tasks).slice(0,2);
-    console.log(expansion.tasks);
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
-    "/players/" + uid + "/cards" );
-    db_ref_cards.set({cards: expansion.tasks_map});
+    "/players/" + uid + "/cards");
+    console.log(task_map);
+    db_ref_cards.set({cards: task_map});
+}
+function add_qr_codes(map)
+{
+    for(var id in map)
+    {
+        var qrcode = new QRCode(id, {
+        text:id,
+        width: 130,
+        height: 130,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+        });
+    }
 }
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -72,4 +116,16 @@ function shuffle(array) {
     array[randomIndex] = temporaryValue;
   }
   return array;
+}
+
+function shuffleMap (myArray) {
+  var i = myArray.length;
+  if ( i == 0 ) return false;
+  while ( --i ) {
+     var j = Math.floor( Math.random() * ( i + 1 ) );
+     var tempi = myArray[i];
+     var tempj = myArray[j];
+     myArray[i] = tempj;
+     myArray[j] = tempi;
+   }
 }

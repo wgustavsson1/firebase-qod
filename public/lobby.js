@@ -7,6 +7,7 @@ var settings = null;
 var players = null;
 var log_list = [];
 var logs = null;
+var db_ref = null;
 
 var player_list_db_ref = null;
 
@@ -55,15 +56,13 @@ function leave_lobby()
     if(scanner != null)
         scanner.stop();
     scanner = null;
-    current_user = null;
-    lobby_id = null;
     expansion = null;
-    lobby = null;
-    host_id = null;
     settings = null;
     players = null;
     log_list = [];
     logs = null;
+    db_ref.off();
+    db_ref = null;
     player_list_db_ref.off();
     player_list_db_ref = null;
     player_uid_list = [];
@@ -71,6 +70,23 @@ function leave_lobby()
             fb_get_user_data();
             add_home_click_listeners();
     });
+}
+function clear_lobby()
+{
+    if(scanner != null)
+        scanner.stop();
+    scanner = null;
+    expansion = null;
+    settings = null;
+    players = null;
+    log_list = [];
+    logs = null;
+    db_ref.off();
+    db_ref = null;
+    player_list_db_ref.off();
+    player_list_db_ref = null;
+    player_uid_list = [];
+    
 }
 
 /*firebase.auth().onAuthStateChanged(function(user) {
@@ -185,7 +201,7 @@ function setup_invite()
 
 function firebase_get_current_game()
 {
-    var db_ref = firebase.database().ref('users/' + uid + '/current_game/');
+    db_ref = firebase.database().ref('users/' + uid + '/current_game/');
     db_ref.on('value', function(snapshot) {
     console.log(snapshot.child("lobby_id").val());
     lobby_id = snapshot.child("lobby_id").val()
@@ -251,32 +267,33 @@ async function firebase_player_leave()
 
 async function firebase_get_host_data()
 {
-    var db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby);
+    db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby);
     db_ref.on('value', function(snapshot) {
-    console.log("host");
-    console.log(snapshot.child("host").val());
-    var host_name = snapshot.child("host").val();
-    var status = snapshot.child("status").val();
-    var host_profile_src = snapshot.child("profile_picture").val();
-    var time = snapshot.child("time").val();
-    var cards = snapshot.child("cards").val();
-    var skips = snapshot.child("skips").val();
-    var expan = snapshot.child("expansion").val();
-    host.host = host_name;
-    host.profile_src = host_profile_src;
-    settings.time = time;
-    settings.cards = cards;
-    settings.skips = skips;
-    settings.expansion = expan;
+        console.log("host");
+        console.log(snapshot.child("host").val());
+        var host_name = snapshot.child("host").val();
+        var status = snapshot.child("status").val();
+        var host_profile_src = snapshot.child("profile_picture").val();
+        var time = snapshot.child("time").val();
+        var cards = snapshot.child("cards").val();
+        var skips = snapshot.child("skips").val();
+        var expan = snapshot.child("expansion").val();
+        host.host = host_name;
+        host.profile_src = host_profile_src;
+        settings.time = time;
+        settings.cards = cards;
+        settings.skips = skips;
+        settings.expansion = expan;
 
-    if(status == "started")
-    {
-        loadExpansion(expan,"se");
-        loadPage("game.html").then(function(){
+        if(status == "started")
+        {
+            loadExpansion(expan,"se");
+            loadPage("game.html").then(function(){
             fb_get_user_data();
             start_game();
-    });
-    }
-
+            clear_lobby();
+            alert("left lobby")
+        });
+        }
     });
 }
