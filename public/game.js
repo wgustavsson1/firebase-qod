@@ -1,5 +1,7 @@
 var exp = null;
+var footer_menu = null;
 var card_box = null;
+var camera = null;
 var db_ref_cards = null;
 
 var card_elements = null;
@@ -8,6 +10,13 @@ async function start_game()
 {
     firebase_start_game();
     console.log(expansion);
+
+    footer_menu = new Vue({el: '#footer_menu',
+    data:{
+        visible: false
+        }
+    });
+
     exp = new Vue({el: '#expansion',
     data: {
         name : expansion.name,
@@ -18,25 +27,34 @@ async function start_game()
         not_approved:true
         }
     });
+
     card_box = new Vue({el: '#card-box',
     data: {
-        cards: []
+        cards: [],
+        visible:false
+        }
+    });
+
+    camera = new Vue({el: '#camera',
+    data:{
+        visible: false
         }
     });
     hand = await firebase_hand_cards(hand_cards());
-    listen_for_swipes();
     firebase_wait_for_ready_status();
+    setup_scanner();
+    listen_for_swipes();
 }
 
 async function listen_for_swipes()
 {
     card_elements = document.querySelectorAll('.card');
-
     card_elements.forEach(function(card){
         card.addEventListener('touchstart', handleTouchStart, false);
         card.addEventListener('touchmove', handleTouchMove, false);
     });
 }
+
 
 var xDown = null;                                                        
 var yDown = null;
@@ -67,12 +85,12 @@ async function handleTouchMove(evt) {
     var offsets = box.getBoundingClientRect();
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
         if ( xDiff > 0 ) {
-            xDiff = xDiff * 0.05;
+            xDiff = xDiff * 0.2;
             new_left = offsets.left - xDiff;
             box.style.left = new_left + "px";
         } else {
             /* right swipe */
-            xDiff = xDiff * 0.05;
+            xDiff = xDiff * 0.2;
             new_left = offsets.left - xDiff;
             if(new_left < 200)
             {
@@ -85,6 +103,21 @@ async function handleTouchMove(evt) {
         }                                                                 
     }                                         
 };
+
+function toggle_camera()
+{
+    if(!camera.visible)
+    {
+        setup_scanner();
+        camera.visible = true;
+    }
+    else
+    {
+        if(scanner != null) scanner.stop();
+        scanner = null;
+        camera.visible = false;
+    }
+}
 
 async function hand_cards()
 {
@@ -135,6 +168,7 @@ function firebase_wait_for_ready_status()
         {
             console.log("ready 2")
             exp.not_approved = false;
+            card_box.visible = true;
             approve_disclaimers();
         }
     });
