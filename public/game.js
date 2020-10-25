@@ -42,8 +42,28 @@ async function start_game()
     });
     hand = await firebase_hand_cards(hand_cards());
     firebase_wait_for_ready_status();
-    setup_scanner();
     listen_for_swipes();
+}
+
+function open_camera()
+{
+        scanner = new Instascan.Scanner(
+            {
+                video: document.getElementById('preview')
+            }
+        );
+        scanner.addListener('scan', function(card) {
+            alert(card);
+            firebase_swap_card(card);
+        });
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.start(cameras[1]);
+            } else {
+                console.error("No camera available!");
+            }
+        });
 }
 
 async function listen_for_swipes()
@@ -108,7 +128,7 @@ function toggle_camera()
 {
     if(!camera.visible)
     {
-        setup_scanner();
+        open_camera();
         camera.visible = true;
     }
     else
@@ -117,9 +137,30 @@ function toggle_camera()
         scanner = null;
         camera.visible = false;
     }
+
+
 }
 
-async function hand_cards()
+async function firebase_swap_card(ref)
+{
+    //TODO: Make this function work
+    ref = ref.split("&&");
+    card = ref[0];
+    enemy_uid = ref[1];
+
+    db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
+    "/players/" + enemy_uid + "/cards/");
+    var card_text = db_ref_cards.child(card).val();
+
+    db_ref_cards.child(card).remove();
+
+
+    db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
+    "/players/" + uid + "/cards/");
+    db_ref_cards.child(card).setValue(card_text);
+}
+
+function hand_cards()
 {
     var task_list = expansion.tasks;
     task_list =  shuffle(expansion.tasks).slice(0,4);
@@ -178,7 +219,7 @@ async function firebase_hand_cards(task_map)
 {
     //TODO:splice the number of cards selected in lobby settings
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
-    "/players/" + uid + "/cards");
+    "/players/" + uid);
     console.log(task_map);
     db_ref_cards.set({cards: task_map});
 }
@@ -187,7 +228,7 @@ function add_qr_codes(map)
     for(var id in map)
     {
         var qrcode = new QRCode(id, {
-        text:id,
+        text:id+ "&&" + uid,
         width: 120,
         height: 120,
         colorDark : "#000000",
