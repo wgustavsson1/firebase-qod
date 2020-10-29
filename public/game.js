@@ -43,6 +43,8 @@ async function start_game()
     hand = await firebase_hand_cards(hand_cards());
     firebase_wait_for_ready_status();
     listen_for_swipes();
+    firebase_on_cards();
+    //firebase_swap_card("vanilla1&&3641096389250078")
 }
 
 function open_camera()
@@ -148,17 +150,52 @@ async function firebase_swap_card(ref)
     card = ref[0];
     enemy_uid = ref[1];
 
+    console.log(card + "card")
+    console.log("enemy" + enemy_uid);
+
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
-    "/players/" + enemy_uid + "/cards/");
-    var card_text = db_ref_cards.child(card).val();
+    "/players/" + enemy_uid + "/cards/" + "/" + card);
+    var card_text = null;
+    db_ref_cards.on("value", function(snapshot) {
+        card_text = snapshot.val();
+    });
 
-    db_ref_cards.child(card).remove();
-
-
+    //Give the card to me
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
     "/players/" + uid + "/cards/");
-    db_ref_cards.child(card).setValue(card_text);
+    var new_card = {};
+    new_card[card] = card_text
+    db_ref_cards.update(new_card);
+
+    //Remove the card from the enemy
+    db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
+    "/players/" + enemy_uid + "/cards/" + "/" + card);
+    db_ref_cards.remove();
 }
+
+//TODO: Listen for changes in card-list and apply to vue.js list
+async function firebase_on_cards()
+{
+    db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
+    "/players/" + uid + "/cards");
+        db_ref_cards.on('value', function(snapshot) {
+        console.log(snapshot.numChildren() + " num")
+        if(snapshot.numChildren() != card_box.cards.length)
+        {
+            card_box.cards = [];
+            map = {};
+            for(key in snapshot.val())
+            {
+                card_box.cards.push({id:key,text:snapshot.val()[key]});
+                map[key] = snapshot.val()[key];
+            }
+            Vue.nextTick(function () {
+                add_qr_codes(map);
+            });
+        }
+    });
+}
+
 
 function hand_cards()
 {
@@ -225,6 +262,12 @@ async function firebase_hand_cards(task_map)
 }
 function add_qr_codes(map)
 {
+
+    var qrs = document.querySelectorAll(".qr");
+    qrs.forEach(function (e) {
+        e.innerHTML = "";
+    })
+
     for(var id in map)
     {
         var qrcode = new QRCode(id, {
