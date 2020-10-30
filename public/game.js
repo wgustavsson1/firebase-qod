@@ -191,12 +191,11 @@ async function firebase_on_cards()
             }
             Vue.nextTick(function () {
                 add_qr_codes(map);
+                listen_for_swipes();
             });
         }
     });
 }
-
-
 function hand_cards()
 {
     var task_list = expansion.tasks;
