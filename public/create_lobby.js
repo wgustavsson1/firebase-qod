@@ -50,6 +50,7 @@ function create_lobby()
         status: "init",
         profile_picture : profile_src,
         time:select['time'],
+        time_left:select['time'] * 60,
         cards:select['cards'],
         skips:select['skips'],
         expansion:select['expansion'],

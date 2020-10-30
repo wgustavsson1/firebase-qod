@@ -8,9 +8,7 @@ var players = null;
 var log_list = [];
 var logs = null;
 var db_ref = null;
-
 var player_list_db_ref = null;
-
 var player_uid_list = [];
 
 let scanner = null;
@@ -47,6 +45,7 @@ function init_lobby()
     logs = new Vue({el: '#log-list',
       data: { logs:log_list}
       });
+    
     
 }
 
@@ -292,7 +291,6 @@ async function firebase_get_host_data()
             fb_get_user_data();
             start_game();
             clear_lobby();
-            alert("left lobby")
         });
         }
     });

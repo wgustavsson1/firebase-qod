@@ -16,6 +16,10 @@
           </ul>
       <button class = "button button-green clear-font" onclick="approve_disclaimers()">I Approve!</button>
     </div>
+
+  <div id = "timer" v-show="visible">
+    <h2 class = "clear-font" v-show="visible"></h2>
+  </div>
   
   <div id = "card-box" v-show="visible">
     <div class = "card" v-for = "card in cards">
@@ -44,6 +48,23 @@
         color: #f2f24b;
         text-align: center;
       }
+
+      #timer
+      {
+      }
+
+      #timer h2
+      {
+        background-image: linear-gradient(-90deg,#252525,black);
+        padding:2vw;
+        border:1px solid green;
+        margin-right: 10vw;
+        margin-left: 10vw;
+        color: green;
+        font-size: 2.5em;
+        margin-bottom: 0;
+        margin-top: 5vh;
+      }
       #card-box
       {
         position: relative;
@@ -56,8 +77,8 @@
       }
       .card
       {
-        width: 35.674157vh;
-        height:50vh;
+        width: 28.5393256vh;
+        height:40vh;
         padding: 2vh;
         float:left;
         display: inline-block;
@@ -76,7 +97,11 @@
       }
       .qr
       {
-        margin-top: 3.5vh;
+        width: 140px;
+        height: 140px;
+        position: relative;
+        background-color: white;
+        margin-top: 1vh;
         margin-left:auto;
         margin-right:auto;
         text-align: center;
@@ -84,10 +109,16 @@
       .qr img
       {
         background-color: white;
-        padding:2vw;
-        margin-left:auto;
-        margin-right:auto;
-        text-align: center;
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
       }
 
       #expansion

@@ -1,10 +1,15 @@
 var exp = null;
 var footer_menu = null;
 var card_box = null;
+var timer_div = null;
 var camera = null;
 var db_ref_cards = null;
 
 var card_elements = null;
+var db_ref_time = null;
+var timer = null;
+var last_time = null;
+var current_time = 0;
 
 async function start_game()
 {
@@ -12,6 +17,12 @@ async function start_game()
     console.log(expansion);
 
     footer_menu = new Vue({el: '#footer_menu',
+    data:{
+        visible: false
+        }
+    });
+
+    timer_div = new Vue({el: '#timer',
     data:{
         visible: false
         }
@@ -44,9 +55,39 @@ async function start_game()
     firebase_wait_for_ready_status();
     listen_for_swipes();
     firebase_on_cards();
-    //firebase_swap_card("vanilla1&&3641096389250078")
+    setup_timer();
 }
 
+
+async function setup_timer()
+{
+    db_ref_time = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby);
+    var res = await db_ref_time.once("value", function(snapshot) {
+        current_time = snapshot.val()["time_left"];
+    });
+    last_time = Date.now();
+    timer = document.getElementById("timer").querySelector("h2");
+    setInterval(timer_count_down, 50);
+    timer_div.visible = true;
+}
+
+async function timer_count_down()
+{
+    if(Date.now() - last_time > 1000)
+    {
+        current_time = current_time -1;
+        timer.innerHTML = create_time_string(current_time);
+        last_time = Date.now();
+    }
+}
+
+function create_time_string(seconds)
+{
+     var h = Math.floor(seconds / 3600);
+     var m = Math.floor(seconds % 3600 / 60);
+     var s = Math.floor(seconds % 3600 % 60);
+     return h + "." + m + "." + s;
+}
 function open_camera()
 {
         scanner = new Instascan.Scanner(
@@ -55,7 +96,6 @@ function open_camera()
             }
         );
         scanner.addListener('scan', function(card) {
-            alert(card);
             firebase_swap_card(card);
         });
         Instascan.Camera.getCameras().then(cameras => 
