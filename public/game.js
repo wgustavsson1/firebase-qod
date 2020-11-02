@@ -15,10 +15,10 @@ var box = null;
 
 var card_velocity = 0;
 
+var card_width = 0;
+
 async function start_game()
 {
-
-
     firebase_start_game();
     console.log(expansion);
 
@@ -60,10 +60,10 @@ async function start_game()
     });
     hand = await firebase_hand_cards(hand_cards());
     firebase_wait_for_ready_status();
-    listen_for_swipes();
     box =  document.getElementById("card-box");
     firebase_on_cards();
     setup_timer();
+    listen_for_swipes();
 }
 
 
@@ -126,56 +126,27 @@ async function listen_for_swipes()
 
 
 var myInterval = null;
-var move_pixels = 300;
+var move_pixels = card_width;
 var step = 0;
+var is_moving = false;
 
 async function move_card()
 {
-    /* if(card_velocity <= 1 && card_velocity >= -1)
-        return;
-     const gravity = 0.6;
-     var offsets = box.getBoundingClientRect();
-     new_left = offsets.left + card_velocity;
-     box.style.left = new_left + "px";
-     console.log(card_velocity);
-
-     real_grav = Math.abs(gravity /card_velocity);
-     //Moving right
-
-
-     if(card_velocity < 0 )
-     {
-         card_velocity = card_velocity + real_grav;
-     }
-     //moving left;
-     else
-     {
-        card_velocity = card_velocity - real_grav;
-     }*/
-    
      step = card_velocity * 0.5;
-
-     myInterval = setInterval(move_the_card, 25/Math.abs(step));
-
-
+     is_moving = true;
+     myInterval = setInterval(move_card_one_step, 15/Math.abs(step));
 }
 
-function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-}
-
-async function move_the_card()
+async function move_card_one_step()
 {
-    if(move_pixels < 10)
+    if((move_pixels - Math.abs(step) <= 0) )
     {
-        move_pixels = 300;
+        move_pixels = card_width;
         step = 0;
         card_velocity = 0;
+        is_moving = false;
         clearInterval(myInterval);
+        findSelectedCard();
     }
     var offsets = box.getBoundingClientRect();
     new_left = offsets.left - step;
@@ -183,6 +154,22 @@ async function move_the_card()
     box.style.left = new_left + "px";
 }
 
+function findSelectedCard() {
+    card_elements = document.querySelectorAll('.card');
+    card_elements.forEach(function(card){
+        var rect = card.getBoundingClientRect();
+        var viewWidth = Math.max(document.documentElement.clientWidth, window.innerWidth);
+        console.log(viewWidth + " vw");
+        if(!(rect.left < 0 || rect.right - viewWidth >= 0))
+        {
+            card.style.borderColor = "green";
+        }
+        else
+        {
+            card.style.borderColor = "white";
+        }
+    });
+}
 
 var xDown = null;                                                        
 function getTouches(evt) {
@@ -196,7 +183,7 @@ function handleTouchStart(evt) {
 };                                                
 
 async function handleTouchMove(evt) {
-    if (!xDown) {
+    if (!xDown || is_moving) {
         return;
     }
 
@@ -350,6 +337,11 @@ function firebase_wait_for_ready_status()
             exp.not_approved = false;
             card_box.visible = true;
             timer_div.visible = true;
+            Vue.nextTick(function () {
+            c = document.getElementById("card-box").querySelector(".card");
+            card_width = c.offsetWidth;
+            console.log(c.offsetWidth + " px");
+            });
             approve_disclaimers();
         }
     });
