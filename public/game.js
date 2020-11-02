@@ -11,8 +11,14 @@ var timer = null;
 var last_time = null;
 var current_time = 0;
 
+var box = null;
+
+var card_velocity = 0;
+
 async function start_game()
 {
+
+
     firebase_start_game();
     console.log(expansion);
 
@@ -22,11 +28,6 @@ async function start_game()
         }
     });
 
-    timer_div = new Vue({el: '#timer',
-    data:{
-        visible: false
-        }
-    });
 
     exp = new Vue({el: '#expansion',
     data: {
@@ -51,9 +52,16 @@ async function start_game()
         visible: false
         }
     });
+
+    timer_div = new Vue({el: '#timer-wrapper',
+    data:{
+        visible: false
+        }
+    });
     hand = await firebase_hand_cards(hand_cards());
     firebase_wait_for_ready_status();
     listen_for_swipes();
+    box =  document.getElementById("card-box");
     firebase_on_cards();
     setup_timer();
 }
@@ -66,9 +74,8 @@ async function setup_timer()
         current_time = snapshot.val()["time_left"];
     });
     last_time = Date.now();
-    timer = document.getElementById("timer").querySelector("h2");
+    timer = document.getElementById("timer-wrapper").querySelector("h2");
     setInterval(timer_count_down, 50);
-    timer_div.visible = true;
 }
 
 async function timer_count_down()
@@ -112,15 +119,72 @@ async function listen_for_swipes()
 {
     card_elements = document.querySelectorAll('.card');
     card_elements.forEach(function(card){
-        card.addEventListener('touchstart', handleTouchStart, false);
-        card.addEventListener('touchmove', handleTouchMove, false);
+        card.addEventListener('touchstart', handleTouchStart, true);
+        card.addEventListener('touchmove', handleTouchMove, true);
     });
 }
 
 
-var xDown = null;                                                        
-var yDown = null;
+var myInterval = null;
+var move_pixels = 300;
+var step = 0;
 
+async function move_card()
+{
+    /* if(card_velocity <= 1 && card_velocity >= -1)
+        return;
+     const gravity = 0.6;
+     var offsets = box.getBoundingClientRect();
+     new_left = offsets.left + card_velocity;
+     box.style.left = new_left + "px";
+     console.log(card_velocity);
+
+     real_grav = Math.abs(gravity /card_velocity);
+     //Moving right
+
+
+     if(card_velocity < 0 )
+     {
+         card_velocity = card_velocity + real_grav;
+     }
+     //moving left;
+     else
+     {
+        card_velocity = card_velocity - real_grav;
+     }*/
+    
+     step = card_velocity * 0.5;
+
+     myInterval = setInterval(move_the_card, 25/Math.abs(step));
+
+
+}
+
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
+async function move_the_card()
+{
+    if(move_pixels < 10)
+    {
+        move_pixels = 300;
+        step = 0;
+        card_velocity = 0;
+        clearInterval(myInterval);
+    }
+    var offsets = box.getBoundingClientRect();
+    new_left = offsets.left - step;
+    move_pixels = move_pixels - Math.abs(step);
+    box.style.left = new_left + "px";
+}
+
+
+var xDown = null;                                                        
 function getTouches(evt) {
   return evt.touches ||             // browser API
          evt.originalEvent.touches; // jQuery
@@ -128,31 +192,29 @@ function getTouches(evt) {
 
 function handleTouchStart(evt) {
     const firstTouch = getTouches(evt)[0];                                      
-    xDown = firstTouch.clientX;                                      
-    yDown = firstTouch.clientY;                                      
+    xDown = firstTouch.clientX;                                                                           
 };                                                
 
 async function handleTouchMove(evt) {
-    if ( ! xDown || ! yDown ) {
+    if (!xDown) {
         return;
     }
 
     var xUp = evt.touches[0].clientX;                                    
-    var yUp = evt.touches[0].clientY;
-
     var xDiff = xDown - xUp;
-    var yDiff = yDown - yUp;
-
-    var box =  document.getElementById("card-box");
     var offsets = box.getBoundingClientRect();
-    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
-        if ( xDiff > 0 ) {
-            xDiff = xDiff * 0.2;
+
+        if ( xDiff > 0 )
+        {
+            xDiff = xDiff * 0.25;
             new_left = offsets.left - xDiff;
+            card_velocity = xDiff;
             box.style.left = new_left + "px";
-        } else {
-            /* right swipe */
-            xDiff = xDiff * 0.2;
+        } 
+        else
+        {
+            xDiff = xDiff * 0.25;
+            card_velocity = xDiff;
             new_left = offsets.left - xDiff;
             if(new_left < 200)
             {
@@ -160,10 +222,11 @@ async function handleTouchMove(evt) {
             }
             else
             {
-               box.style.left = 200 + "px";  
+                box.style.left = 200 + "px";  
             }        
-        }                                                                 
-    }                                         
+        }         
+        move_card();                                                                                           
+        xDown = null;   
 };
 
 function toggle_camera()
@@ -286,6 +349,7 @@ function firebase_wait_for_ready_status()
             console.log("ready 2")
             exp.not_approved = false;
             card_box.visible = true;
+            timer_div.visible = true;
             approve_disclaimers();
         }
     });

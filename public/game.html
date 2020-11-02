@@ -5,7 +5,11 @@
   </head>
   
   <body>
-    
+
+
+    <div id = "timer-wrapper" v-show="visible">
+      <h2 class = "clear-font"></h2>
+    </div>
 
     <div id = "expansion" v-if="not_approved">
         <h4 class = "clear-font">Please read the disclaimers down below before approving</h4>
@@ -16,10 +20,6 @@
           </ul>
       <button class = "button button-green clear-font" onclick="approve_disclaimers()">I Approve!</button>
     </div>
-
-  <div id = "timer" v-show="visible">
-    <h2 class = "clear-font" v-show="visible"></h2>
-  </div>
   
   <div id = "card-box" v-show="visible">
     <div class = "card" v-for = "card in cards">
@@ -49,11 +49,11 @@
         text-align: center;
       }
 
-      #timer
+      #timer-wrapper
       {
       }
 
-      #timer h2
+      #timer-wrapper h2
       {
         background-image: linear-gradient(-90deg,#252525,black);
         padding:2vw;
@@ -72,6 +72,7 @@
         float:left;
         overflow: auto;
         /*margin-top:22vh; (center-verticaly)*/
+        padding:2vw;
         margin-top: 10vh;
         margin-bottom: 5vh;
       }
