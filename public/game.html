@@ -24,7 +24,7 @@
   <div id = "card-box"  v-show="visible">
     <div class = "card" v-for = "card in cards">
       <h2 class = "clear-font">Quest Or Drink</h2>
-      <h4 class="clear-font">{{card.text}}</h4>
+      <h4 class="clear-font card-text">{{card.text}}</h4>
       <hr>
       <br>
       <div v-bind:id="card.id" class = "qr">

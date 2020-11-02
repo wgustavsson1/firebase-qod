@@ -16,6 +16,10 @@ var box = null;
 var card_velocity = 0;
 
 var card_width = 0;
+var selected_card = null;
+
+var first_card_selected = false;
+var last_card_selected = false;
 
 async function start_game()
 {
@@ -162,13 +166,38 @@ function findSelectedCard() {
         console.log(viewWidth + " vw");
         if(!(rect.left < 0 || rect.right - viewWidth >= 0))
         {
-            card.style.borderColor = "green";
+            card.style.borderColor = "blue";
+            selected_card = card;
+            console.log(card_box.cards);
+            check_for_edge_card(card.querySelector(".card-text").innerHTML);
         }
         else
         {
             card.style.borderColor = "white";
         }
     });
+}
+
+function check_for_edge_card(text)
+{
+    first_card = card_box.cards[0].text;
+    last_card = card_box.cards[card_box.cards.length - 1].text;
+
+    if(text == first_card)
+    {
+        console.log("first");
+        first_card_selected = true;
+    }
+    else if(text == last_card)
+    {
+        console.log("last");
+        last_card_selected = true;
+    }
+    else
+    {
+        first_card_selected = false;
+        last_card_selected = false;
+    }
 }
 
 var xDown = null;                                                        
@@ -189,6 +218,13 @@ async function handleTouchMove(evt) {
 
     var xUp = evt.touches[0].clientX;                                    
     var xDiff = xDown - xUp;
+
+    //Right = + Left = -
+    if(first_card_selected && xDiff < 0 || last_card_selected && xDiff > 0)
+    {
+        return;
+    }
+
     var offsets = box.getBoundingClientRect();
 
         if ( xDiff > 0 )
