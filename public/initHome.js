@@ -22,7 +22,6 @@ async function get_user_data()
         name = response.name;
         fb_uid = response.id;
         uid = response.id;
-        console.log(response.id + " id")
         uid = response.id;
         FB.api("/" + uid +  "/picture?redirect=false", function (response) {
             console.log(response);

@@ -23,12 +23,20 @@ async function firebase_get_actions()
                 console.log(snapshot.val())
                 for(key in snapshot.val())
                 {   
-                    var map = {};
-                    map['loser_id'] = snapshot.val()[key].loser_id
-                    map['winner_id'] = snapshot.val()[key].winner_id
-                    map['card_id'] = snapshot.val()[key].card_id
-                    map['card_text'] = snapshot.val()[key].card_text
-                    actions.push(map);
+                    //TODO: check if node key id is in frind_ids
+                        var map = {};
+                        map['loser_id'] = snapshot.val()[key].loser_id
+                        map['winner_id'] = snapshot.val()[key].winner_id
+                        map['card_id'] = snapshot.val()[key].card_id
+                        map['card_text'] = snapshot.val()[key].card_text
+
+                        loser_id = snapshot.val()[key].loser_id
+                        winner_id = snapshot.val()[key].winner_id
+                        if(friend_ids[winner_id] != undefined || 
+                        friend_ids[loser_id] != undefined)
+                        {
+                            actions.push(map);
+                        }
                 }
                 wall.actions = actions;
         });
