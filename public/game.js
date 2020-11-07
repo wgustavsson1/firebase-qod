@@ -4,6 +4,7 @@ var card_box = null;
 var timer_div = null;
 var camera = null;
 var db_ref_cards = null;
+var db_ref_actions = null;
 
 var card_elements = null;
 var db_ref_time = null;
@@ -265,21 +266,19 @@ function toggle_camera()
 
 }
 
+var card_text = null;
 async function firebase_swap_card(ref)
 {
-    //TODO: Make this function work
     ref = ref.split("&&");
     card = ref[0];
     enemy_uid = ref[1];
 
-    console.log(card + "card")
-    console.log("enemy" + enemy_uid);
-
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
     "/players/" + enemy_uid + "/cards/" + "/" + card);
-    var card_text = null;
-    db_ref_cards.on("value", function(snapshot) {
+
+    db_ref_cards.once("value", function(snapshot) {
         card_text = snapshot.val();
+        console.log(card_text + " text1")
     });
 
     //Give the card to me
@@ -293,6 +292,8 @@ async function firebase_swap_card(ref)
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
     "/players/" + enemy_uid + "/cards/" + "/" + card);
     db_ref_cards.remove();
+
+    firebase_add_action(enemy_uid,uid,card,card_text);
 }
 
 //TODO: Listen for changes in card-list and apply to vue.js list
@@ -301,7 +302,7 @@ async function firebase_on_swap()
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
     "/players/" + uid + "/cards");
         db_ref_cards.on('value', function(snapshot) {
-        console.log(snapshot.numChildren() + " num")
+        //If the hand has changed
         if(snapshot.numChildren() != card_box.cards.length)
         {
             card_box.cards = [];
@@ -318,6 +319,16 @@ async function firebase_on_swap()
         }
     });
 }
+
+async function firebase_add_action(loser_id, winner_id,card_id,text)
+{
+    db_ref_actions = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
+    "/actions/");
+    console.log(text + " text")
+    db_ref_actions.set({loser_id:loser_id,winner_id:winner_id,card_id:card_id,card_text:text});
+}
+
+
 function hand_cards()
 {
     var task_list = expansion.tasks;
@@ -334,7 +345,6 @@ function hand_cards()
             task_map[id] = expansion.tasks_map[id];
         }
     }
-    console.log(task_list);
 
     card_box.cards = task_list_map;
     Vue.nextTick(function () {
@@ -359,7 +369,6 @@ function firebase_wait_for_ready_status()
         {
             if(snapshot.val()[player].status !== "ready")
             {
-                console.log("ready")
                 ready = false;
             }
         }
@@ -372,7 +381,6 @@ function firebase_wait_for_ready_status()
             Vue.nextTick(function () {
             c = document.getElementById("card-box").querySelector(".card");
             card_width = c.offsetWidth;
-            console.log(c.offsetWidth + " px");
             });
             approve_disclaimers();
         }
@@ -384,7 +392,6 @@ async function firebase_hand_cards(task_map)
     //TODO:splice the number of cards selected in lobby settings
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
     "/players/" + uid);
-    console.log(task_map);
     db_ref_cards.set({cards: task_map});
 }
 function add_qr_codes(map)
