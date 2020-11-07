@@ -322,10 +322,10 @@ async function firebase_on_swap()
 
 async function firebase_add_action(loser_id, winner_id,card_id,text)
 {
-    db_ref_actions = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
+    db_ref_actions = firebase.database().ref('users/' + uid + 
     "/actions/");
     console.log(text + " text")
-    db_ref_actions.set({loser_id:loser_id,winner_id:winner_id,card_id:card_id,card_text:text});
+    db_ref_actions.push({loser_id:loser_id,winner_id:winner_id,card_id:card_id,card_text:text});
 }
 
 
