@@ -14,30 +14,30 @@ function setupWall()
 
 async function firebase_get_actions()
 {
-    console.log(uid)
+    await get_friends();
     db_ref_actions = firebase.database().ref('users/' + uid + 
     "/actions/");
-            db_ref_actions.on('value', function(snapshot) {
-                var actions = [];
-                console.log("2")
-                console.log(snapshot.val())
-                for(key in snapshot.val())
-                {   
-                    //TODO: check if node key id is in frind_ids
-                        var map = {};
-                        map['loser_id'] = snapshot.val()[key].loser_id
-                        map['winner_id'] = snapshot.val()[key].winner_id
-                        map['card_id'] = snapshot.val()[key].card_id
-                        map['card_text'] = snapshot.val()[key].card_text
-
-                        loser_id = snapshot.val()[key].loser_id
-                        winner_id = snapshot.val()[key].winner_id
-                        if(friend_ids[winner_id] != undefined || 
-                        friend_ids[loser_id] != undefined)
-                        {
-                            actions.push(map);
-                        }
+        db_ref_actions.on('value', function(snapshot) {
+            var actions = [];
+            console.log("2")
+            console.log(snapshot.val())
+            for(key in snapshot.val())
+            {   
+                var map = {};
+                map['loser_id'] = snapshot.val()[key].loser_id
+                map['winner_id'] = snapshot.val()[key].winner_id
+                map['card_id'] = snapshot.val()[key].card_id
+                map['card_text'] = snapshot.val()[key].card_text
+            
+                loser_id = snapshot.val()[key].loser_id
+                winner_id = snapshot.val()[key].winner_id
+                //If friends
+                if(friend_ids[winner_id] != undefined || 
+                friend_ids[loser_id] != undefined)
+                {
+                    actions.push(map);
                 }
-                wall.actions = actions;
-        });
+            }
+            wall.actions = actions;
+    });
 }
