@@ -11,6 +11,12 @@ var db_ref = null;
 var player_list_db_ref = null;
 var player_uid_list = [];
 
+
+var time = null;
+var cards = null;
+var skips = null;
+var expan = null;
+
 let scanner = null;
 
 var game = null;
@@ -273,10 +279,10 @@ async function firebase_get_host_data()
         var host_name = snapshot.child("host").val();
         var status = snapshot.child("status").val();
         var host_profile_src = snapshot.child("profile_picture").val();
-        var time = snapshot.child("time").val();
-        var cards = snapshot.child("cards").val();
-        var skips = snapshot.child("skips").val();
-        var expan = snapshot.child("expansion").val();
+        time = snapshot.child("time").val();
+        cards = snapshot.child("cards").val();
+        skips = snapshot.child("skips").val();
+        expan = snapshot.child("expansion").val();
         host.host = host_name;
         host.profile_src = host_profile_src;
         settings.time = time;

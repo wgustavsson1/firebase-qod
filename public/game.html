@@ -6,31 +6,31 @@
   
   <body>
 
-
-    <div id = "timer-wrapper" v-show="visible">
-      <h2 class = "clear-font"></h2>
-    </div>
-
-    <div id = "expansion" v-if="not_approved">
-        <h4 class = "clear-font">Please read the disclaimers down below before approving</h4>
-          <ul id = "disclaimers" v-cloak>
-            <li v-for="disclaimer in disclaimers">
-              <h4 class = "clear-font">{{disclaimer}}</h4>
-            </li> 
-          </ul>
-      <button class = "button button-green clear-font" onclick="approve_disclaimers()">I Approve!</button>
-    </div>
   
-  <div id = "card-box"  v-show="visible">
-    <div class = "card" v-for = "card in cards">
-      <h2 class = "clear-font">Quest Or Drink</h2>
-      <h4 class="clear-font card-text">{{card.text}}</h4>
-      <hr>
-      <br>
-      <div v-bind:id="card.id" class = "qr">
+      <div id = "timer-wrapper" v-show="visible">
+        <h2 class = "clear-font"></h2>
+      </div>
+
+      <div id = "expansion" v-if="not_approved">
+          <h4 class = "clear-font">Please read the disclaimers down below before approving</h4>
+            <ul id = "disclaimers" v-cloak>
+              <li v-for="disclaimer in disclaimers">
+                <h4 class = "clear-font">{{disclaimer}}</h4>
+              </li> 
+            </ul>
+        <button class = "button button-green clear-font" onclick="approve_disclaimers()">I Approve!</button>
+      </div>
+    
+    <div id = "card-box"  v-show="visible">
+      <div class = "card" v-for = "card in cards">
+        <h2 class = "clear-font">Quest Or Drink</h2>
+        <h4 class="clear-font card-text">{{card.text}}</h4>
+        <hr>
+        <br>
+        <div v-bind:id="card.id" class = "qr">
+        </div>
       </div>
     </div>
-  </div>
 
   <div id = "camera">
     <video id="preview" v-show="visible"></video>
@@ -51,19 +51,23 @@
 
       #timer-wrapper
       {
+
       }
 
       #timer-wrapper h2
       {
+        position:relative;
         background-image: linear-gradient(-90deg,#252525,black);
         padding:2vw;
+        border-radius: 1em;
         border:1px solid green;
+        margin-top:0;
         margin-right: 10vw;
         margin-left: 10vw;
         color: green;
         font-size: 2.5em;
         margin-bottom: 0;
-        margin-top: 5vh;
+        top:5vh;
       }
       #card-box
       {
@@ -93,7 +97,9 @@
         color:#f2f24b;
         font-size:1em;
         border-radius: 5vw;
-        border:1vh solid white;
+        border-width:1vh;
+        border-color:white;
+        border-style:outset;
         text-align: center;
         font-family: 'Orbitron', bold;
       }

@@ -54,6 +54,22 @@
 			<text lang = "se">Köp någons katt</text>
 			<text lang = "eng">Buy someone´s cat</text>
 		</task>
+		<task>
+			<id>vanilla8</id>
+			<text lang = "se">Skaka hand med någon</text>
+			<text lang = "eng">Shake someones hand</text>
+		</task>
+		<task>
+			<id>vanilla9</id>
+			<text lang = "se">Ge någon en komplimang</text>
+			<text lang = "eng">Give a compliment</text>
+		</task>
+		
+		<task>
+			<id>vanilla10</id>
+			<text lang = "se">Berätta en hemlighet för någon</text>
+			<text lang = "eng">Tell someone a secret</text>
+		</task>
 	</expansion>
 
 	<expansion name = "moonshine">

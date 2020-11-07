@@ -65,7 +65,7 @@ async function start_game()
     hand = await firebase_hand_cards(hand_cards());
     firebase_wait_for_ready_status();
     box =  document.getElementById("card-box");
-    firebase_on_cards();
+    firebase_on_swap();
     setup_timer();
     listen_for_swipes();
 }
@@ -163,12 +163,10 @@ function findSelectedCard() {
     card_elements.forEach(function(card){
         var rect = card.getBoundingClientRect();
         var viewWidth = Math.max(document.documentElement.clientWidth, window.innerWidth);
-        console.log(viewWidth + " vw");
         if(!(rect.left < 0 || rect.right - viewWidth >= 0))
         {
             card.style.borderColor = "blue";
             selected_card = card;
-            console.log(card_box.cards);
             check_for_edge_card(card.querySelector(".card-text").innerHTML);
         }
         else
@@ -185,12 +183,10 @@ function check_for_edge_card(text)
 
     if(text == first_card)
     {
-        console.log("first");
         first_card_selected = true;
     }
     else if(text == last_card)
     {
-        console.log("last");
         last_card_selected = true;
     }
     else
@@ -300,7 +296,7 @@ async function firebase_swap_card(ref)
 }
 
 //TODO: Listen for changes in card-list and apply to vue.js list
-async function firebase_on_cards()
+async function firebase_on_swap()
 {
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
     "/players/" + uid + "/cards");
@@ -325,7 +321,7 @@ async function firebase_on_cards()
 function hand_cards()
 {
     var task_list = expansion.tasks;
-    task_list =  shuffle(expansion.tasks).slice(0,4);
+    task_list =  shuffle(expansion.tasks).slice(0,cards);
 
     var task_list_map =  [];
     var task_map = {};
@@ -427,7 +423,6 @@ function shuffle(array) {
   }
   return array;
 }
-
 function shuffleMap (myArray) {
   var i = myArray.length;
   if ( i == 0 ) return false;
