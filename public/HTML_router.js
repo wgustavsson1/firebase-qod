@@ -63,13 +63,15 @@ function add_footer_menu_listeners()
         loadPage("wall.html").then(function(){
              fb_get_user_data();
              setupWall();
+             leave_lobby();
         });
     };
 
     document.getElementById("footer_menu_friends").onclick = function()
     {
         loadPage("friends.html").then(function(){
-            get_friends();
+            fb_get_user_data();
+            setup_friends();
             leave_lobby();
         });
     };

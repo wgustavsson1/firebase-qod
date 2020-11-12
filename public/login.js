@@ -13,6 +13,7 @@ async function fb_login()
             FB.login(function(response) { 
               if (response.status === 'connected') {
                 fb_get_user_data();
+                fb_get_friends();
               } else {
                   alert("Failed to connect to Facebook")
               }

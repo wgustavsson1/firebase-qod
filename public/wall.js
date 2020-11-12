@@ -14,7 +14,6 @@ function setupWall()
 
 async function firebase_get_actions()
 {
-    await get_friends();
     db_ref_actions = firebase.database().ref('users/' + uid + 
     "/actions/");
         db_ref_actions.on('value', function(snapshot) {
@@ -31,13 +30,14 @@ async function firebase_get_actions()
             
                 loser_id = snapshot.val()[key].loser_id
                 winner_id = snapshot.val()[key].winner_id
-                //If friends
-                if(friend_ids[winner_id] != undefined || 
-                friend_ids[loser_id] != undefined)
+                //If friends or me
+                if(fb_friends_map[winner_id] !== undefined || 
+                fb_friends_map[loser_id] !== undefined || fb_friends_map[uid] !== undefined)
                 {
                     actions.push(map);
                 }
             }
             wall.actions = actions;
+            console.log("actions " + actions)
     });
 }

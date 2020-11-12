@@ -12,6 +12,9 @@ var player_list_db_ref = null;
 var player_uid_list = [];
 
 
+var is_connected = false;
+
+
 var time = null;
 var cards = null;
 var skips = null;
@@ -53,10 +56,13 @@ function init_lobby()
       });
     
     
+      is_connected = true;
 }
 
 function leave_lobby()
 {
+    if(!is_connected)
+        return;
     firebase_player_leave();
     if(scanner != null)
         scanner.stop();
