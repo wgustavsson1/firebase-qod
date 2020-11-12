@@ -61,7 +61,6 @@ function add_footer_menu_listeners()
     document.getElementById("footer_menu_wall").onclick = function()
     {
         loadPage("wall.html").then(function(){
-             fb_get_user_data();
              setupWall();
              leave_lobby();
         });
@@ -70,7 +69,6 @@ function add_footer_menu_listeners()
     document.getElementById("footer_menu_friends").onclick = function()
     {
         loadPage("friends.html").then(function(){
-            fb_get_user_data();
             setup_friends();
             leave_lobby();
         });

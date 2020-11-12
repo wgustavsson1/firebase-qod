@@ -27,15 +27,16 @@ function get_user_data()
         uid = response.id;
         FB.api("/" + uid +  "/picture?redirect=false", function (response) {
             console.log(response);
-            console.log(response.data.url);
+            console.log("ID: " + uid);
             profile_src = response.data.url;
-            var header = new Vue({
+
+            var profile = new Vue({
             el: '#header',
             data: {
               name: name,
               profile_src: profile_src
             }
-          });
+            });
         });
     });
 }

@@ -10,7 +10,8 @@
     <script src="login.js"></script>
     <script defer src="qr/qrcode.min.js"></script> 
     <script src="fb.js"></script>
-    <script src="tools/formatting.js"></script> 
+    <script src="tools/formatting.js"></script>
+    <script src="profile.js"></script>    
     <script defer src="lobby.js"></script>    
     <script defer src="create_lobby.js"></script>
     <script defer src="friends.js"></script>
@@ -53,10 +54,10 @@
       <script defer src="/__/firebase/init.js"></script>
       <script src = "HTML_router.js"></script>
 
-      <script>
-      let result = loadPage("play.html").then(function(){
-        add_home_click_listeners();
-      });
+      <script defer>
+        loadPage("play.html").then(function(){
+          add_home_click_listeners();
+       });
     </script>
 
     <style>

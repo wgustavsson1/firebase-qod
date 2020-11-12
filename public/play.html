@@ -4,7 +4,7 @@
     <!--Following script is for choosing user language for the SDK. FB-plugin language will be using the language defined here-->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-      <header id = "header" v-cloak>
+      <header id = "header">
         <h1 class="text-center main-font">Quest Or Drink</h1>
         <div id = "profile">
           <img v-bind:src="profile_src" id = "profile-pic"> <h4 id = "name" class = "clear-font">{{name}}</h4>
@@ -14,7 +14,6 @@
       <button id = "button-start" class = "button-start">Start Party!</button>
       <button id = "button-join" class = "button-start">Join party!</button>
 
-    </div>
 
     <style>
       [v-cloak] > * { display:none }
