@@ -65,12 +65,12 @@ async function fb_get_user_data()
     else
     {
         get_user_data();
-        FBLocalStorage.set('user',uid,60);
+        FBLocalStorage.set('user',uid,10);
     }
 }
 function get_user_data()
 {
-    fb_get_user_picture()
+    fb_get_user_picture(uid)
     FB.api('/me', function(response) {
         name = response.name;
         uid = response.id;
@@ -127,9 +127,9 @@ function fb_get_friend_count_word()
 
 async function fb_get_user_picture(user_id)
 {
-    var pic = null;
-    FB.api('/' + user_id + "/picture?redirect=false",'GET',{},function(response) {
-        pic = response.url;
+     var pic = null;
+     FB.api('/' + user_id + "/picture?redirect=false",'GET',{},function(response) {
+        pic = response.url
     });
     return pic
 }
