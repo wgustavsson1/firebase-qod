@@ -9,10 +9,14 @@
 
     <div id = "feed" v-cloak>
         <div class = "action" v-for = "action in actions">
-             <h3 class="clear-font card-text">{{action.winner_id}}</h4>
+              <div id = "profile-item">
+                <img v-bind:src="action.loser_pic" id = "profile-pic"> <h4 class = "name clear-font">{{action.loser_name}}</h4>
+              </div>
              <h4 class="clear-font card-text">{{action.card_text}}</h4>
              <h2>------></h2>
-             <h3 class="clear-font card-text">{{action.loser_id}}</h4>>
+             <div id = "profile-item">
+                <img v-bind:src="action.winner_pic" id = "profile-pic"> <h4 class = "name clear-font">{{action.winner_name}}</h4>
+              </div>
         </div>
     </div>
 

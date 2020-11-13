@@ -23,8 +23,8 @@ async function firebase_get_actions()
             for(key in snapshot.val())
             {   
                 var map = {};
-                loser_id = snapshot.val()[key].loser_id
-                winner_id = snapshot.val()[key].winner_id
+                const loser_id = snapshot.val()[key].loser_id
+                const winner_id = snapshot.val()[key].winner_id
                 await fb_get_user(loser_id)
                 await fb_get_user(winner_id)
 
@@ -33,8 +33,17 @@ async function firebase_get_actions()
                 map['card_id'] = snapshot.val()[key].card_id
                 map['card_text'] = snapshot.val()[key].card_text
 
-                map['winner_pic'] = fb_friends_map.winner_id
-                map['loser_pic'] = fb_friends_map.loser_id
+                console.log(winner_id)
+                console.log(loser_id)
+                console.log(fb_users[winner_id])
+                console.log(fb_users[loser_id]) 
+                map['winner_pic'] = fb_users[winner_id].profile_src
+                map['loser_pic'] = fb_users[loser_id].profile_src
+
+                map['winner_name'] = fb_users[winner_id].name
+                map['loser_name'] = fb_users[loser_id].name
+
+                console.log(fb_users)
 
                 //If friends or me
                 if(fb_friends_map[winner_id] !== undefined || 

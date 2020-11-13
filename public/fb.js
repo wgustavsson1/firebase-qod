@@ -70,10 +70,11 @@ async function fb_get_user_data()
 }
 function get_user_data()
 {
-    fb_get_user_picture(uid)
     FB.api('/me', function(response) {
         name = response.name;
         uid = response.id;
+        console.log(uid)
+        fb_get_user(uid)
         FB.api("/" + uid +  "/picture?redirect=false", function (response) {
             console.log(response);
             console.log("ID: " + uid);
