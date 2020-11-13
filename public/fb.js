@@ -7,6 +7,33 @@
 //TODO: REMOVE BEFORE PRODUCTION!
 //TOKEN: "EAAEdK7xJQYABAC5EgGqTqw8JnykLbWoS24ajObYc7ihe4Gxss12d2Take6t7N1EusNxn4NMeNMtrK4VUY2HcRR9pcwWN8ZA1ZCr92znUxI8dXYMzvP0pNagDFndFh12TJif22NqbelL1pHtRBHZCYqujuknA87ZCBPwZB734fPL2Q33mc2rDZADzOClUmijGxE7XBxkcUD3AZDZD"
 //USER-ID: "3641096389250078"
+
+var FBLocalStorage = {  
+    get: function (key) {  
+        var value = localStorage[key];  
+        if (value != null) {  
+            var model = JSON.parse(value);  
+            if (model.payload != null && model.expiry != null) {  
+                var now = new Date();
+                if (now > Date.parse(model.expiry)) {  
+                    localStorage.removeItem(key);  
+                    return null;  
+                }  
+            }  
+            return JSON.parse(value).payload;  
+        }  
+        return null;  
+    },  
+    set: function (key, value, expirySeconds) {  
+        var expiryDate = new Date();  
+        expiryDate.setSeconds(expiryDate.getSeconds() + expirySeconds);  
+        localStorage[key] = JSON.stringify({  
+            payload: value,  
+            expiry: expiryDate  
+        });  
+    }  
+};
+
 var fb_friend_count = null;
 var fb_friend_count_word = null;
 var name = null;
@@ -16,9 +43,28 @@ var profile_src = null;
 var fb_friends = [];
 var fb_friends_map = {};
 
+var uid = null;
+var name = null;
+var profile_src = null;
+
+
 async function fb_get_user_data()
 {
-    get_user_data();
+    if(FBLocalStorage.get('user') != null)
+    {
+        var profile = new Vue({
+        el: '#header',
+        data: {
+        name: name,
+        profile_src: profile_src
+        }
+        });
+    }
+    else
+    {
+        get_user_data();
+        FBLocalStorage.set('user',uid,30*60);
+    }
 }
 function get_user_data()
 {
@@ -29,13 +75,12 @@ function get_user_data()
             console.log(response);
             console.log("ID: " + uid);
             profile_src = response.data.url;
-
-            var profile = new Vue({
+             var profile = new Vue({
             el: '#header',
             data: {
-              name: name,
-              profile_src: profile_src
-            }
+                name: name,
+                profile_src: profile_src
+                }
             });
         });
     });
@@ -43,9 +88,15 @@ function get_user_data()
 
 async function fb_get_friends()
 {
+
+    if(FBLocalStorage.get('friends') != null)
+        return;
+
+    FBLocalStorage.set('friends',fb_friends_map,60*1);
+
     FB.api('/me/friends','GET',{}, function(response) {
         console.log(response['data']);
-        
+        fb_friends = [];
         response['data'].forEach(function(obj){
             var friend_name = obj['name']
             var friend_uid = obj['id']

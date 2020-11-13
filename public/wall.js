@@ -16,7 +16,7 @@ async function firebase_get_actions()
 {
     db_ref_actions = firebase.database().ref('users/' + uid + 
     "/actions/");
-        db_ref_actions.on('value', function(snapshot) {
+        db_ref_actions.once('value', function(snapshot) {
             var actions = [];
             console.log("2")
             console.log(snapshot.val())
