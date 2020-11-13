@@ -128,11 +128,11 @@ function fb_get_friend_count_word()
 
 async function fb_get_user_picture(user_id)
 {
-     var pic = null;
-     FB.api('/' + user_id + "/picture?redirect=false",'GET',{},function(response) {
-        pic = response.url
+     FB.api('/' + user_id + "/picture?redirect=false",function(response) {
+        pic = response.data.url
+        fb_users[user_id] = {};
+        fb_users[user_id]['profile_pic'] = pic;
     });
-    return pic
 }
 
 
@@ -140,8 +140,9 @@ async function fb_get_user(user_id)
 {
     var profile_src = await fb_get_user_picture(user_id);
     FB.api('/' + user_id + '/', function(response) {
-        u = {id:response.id,name:response.name,profile_src: profile_src};
-        fb_users[user_id] = u;
+        //u = {id:response.id,name:response.name};
+        fb_users[user_id]['id'] = response.id;
+        fb_users[user_id]['name'] = response.name;
     });
     return fb_users[user_id];
 }

@@ -39,6 +39,7 @@ async function firebase_get_actions()
                 console.log(fb_users[loser_id]) 
                 map['winner_pic'] = fb_users[winner_id].profile_src
                 map['loser_pic'] = fb_users[loser_id].profile_src
+                console.log(map['loser_pic'] + " pic")
 
                 map['winner_name'] = fb_users[winner_id].name
                 map['loser_name'] = fb_users[loser_id].name
