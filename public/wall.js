@@ -27,6 +27,8 @@ async function firebase_get_actions()
                 map['winner_id'] = snapshot.val()[key].winner_id
                 map['card_id'] = snapshot.val()[key].card_id
                 map['card_text'] = snapshot.val()[key].card_text
+                map['loser_pic'] = fb_get_user_picture(map['loser_id'])
+                map['winner_pic'] = fb_get_user_picture(map['winner_id'])
             
                 loser_id = snapshot.val()[key].loser_id
                 winner_id = snapshot.val()[key].winner_id

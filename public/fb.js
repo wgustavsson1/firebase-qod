@@ -47,6 +47,8 @@ var uid = null;
 var name = null;
 var profile_src = null;
 
+var fb_users = {};
+
 
 async function fb_get_user_data()
 {
@@ -63,11 +65,12 @@ async function fb_get_user_data()
     else
     {
         get_user_data();
-        FBLocalStorage.set('user',uid,30*60);
+        FBLocalStorage.set('user',uid,60);
     }
 }
 function get_user_data()
 {
+    fb_get_user_picture()
     FB.api('/me', function(response) {
         name = response.name;
         uid = response.id;
@@ -85,21 +88,19 @@ function get_user_data()
         });
     });
 }
-
 async function fb_get_friends()
 {
-
     if(FBLocalStorage.get('friends') != null)
         return;
 
     FBLocalStorage.set('friends',fb_friends_map,60*1);
-
+    fb_friends = [];
     FB.api('/me/friends','GET',{}, function(response) {
         console.log(response['data']);
-        fb_friends = [];
         response['data'].forEach(function(obj){
             var friend_name = obj['name']
             var friend_uid = obj['id']
+            fb_get_user(friend_uid);    
             console.log(obj)
         FB.api("/" + obj.id +  "/picture?redirect=false", function (response) {
             var friend_profile_src = response.data.url;
@@ -121,4 +122,25 @@ function fb_get_friend_count()
 function fb_get_friend_count_word()
 {
     return inWords(fb_get_friend_count());
+}
+
+
+async function fb_get_user_picture(user_id)
+{
+    var pic = null;
+    FB.api('/' + user_id + "/picture?redirect=false",'GET',{},function(response) {
+        pic = response.url;
+    });
+    return pic
+}
+
+
+async function fb_get_user(user_id)
+{
+    var profile_src = await fb_get_user_picture(user_id);
+    FB.api('/' + user_id + '/', function(response) {
+        u = {id:response.id,name:response.name,profile_src: profile_src};
+        fb_users[user_id] = u;
+    });
+    return fb_users[user_id];
 }
