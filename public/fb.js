@@ -128,11 +128,31 @@ function fb_get_friend_count_word()
 
 async function fb_get_user_picture(user_id)
 {
+    var pic;
      FB.api('/' + user_id + "/picture?redirect=false",function(response) {
         pic = response.data.url
         fb_users[user_id] = {};
         fb_users[user_id]['profile_pic'] = pic;
     });
+    return pic;
+}
+
+
+var pics = [];
+function fb_get_user_pictures(users,callback)
+{
+    for(var i in users)
+    {
+        FB.api('/' + users[i] + "/picture?redirect=false",function(response) {
+            console.log(response.data.url)
+            pics.push(response.data.url);
+            fb_users[users[i]] = {};
+            fb_users[users[i]]['profile_pic'] = response.data.url;
+            console.log(fb_users[users[i]]['profile_pic'] + "piiic")
+        });
+    }
+    console.log("list " + pics)
+    callback(pics)
 }
 
 
