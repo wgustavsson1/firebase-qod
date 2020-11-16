@@ -1,10 +1,15 @@
 
-function setup_profile()
+function setup_profile(is_me)
 {
-    achievements = new Vue({el: '#card-box',
+    achievements = new Vue({el: '#card-wrapper',
     data: {
         cards: [],
         visible:false
+        }
+    });
+    sign_out = new Vue({el: '#sign-out',
+    data: {
+        visible:is_me
         }
     });
     firebase_get_achievements();

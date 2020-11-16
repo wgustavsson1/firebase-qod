@@ -54,7 +54,7 @@ function add_footer_menu_listeners()
     {
         loadPage("profile.html").then(function(){
              fb_get_user_data();
-             setup_profile();
+             setup_profile(true);
              leave_lobby();
         });
     };
