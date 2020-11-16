@@ -35,9 +35,9 @@ async function firebase_get_actions()
 
                 add_action(map,winner_id,loser_id)
             }
-            wall.actions = actions;
-            console.log("actions " + actions)
     });
+    wall.actions = actions;
+    console.log("actions " + actions)
 }
 
 

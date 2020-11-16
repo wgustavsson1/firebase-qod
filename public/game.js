@@ -22,6 +22,8 @@ var selected_card = null;
 var first_card_selected = false;
 var last_card_selected = false;
 
+var db_ref_achievements = null;
+
 async function start_game()
 {
     firebase_start_game();
@@ -287,6 +289,14 @@ async function firebase_swap_card(ref)
     var new_card = {};
     new_card[card] = card_text
     db_ref_cards.update(new_card);
+
+    //Give achievement to me
+    db_ref_achievements = firebase.database().ref('users/' + uid + 
+    "/achievements/");
+    var new_card = {};
+    new_card['id'] = card;
+    new_card['text'] = card_text;
+    db_ref_achievements.push(new_card);
 
     //Remove the card from the enemy
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 

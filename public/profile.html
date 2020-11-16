@@ -5,6 +5,15 @@
   </head>
   
   <body>
+
+    <div id = "card-box"  v-show="visible">
+      <div class = "card" v-for = "card in cards">
+        <h2 class = "clear-font">Quest Or Drink</h2>
+        <h4 class="clear-font card-text">{{card.text}}</h4>
+        <hr>
+        <br>
+      </div>
+    </div>
   
     <header id = "header" v-cloak>
       <div id = "profile">
@@ -35,6 +44,65 @@
         text-align:center;
         font-size: 0.7em;
         margin-left: 5vw;
+      }
+       #card-box
+      {
+        position: relative;
+        width: 2000000px;
+        float:left;
+        overflow: auto;
+        /*margin-top:22vh; (center-verticaly)*/
+        padding:2vw;
+        margin-top: 10vh;
+        margin-bottom: 5vh;
+        /*left:-33.5393256vh;*/
+      }
+      .card
+      {
+        width: 17,8370785vh;
+        height:25vh;
+        padding: 1vh;
+        float:left;
+        display: inline-block;
+        /*margin-left:30.162921348314606741573033707vh;*/
+        /*margin-left: auto;
+        margin-right: auto; */
+        margin-left:3vh;
+        /*background-color:#252525;*/
+        background-image: linear-gradient(180deg,#252525,black);
+        color:#f2f24b;
+        font-size:1em;
+        border-radius: 5vw;
+        border-width:1vh;
+        border-color:white;
+        border-style:outset;
+        text-align: center;
+        font-family: 'Orbitron', bold;
+      }
+      .qr
+      {
+        width: 140px;
+        height: 140px;
+        position: relative;
+        background-color: white;
+        margin-top: 1vh;
+        margin-left:auto;
+        margin-right:auto;
+        text-align: center;
+      }
+      .qr img
+      {
+        background-color: white;
+        max-height: 100%;
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
       }
       .button
       {
