@@ -15,15 +15,15 @@
 
     <center>
       <div id = "card-wrapper" v-show="visible">
-        <div  class = "card" v-for = "card in cards">
+        <div  class = "card" id = "achievement">
           <h2 class = "clear-font">Quest Or Drink</h2>
-          <h4 class="clear-font card-text">{{card.text}}</h4>
+          <h4 class="clear-font card-text">{{text}}</h4>
         </div>
       </div>
     </center>
 
-
-    <div id = "sign-out" v-if = "visible">
+    <button class = "green-button button" v-if = "button_visible" onclick="show_settings()">Account settings</button>
+    <div id = "account-settings" v-if = "settings_visible">
       <button class = "white-button button" onclick="sign_out()">Sign out</button>
       <h3 class = "text-center clear-font">Delete account</h3>
       <p>If you choose to delete your account all your data submited to Quest Or Drink will be deleted according to the GDPR legislation and our privacy policy</p>
@@ -53,7 +53,7 @@
         clear:both;
         width: 100%;
         text-align: center;
-        margin: auto;
+        margin-top:0;
       }
       .card
       {
@@ -74,7 +74,7 @@
       }
       #sign-out
       {
-        margin: 0 0 0 0;
+        margin-top:1vh;
       }
       .button
       {
@@ -83,12 +83,16 @@
         padding: 2vw;
         font-style: bold;
         font-size: 1em;
-        margin: 0 auto;
+        margin: 1vh auto;
         display: block;
         outline:none;
         box-shadow: none;
         border:0;
         font-weight: bold;
+      }
+      .green-button
+      {
+        background-color: green;
       }
       .red-button
       {
@@ -134,7 +138,7 @@
       {
         display: inline;
         position: fixed;
-        bottom:8vh;
+        bottom:2vh;
       }
       #footer_menu li
       {

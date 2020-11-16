@@ -65,7 +65,7 @@ async function fb_get_user_data()
     else
     {
         get_user_data();
-        FBLocalStorage.set('user',uid,10);
+        FBLocalStorage.set('user',uid,2);
     }
 }
 function get_user_data()
