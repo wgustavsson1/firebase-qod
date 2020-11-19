@@ -4,22 +4,26 @@ var current_user = null;
 var lobby = null;
 var lobby_created = null; 
 
-function setUp()
+async function setup_create_lobby()
 {
-        lobby_form = new Vue({el: '#lobby-form', data: {hide : false} });
+    lobby_form = new Vue({el: '#lobby-form', data: {hide : false} });
+
+    //Fetch expansion names from xml to select list
+    var expansion_select = document.getElementById("select-expansion");
+    console.log(expansion_select)
+    for(var i = 0; i <  expansion_list.length; i++)
+    {
+      console.log(i)
+      if(expansion_select.options[i] == undefined)
+      {
+        var option = document.createElement("option");
+        expansion_select.add(option)
+      }
+      console.log(expansion_select.options[i].value)
+      expansion_select.options[i].innerHTML = expansion_list[i];
+      option.value = expansion_list[i];
+    }
 }
-
-/*firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-   // uid = user.uid
-  //  current_user = user;
-    console.log("user:" + uid)
-  } else {
-    console.log("no uid")
-  }
-});*/
-
 
 function getSelectedData()
 {

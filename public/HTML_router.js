@@ -20,7 +20,7 @@ function add_buttons_listeners()
     document.getElementById("button-start").onclick = function()
         {
             loadPage("create_lobby.html").then(function(){
-                setUp();
+                setup_create_lobby();
                 document.getElementById("button-create-lobby").addEventListener("click",create_lobby);
             });
         };

@@ -16,7 +16,7 @@
     <script defer src="create_lobby.js"></script>
     <script defer src="friends.js"></script>
     <script defer src="wall.js"></script>
-    <script defer src="expansions.js"></script>
+    <script src="expansions.js"></script>
     <script defer src="game.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- development version, includes helpful console warnings -->
@@ -27,6 +27,8 @@
   
   <body>
     <script>
+      //TODO: Place this call somwehere better
+      loadExpansionList("se")
       fb_login();
     </script>
 

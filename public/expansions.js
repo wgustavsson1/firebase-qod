@@ -1,4 +1,5 @@
 var expansion = null;
+var expansion_list = [];
 
 function loadExpansion(name,lang) {
   var xmlhttp = new XMLHttpRequest();
@@ -6,6 +7,17 @@ function loadExpansion(name,lang) {
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         parseExpansion(this,name,lang);
+    }
+  };
+  xmlhttp.open("GET", "expansions.xml", true);
+  xmlhttp.send();
+}
+async function loadExpansionList(lang) {
+  var xmlhttp = new XMLHttpRequest();
+  var res = null;
+  xmlhttp.onreadystatechange = async function() {
+    if (this.readyState == 4 && this.status == 200) {
+        await getExpansions(this,lang);
     }
   };
   xmlhttp.open("GET", "expansions.xml", true);
@@ -36,7 +48,15 @@ async function parseExpansion(xml,name,lang) {
   console.log(expansion);
 }
 
+async function getExpansions(xml,lang)
+{
+  var expansions, i, xmlDoc, txt;
+  xmlDoc = xml.responseXML;
 
+  expansion_list = await parseElements(xmlDoc,"/expansions/expansion/name[@lang='" + lang + "']");
+  return expansion_list
+  console.log(expansion_list);
+}
 function parseElements(xmlDoc,xPath)
 {
     var nodes = xmlDoc.evaluate(xPath, xmlDoc, null, XPathResult.ANY_TYPE,null);

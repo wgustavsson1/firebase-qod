@@ -295,7 +295,6 @@ async function firebase_get_host_data()
         settings.cards = cards;
         settings.skips = skips;
         settings.expansion = expan;
-
         if(status == "started")
         {
             loadExpansion(expan,"se");
