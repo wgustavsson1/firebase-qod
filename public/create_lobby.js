@@ -11,17 +11,19 @@ async function setup_create_lobby()
     //Fetch expansion names from xml to select list
     var expansion_select = document.getElementById("select-expansion");
     console.log(expansion_select)
-    for(var i = 0; i <  expansion_list.length; i++)
+    var i = 0;
+    for (const [id, name] of Object.entries(expansion_map))
     {
-      console.log(i)
+      var option = null;
       if(expansion_select.options[i] == undefined)
       {
-        var option = document.createElement("option");
+        option = document.createElement("option");
+        option.value = id;
         expansion_select.add(option)
       }
       console.log(expansion_select.options[i].value)
-      expansion_select.options[i].innerHTML = expansion_list[i];
-      option.value = expansion_list[i];
+      expansion_select.options[i].innerHTML = name;
+      i++;
     }
 }
 

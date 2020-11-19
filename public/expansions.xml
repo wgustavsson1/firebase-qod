@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>  
 <expansions>
 	<expansion name = "vanilla">
+		<id>vanilla</id>
 		<name lang ="se">Original</name>
 		<name lang ="eng">Vanilla</name>
 
@@ -73,6 +74,7 @@
 	</expansion>
 
 	<expansion name = "moonshine">
+		<id>moonshine</id>
 		<name lang ="se">Hembränt</name>
 		<name lang ="eng">Moonshine</name>
 
@@ -99,9 +101,22 @@
 			<text lang = "se">Utmana någon eller några personer på beerpong, när spelet är slut får du överlämna kortet till någon i förlorarlaget</text>
 			<text lang = "eng">Challenge one or more persons at beerpong, when the game is over you may hand over this card to someone in the losing team</text>
 		</task>
+
+		<task>
+			<id>moonshine3</id>
+			<text lang = "se">Svep en öl snabbast</text>
+			<text lang = "eng">Drink a bear quicker than a friend</text>
+		</task>
+
+		<task>
+			<id>moonshine4</id>
+			<text lang = "se">Blanda en grogg åt någon</text>
+			<text lang = "eng">Make a drink for someone</text>
+		</task>
 	</expansion>
 
 	<expansion name = "dirty">
+		<id>dirty</id>
 		<name lang ="se">Snusk &amp; Vågat</name>
 		<name lang ="eng">Dirty &amp; Daring</name>
 
@@ -116,8 +131,27 @@
 
 		<task>
 			<id>dirty1</id>
-			<text lang = "se"></text>
-			<text lang = "eng"></text>
+			<text lang = "se">Pussa någon på kinden</text>
+			<text lang = "eng">Give someone a kiss</text>
+		</task>
+
+		<task>
+			<id>dirty2</id>
+			<text lang = "se">Gen någon en kram</text>
+			<text lang = "eng">Give someone a hug</text>
+		</task>
+
+		<task>
+			<id>dirty3</id>
+			<text lang = "se">Ge någon en komplimang över dens utseende</text>
+			<text lang = "eng">Give someone a compliment</text>
+		</task>
+
+
+		<task>
+			<id>dirty4</id>
+			<text lang = "se">Kyss någon</text>
+			<text lang = "eng">Kiss someone</text>
 		</task>
 
 	</expansion>

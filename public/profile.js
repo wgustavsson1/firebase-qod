@@ -38,7 +38,7 @@ function setup_profile(is_me)
         achievement_box.achievements = achive_map;
         console.log(Object.values(achive_map));
         Vue.nextTick(function () {
-            handle_achievement_swipes()
+            //handle_achievement_swipes()
         });
     });
 }
