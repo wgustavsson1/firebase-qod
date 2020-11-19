@@ -383,8 +383,7 @@ function firebase_wait_for_ready_status()
             }
         }
         if(ready)
-        {
-            console.log("ready 2")
+        {   
             exp.not_approved = false;
             card_box.visible = true;
             timer_div.visible = true;

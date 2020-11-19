@@ -13,14 +13,20 @@
       </div>
     </header>
 
+    <div class = "clear-float"></div>
+
     <center>
-      <div id = "card-wrapper" v-show="visible">
-        <div  class = "card" id = "achievement">
-          <h2 class = "clear-font">Quest Or Drink</h2>
-          <h4 class="clear-font card-text">{{text}}</h4>
+      <div id = "achievements">
+        <div  v-for="(achievement,expansion) in achievements">
+          <div class = "card" id = "card">
+            <h2 class = "clear-font">Quest Or Drink</h2>
+            <h4 class = "clear-font">{{expansion}} : {{achievements[expansion][index].text}}</h4>
+          </div>
         </div>
       </div>
     </center>
+
+    <div class = "clear-float"></div>
 
     <button class = "green-button button" v-if = "button_visible" onclick="show_settings()">Account settings</button>
     <div id = "account-settings" v-if = "settings_visible">
@@ -39,7 +45,7 @@
       {
         font-family: 'Orbitron', bold;
         color: #f2f24b;
-        margin: 0 0 0 0 ;
+        margin: 0px;
       }
       p
       {
@@ -53,7 +59,11 @@
         clear:both;
         width: 100%;
         text-align: center;
-        margin-top:0;
+        margin:0;
+      }
+      .clear-float
+      {
+        clear:both;
       }
       .card
       {
@@ -61,10 +71,12 @@
         height:25vh;
         padding: 1vh;
         display: inline-block;
+        float:left;
         background-image: linear-gradient(180deg,#252525,black);
         color:#f2f24b;
         font-size:1em;
-        margin: auto;
+        margin-left: 1vh;
+        margin-top: 1vh;
         border-radius: 5vw;
         border-width:1vh;
         border-color:white;
@@ -78,6 +90,7 @@
       }
       .button
       {
+        clear: both;
         color:black;
         text-align: center;
         padding: 2vw;
@@ -110,10 +123,11 @@
        .name
       {
         line-height: 10vw;
+        margin-bottom: 2vh;
       }
       header
       {
-        margin: 0 0 0 0;
+        margin: 0px;
       }
       #profile
       {
