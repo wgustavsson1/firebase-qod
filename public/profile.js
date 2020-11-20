@@ -9,6 +9,8 @@ var achive_map = {};
 //TODO: FIX non hardcoded solution
 const EXPANSIONS = ["vanilla","moonshine","dirty"];
 
+var index_map = {};
+
 
 async function setup_profile(is_me)
 {
@@ -16,9 +18,9 @@ async function setup_profile(is_me)
     data: {
         es: EXPANSIONS,
         achievements: null,
+        indexes: index_map,
         text: null,
-        visible: false,
-        index: 0
+        visible: false
         }
     });
 
@@ -34,7 +36,7 @@ async function setup_profile(is_me)
         achievement_box.achievements = achive_map;
         achievement_box.visible = true;
         Vue.nextTick(function () {
-            //handle_achievement_swipes()
+            handle_achievement_swipes()
         });
     });
 }
@@ -68,6 +70,7 @@ async function firebase_get_achievements()
                     if(achive_map[e] == undefined)
                         achive_map[e] = []
                     achive_map[e].push({id:action.card_id,loser_id:action.loser_id,text:action.card_text});
+                    index_map[e] = 0;
                     console.log(achive_map);
                 }
             })
@@ -78,9 +81,17 @@ async function firebase_get_achievements()
 
 async function handle_achievement_swipes()
 {
-    achievement_element = document.getElementById('card');
+    /*achievement_element = document.getElementById('card');
     achievement_element.addEventListener('touchstart', handle_touch_start, true);
-    achievement_element.addEventListener('touchmove', handle_touch_move, true);
+    achievement_element.addEventListener('touchmove', handle_touch_move, true);*/
+
+    card_elements = document.querySelectorAll('.card');
+
+    card_elements.forEach(function(e){
+        e.addEventListener('touchstart', handle_touch_start, true);
+        e.addEventListener('touchmove', handle_touch_move, true);
+    });
+
 }
 
 function getTouches(evt) {
@@ -99,33 +110,36 @@ async function handle_touch_move(evt) {
     if (!xDown || is_moving) {
         return;
     }
-console.log("4")
+    console.log("4")
     var xUp = evt.touches[0].clientX;                                    
     var xDiff = xDown - xUp;
 
-    //Right = + Left = -
- 
-    var offsets = achievement_element.getBoundingClientRect();
-    console.log(xDiff)
 
-        var i = achievement_box.index;
-        if ( xDiff > 0 )
+    //TODO: Make sure the touched card element is found not any child elements
+    var element = document.elementFromPoint(evt.touches[0].clientX, evt.touches[0].clientY);
+
+    var touched_expansion = element.id;
+
+    var i = index_map[touched_expansion]
+    //Right = + Left = -
+    if ( xDiff > 0 )
+    {
+        if(i + 1 <= achive_map[touched_expansion].length - 1)
         {
-            if(i + 1 <= achive_map['vanilla'].length - 1)
-            {
-                console.log("5")
-                achievement_box.index++;
-                //achievement_box.text = achive_map['vanilla'][achievement_index].text
-            }
-        } 
-        else
-        {  
-            if(i - 1 >= 0)
-            {
-                console.log("6")
-                achievement_box.index--;
-                //achievement_box.text = achive_map['vanilla'][achievement_index].text
-            }
-        }                                                                                                 
-        xDown = null;   
+            console.log("5")
+            index_map[touched_expansion] += 1;
+            //TODO: A bit ugly approach
+            achievement_box.$forceUpdate();
+        }
+    } 
+    else
+    {  
+        if(i - 1 >= 0)
+        {
+            index_map[touched_expansion] -= 1;
+            //TODO: A bit ugly approach
+            achievement_box.$forceUpdate();
+        }
+    }                                                                                                 
+    xDown = null;   
 };

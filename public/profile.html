@@ -18,9 +18,9 @@
     <center>
       <div id = "achievements">
         <div  v-for="(achievement,expansion) in achievements">
-          <div class = "card" id = "card">
+          <div class = "card" v-bind:id="expansion">
             <h2 class = "clear-font">Quest Or Drink</h2>
-            <h4 class = "clear-font">{{expansion}} : {{achievements[expansion][index].text}}</h4>
+            <h4 class = "clear-font">{{expansion}} : {{achievements[expansion][indexes[expansion]].text}}</h4>
           </div>
         </div>
       </div>
