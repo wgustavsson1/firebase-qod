@@ -1,5 +1,6 @@
 var expansion = null;
 var expansion_map = {};
+var expansion_list = [];
 
 function loadExpansion(name,lang) {
   var xmlhttp = new XMLHttpRequest();
@@ -13,6 +14,7 @@ function loadExpansion(name,lang) {
   xmlhttp.send();
 }
 async function loadExpansionList(lang) {
+  expansion_list = [];
   var xmlhttp = new XMLHttpRequest();
   var res = null;
   xmlhttp.onreadystatechange = async function() {
@@ -56,7 +58,10 @@ async function getExpansions(xml,lang)
   expansion_ids = await parseElements(xmlDoc,"/expansions/expansion/id");
   expansion_names = await parseElements(xmlDoc,"/expansions/expansion/name[@lang='" + lang + "']");
   for (var i = 0; i < expansion_ids.length; i++)
+  {
     expansion_map[expansion_ids[i]] = expansion_names[i];
+    expansion_list.push(expansion_names[i]);
+  }
   console.log(expansion_map);
 }
 function parseElements(xmlDoc,xPath)

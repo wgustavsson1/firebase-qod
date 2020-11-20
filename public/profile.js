@@ -7,15 +7,11 @@ var achievements = [];
 var achive_map = {};
 
 //TODO: FIX non hardcoded solution
-const EXPANSIONS = ["vanilla","inte vanilla", "inte alls vanilla"]
+const EXPANSIONS = ["vanilla","moonshine","dirty"];
 
 
-function setup_profile(is_me)
+async function setup_profile(is_me)
 {
-
-    //achive_map["snusk"] = [];
-    //achive_map["supa"] = [];
-
     achievement_box = new Vue({el: '#achievements',
     data: {
         es: EXPANSIONS,
@@ -34,9 +30,9 @@ function setup_profile(is_me)
         }
     });
     firebase_get_achievements().then(function(response){
-        achievement_box.visible = true;
+        console.log(5)
         achievement_box.achievements = achive_map;
-        console.log(Object.values(achive_map));
+        achievement_box.visible = true;
         Vue.nextTick(function () {
             //handle_achievement_swipes()
         });
@@ -55,16 +51,20 @@ async function firebase_get_achievements()
     "/actions/");
 
    await db_ref_achievements.once('value', function(snapshot) {
+       console.log(1)
         achievements.cards = [];
         for(key in snapshot.val())
         {
+            console.log(2)
             var action = snapshot.val()[key];
             if(action.winner_id != uid)
                 continue
             console.log(action);
             EXPANSIONS.forEach(function(e){
+                console.log(e)
                 if(action.card_id.includes(e))
                 {
+                    console.log(4)
                     if(achive_map[e] == undefined)
                         achive_map[e] = []
                     achive_map[e].push({id:action.card_id,loser_id:action.loser_id,text:action.card_text});
