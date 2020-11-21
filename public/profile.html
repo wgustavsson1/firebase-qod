@@ -28,7 +28,7 @@
 
     <div class = "clear-float"></div>
 
-    <button class = "green-button button" v-if = "button_visible" onclick="show_settings()">Account settings</button>
+    <button class = "button-green button" v-if = "button_visible" onclick="show_settings()">Account settings</button>
     <div id = "account-settings" v-if = "settings_visible">
       <button class = "white-button button" onclick="sign_out()">Sign out</button>
       <h3 class = "text-center clear-font">Delete account</h3>
@@ -36,34 +36,12 @@
       <button class = "red-button button">Delete my account</button>
     </div>
     <style>
-      [v-cloak]
-      {
-        display: none;
-      }
-
-      h1,h2,h3,h4,h5
-      {
-        font-family: 'Orbitron', bold;
-        color: #f2f24b;
-        margin: 0px;
-      }
-      p
-      {
-        color:white;
-        text-align:center;
-        font-size: 0.7em;
-        margin-left: 5vw;
-      }
       .card-wrapper
       {
         clear:both;
         width: 100%;
         text-align: center;
         margin:0;
-      }
-      .clear-float
-      {
-        clear:both;
       }
       .card
       {
@@ -91,7 +69,6 @@
       .button
       {
         clear: both;
-        color:black;
         text-align: center;
         padding: 2vw;
         font-style: bold;
@@ -103,63 +80,9 @@
         border:0;
         font-weight: bold;
       }
-      .green-button
-      {
-        background-color: green;
-      }
-      .red-button
-      {
-        background-color: red;
-      }
-      .white-button
-      {
-        background-color: white;
-      }
-      .text-center
-      {
-        text-align: center;
-        border-radius: 0;
-      }
-       .name
-      {
-        line-height: 10vw;
-        margin-bottom: 2vh;
-      }
       header
       {
         margin: 0px;
-      }
-      #profile
-      {
-        width: 100vw;
-        margin-left:5vw;
-      }
-      #profile-item
-      {
-        width: 100vw;
-        margin-left:5vw;
-      }
-      #profile-pic
-      {
-        align-items:center;
-        border-radius: 5em;
-        margin-right: 7vw;
-        width: 10vw;
-        height:10vw;
-        float:left;
-      }
-      #footer_menu
-      {
-        display: inline;
-        position: fixed;
-        bottom:2vh;
-      }
-      #footer_menu li
-      {
-        margin-left: 2vw;
-        font-family: 'Orbitron', bold;
-        color: #f2f24b;
-        display: inline;
       }
     </style>
 

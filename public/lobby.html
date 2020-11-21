@@ -22,7 +22,7 @@
       </div id = "invite-qr"></div>
     </div>
 
-    <h3>Players</h3>
+    <h3 class="text-center">Players</h3>
     <ul id = "player-list" v-cloak>
       <li v-for="player in players">
         <div v-if="player.status == 'connected'" id = "profile-item">
@@ -41,15 +41,6 @@
     </ul>
 
     <style>
-      [v-cloak] > * { display:none }
-      [v-cloak]::before { content: "loading…" }
-      
-      h1,h2,h3,h4,h5
-      {
-        font-family: 'Orbitron', bold;
-        color: #f2f24b;
-        text-align: center;
-      }
       .lobby-item
       {
         float:left;
@@ -59,25 +50,6 @@
       .log-item
       {
         color:green;
-      }
-      #clear-div
-      {
-        clear:both;
-      }
-      .name
-      {
-        line-height: 10vw;
-        margin-left: 0vw;
-        text-align: left;
-      }
-      #profile-pic
-      {
-        align-items:center;
-        border-radius: 5em;
-        margin-left: 0.5vw;
-        width: 10vw;
-        height:10vw;
-        float:left;
       }
       #host
       {
@@ -142,16 +114,6 @@
         font-weight: bold;
         margin-top:1.5vh;
       }
-      .orange-button
-      {
-        font-family: 'Orbitron', bold;
-        background-color:orange;
-      }
-      .green-button
-      {
-        font-family: 'Orbitron', bold;
-        background-color:green;
-      }
       #button-join-party
       {
         margin: 3vh auto 0 auto;
@@ -185,30 +147,12 @@
         padding:3vw;
         border:none;
       }
-      h1,h2,h3,h4,h5
-      {
-        font-family: 'Orbitron', bold;
-        color: #f2f24b;
-      }
       p
       {
         color:white;
         text-align:center;
         font-size: 0.5em;
         margin-left: 5vw;
-      }
-      #footer_menu
-      {
-        display: inline;
-        position: fixed;
-        bottom:5vh;
-      }
-      #footer_menu li
-      {
-        margin-left: 2vw;
-        font-family: 'Orbitron', bold;
-        color: #f2f24b;
-        display: inline;
       }
     </style>
 
