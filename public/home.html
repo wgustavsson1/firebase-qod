@@ -13,11 +13,12 @@
     <script src="fb.js"></script>
     <script src="tools/formatting.js"></script>
     <script src="profile.js"></script>    
+    <script src="expansions.js"></script>
     <script defer src="lobby.js"></script>    
     <script defer src="create_lobby.js"></script>
     <script defer src="friends.js"></script>
     <script defer src="wall.js"></script>
-    <script src="expansions.js"></script>
+    <script src="menu.js"></script>
     <script defer src="game.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- development version, includes helpful console warnings -->
@@ -40,14 +41,17 @@
 
     </div>
 
-        <footer id = "footer_menu" v-if="visible">
+    <footer id = "footer_menu" v-if="visible" onclick="slide_toggle()">
+    </footer>
+
+        <!--<footer id = "footer_menu" v-if="visible">
           <ul>
             <li id = "footer_menu_home">Home</li>
             <li id = "footer_menu_profile">Profile</li>
             <li id = "footer_menu_wall">Wall</li>
             <li id = "footer_menu_friends">Friends</li>
           </ul>
-        </footer>
+        </footer>-->
 
       <script defer src="/__/firebase/7.15.5/firebase-app.js"></script>
       <script defer src="/__/firebase/7.15.5/firebase-auth.js"></script>
@@ -64,6 +68,8 @@
     </script>
 
     <style>
+
+
     </style>
   </body>
 </html>

@@ -25,13 +25,18 @@ body
     height: 100%;
     width: 100%;
     position: fixed;
-    background-color:#464e59;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: +10;
+    /*https://mycolor.space/gradient?ori=circle&hex=%231C1F1E&hex2=%233E4866&sub=1 */
+    background-image: radial-gradient(circle, #1c1f1e, #1d2b2b, #1e363e, #274053, #3e4866);
 }
 #page
 {
     height:100%;
     width: 100%;
     margin-top:0;
+    z-index: -10;
 }
 h1,h2,h3,h4,h5
 {
@@ -125,10 +130,57 @@ ul
 }
 #footer_menu
 {
-    display: inline;
+    width:4vw;
+    right:0;
+    top:45vh;
+    height:10vh;
+    padding: 2vw;
+    text-align: center;
+    border:1px solid white;
     position: fixed;
-    bottom:2vh;
+    border-radius: 5px 0px 0px 5px;
 }
+.slide_in
+{
+    animation-name: slidein;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+}
+.slide_out
+{
+    animation-name: slideout;
+    animation-duration: 1.5s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes slideout {
+  from {
+    top:45vh;
+    height:10vh;
+    width: 4vw;
+  }
+
+  to { 
+    width: 10vw;
+    height:40vh;
+    top:30vh;
+  }
+}
+@keyframes slidein {
+  from {
+    width: 10vw;
+    height:40vh;
+    top:30vh;
+  }
+
+  to { 
+    top:45vh;
+    height:10vh;
+    width: 4vw;
+  }
+}
+
+
 #footer_menu li
 {
     margin-left: 2vw;
