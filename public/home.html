@@ -41,18 +41,20 @@
 
     </div>
 
-    <footer id = "footer_menu" v-if="visible" onclick="slide_toggle()">
+    <footer id = "footer_menu" onclick="slide_toggle()">
+      <div id = "footer-content" v-show="expanded">
+        <ul>
+            <li id = "footer_menu_home" ><img src="/images/placeholder/atom.png"></li>
+            <li id = "footer_menu_profile"><img src="/images/placeholder/atom.png"></li>
+            <li id = "footer_menu_wall"><img src="/images/placeholder/atom.png"></li>
+            <li id = "footer_menu_friends"><img src="/images/placeholder/atom.png"></li>
+        </ul>
+      </div>
+      <div id = "footer-expand-icon" v-if = "expanded == false">
+        <img src= "/images/placeholder/atom.png">
+      </div>
     </footer>
-
-        <!--<footer id = "footer_menu" v-if="visible">
-          <ul>
-            <li id = "footer_menu_home">Home</li>
-            <li id = "footer_menu_profile">Profile</li>
-            <li id = "footer_menu_wall">Wall</li>
-            <li id = "footer_menu_friends">Friends</li>
-          </ul>
-        </footer>-->
-
+    
       <script defer src="/__/firebase/7.15.5/firebase-app.js"></script>
       <script defer src="/__/firebase/7.15.5/firebase-auth.js"></script>
       <script defer src="/__/firebase/7.15.5/firebase-database.js"></script>

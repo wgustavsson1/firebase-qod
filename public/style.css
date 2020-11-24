@@ -89,11 +89,6 @@ button
     background-color:orange;
 }
 
-ul 
-{
-    list-style-type: none;
-}
-
 
 .text-center
 {
@@ -130,7 +125,7 @@ ul
 }
 #footer_menu
 {
-    width:4vw;
+    width:5vw;
     right:0;
     top:45vh;
     height:10vh;
@@ -140,6 +135,26 @@ ul
     position: fixed;
     border-radius: 5px 0px 0px 5px;
 }
+
+#footer-expand-icon
+{
+    margin-top: -50%; /* This number should be half the height of your image */
+    position: absolute;
+    top: 50%;
+}
+
+#footer_menu ul 
+{
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+}
+
+#footer_menu li
+{
+    margin-top:2vh;
+}
+
 .slide_in
 {
     animation-name: slidein;
@@ -157,18 +172,18 @@ ul
   from {
     top:45vh;
     height:10vh;
-    width: 4vw;
+    width: 5vw;
   }
 
   to { 
-    width: 10vw;
+    width: 15vw;
     height:40vh;
     top:30vh;
   }
 }
 @keyframes slidein {
   from {
-    width: 10vw;
+    width: 15vw;
     height:40vh;
     top:30vh;
   }
@@ -176,18 +191,10 @@ ul
   to { 
     top:45vh;
     height:10vh;
-    width: 4vw;
+    width: 5vw;
   }
 }
 
-
-#footer_menu li
-{
-    margin-left: 2vw;
-    font-family: 'main';
-    color: #f2f24b;
-    display: inline;
-}
 .clear-float
 {
     clear:both;

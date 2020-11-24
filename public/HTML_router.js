@@ -11,7 +11,8 @@ async function loadPage(page) {
 
 function add_home_click_listeners()
 {
-    //add_footer_menu_listeners();
+    setup_menu();
+    add_footer_menu_listeners();
     add_buttons_listeners();
 }
 
