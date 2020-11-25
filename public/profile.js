@@ -1,3 +1,4 @@
+var profile_id = null;
 var achievement_box = null;
 
 var achievement_element = null;
@@ -12,9 +13,9 @@ const EXPANSIONS_NAME_MAP = {vanilla:'Original', moonshine:'Hembränt',dirty:'Se
 
 var index_map = {};
 
-async function setup_profile(profile_id)
-{
-    profile = null;
+async function setup_profile(p_id)
+{   
+    profile_id = p_id;
     var profile = new Vue({
         el: '#header',
         data: {
@@ -23,7 +24,10 @@ async function setup_profile(profile_id)
         profile_src: fb_users[profile_id].profile_pic
         }
         });
-
+    
+    achievements = [];
+    achive_map = {};
+    
     achievement_box = new Vue({el: '#achievements',
     data: {
         es: EXPANSIONS,
@@ -34,14 +38,20 @@ async function setup_profile(profile_id)
         }
     });
 
+    account_settings = null;
     account_settings = new Vue({el: '#settings-wrapper',
     data: {
         visible: false,
-        button_visible:true,
+        button_visible:false,
         settings_visible:false,
         text: "Account Settings"
         }
     });
+    //If the profile is myself
+    if(profile_id == uid)
+    {
+        account_settings.button_visible = true;
+    }
     firebase_get_achievements().then(function(response){
         console.log(5)
         achievement_box.achievements = achive_map;
@@ -70,7 +80,7 @@ function show_settings()
 }
 async function firebase_get_achievements()
 {
-    db_ref_achievements = firebase.database().ref('users/' + uid + 
+    db_ref_achievements = firebase.database().ref('users/' + profile_id + 
     "/actions/");
 
    await db_ref_achievements.once('value', function(snapshot) {
@@ -80,7 +90,7 @@ async function firebase_get_achievements()
         {
             console.log(2)
             var action = snapshot.val()[key];
-            if(action.winner_id != uid)
+            if(action.winner_id != profile_id)
                 continue
             console.log(action);
             EXPANSIONS.forEach(function(e){
