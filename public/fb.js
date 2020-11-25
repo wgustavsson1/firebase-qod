@@ -65,7 +65,7 @@ async function fb_get_user_data()
     else
     {
         get_user_data();
-        FBLocalStorage.set('user',uid,60*10);
+        FBLocalStorage.set('user',uid,5);
     }
 }
 function get_user_data()
@@ -161,6 +161,7 @@ async function fb_get_user(user_id)
     var profile_src = await fb_get_user_picture(user_id);
     FB.api('/' + user_id + '/', function(response) {
         //u = {id:response.id,name:response.name};
+        console.log(user_id)
         fb_users[user_id]['id'] = response.id;
         fb_users[user_id]['name'] = response.name;
     });

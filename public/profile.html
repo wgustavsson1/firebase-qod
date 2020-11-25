@@ -15,25 +15,25 @@
 
     <div class = "clear-float"></div>
 
-    <center>
-      <div id = "achievements">
+      <div id = "achievements" v-if = "visible">
         <div  v-for="(achievement,expansion) in achievements">
           <div class = "card" v-bind:id="expansion">
-            <h2 class = "clear-font">Quest Or Drink</h2>
-            <h4 class = "clear-font">{{expansion}} : {{achievements[expansion][indexes[expansion]].text}}</h4>
+            <h4>{{achievements[expansion][indexes[expansion]].expansion_name}}</h4>
+            <h5>{{achievements[expansion][indexes[expansion]].text}}</h5>
           </div>
         </div>
       </div>
-    </center>
 
     <div class = "clear-float"></div>
-
-    <button class = "button-green button" v-if = "button_visible" onclick="show_settings()">Account settings</button>
-    <div id = "account-settings" v-if = "settings_visible">
-      <button class = "white-button button" onclick="sign_out()">Sign out</button>
-      <h3 class = "text-center clear-font">Delete account</h3>
-      <p>If you choose to delete your account all your data submited to Quest Or Drink will be deleted according to the GDPR legislation and our privacy policy</p>
-      <button class = "red-button button">Delete my account</button>
+    
+    <div id = "settings-wrapper">
+      <button class = "button-green button" v-if = "button_visible" onclick="show_settings()">{{text}}</button>
+      <div id = "account-settings" v-if = "settings_visible">
+        <button class = "white-button button" onclick="sign_out()">Sign out</button>
+        <h3 class = "text-center clear-font">Delete account</h3>
+        <p>If you choose to delete your account all your data submited to Quest Or Drink will be deleted according to the GDPR legislation and our privacy policy</p>
+        <button class = "red-button button">Delete my account</button>
+      </div>
     </div>
     <style>
       .card-wrapper
@@ -53,15 +53,36 @@
         background-image: linear-gradient(180deg,#252525,black);
         color:#f2f24b;
         font-size:1em;
-        margin-left: 1vh;
+        margin-left: 2vh;
         margin-top: 1vh;
         border-radius: 5vw;
-        border-width:1vh;
+        border-width:0.5vh;
         border-color:white;
         border-style:outset;;
         text-align: center;
         font-family: 'Orbitron', bold;
       }
+      .card h3,h4,h5
+      {
+        padding: 0;
+        margin-bottom: 0;
+        margin-top:0.5vh;
+      }
+      .small-text
+      {
+        margin-top:0.2vh;
+        padding:0;
+        font-family: 'Orbitron', bold;
+      }
+      #achievements
+      {
+       position: relative;
+       width:90vw;
+       margin-top:5vh;
+       margin-left: 5vw;
+       height:70vh;
+      }
+
       #sign-out
       {
         margin-top:1vh;
