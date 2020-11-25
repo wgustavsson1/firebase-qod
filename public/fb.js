@@ -57,8 +57,8 @@ async function fb_get_user_data()
         var profile = new Vue({
         el: '#header',
         data: {
-        name: name,
-        profile_src: profile_src
+        name: fb_users[uid].name,
+        profile_src: fb_users[uid].profile_src
         }
         });
     }
@@ -79,6 +79,9 @@ function get_user_data()
             console.log(response);
             console.log("ID: " + uid);
             profile_src = response.data.url;
+            fb_users[uid] = {};
+            fb_users[uid]['profile_pic'] = profile_src
+            fb_users[uid].name = name
              var profile = new Vue({
             el: '#header',
             data: {

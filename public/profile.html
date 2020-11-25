@@ -8,7 +8,7 @@
 
 
     <header id = "header" v-cloak>
-      <div id = "profile">
+      <div class = "profile" v-bind:id="profile_uid" onclick="profile_clicked(this)">
         <img v-bind:src="profile_src" id = "profile-pic"> <h4 class = "name clear-font">{{name}}</h4>
       </div>
     </header>

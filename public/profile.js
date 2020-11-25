@@ -12,9 +12,18 @@ const EXPANSIONS_NAME_MAP = {vanilla:'Original', moonshine:'Hembränt',dirty:'Se
 
 var index_map = {};
 
-
-async function setup_profile(is_me)
+async function setup_profile(profile_id)
 {
+    profile = null;
+    var profile = new Vue({
+        el: '#header',
+        data: {
+        profile_uid: profile_id,
+        name: fb_users[profile_id].name,
+        profile_src: fb_users[profile_id].profile_pic
+        }
+        });
+
     achievement_box = new Vue({el: '#achievements',
     data: {
         es: EXPANSIONS,
@@ -40,6 +49,15 @@ async function setup_profile(is_me)
         Vue.nextTick(function () {
             handle_achievement_swipes()
         });
+    });
+}
+
+function profile_clicked(profile_element)
+{
+   id = profile_element.id
+   console.log(id);
+   loadPage("profile.html").then(function(){
+        setup_profile(id);
     });
 }
 

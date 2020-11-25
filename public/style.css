@@ -103,16 +103,11 @@ button
 {
     line-height: 10vw;
 }
-#profile
+.profile
 {
     width: 100vw;
     margin-left:5vw;
     margin-top:10vh;
-}
-#profile-item
-{
-    width: 100vw;
-    margin-left:5vw;
 }
 #profile-pic
 {
