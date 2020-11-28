@@ -111,6 +111,7 @@ function open_camera()
         );
         scanner.addListener('scan', function(card) {
             firebase_swap_card(card);
+            vibrate(500);
         });
         Instascan.Camera.getCameras().then(cameras => 
         {
@@ -415,8 +416,8 @@ function add_qr_codes(map)
     {
         var qrcode = new QRCode(id, {
         text:id+ "&&" + uid,
-        width: 120,
-        height: 120,
+        width: 90,
+        height: 90,
         colorDark : "#000000",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
@@ -449,4 +450,9 @@ function shuffleMap (myArray) {
      myArray[i] = tempj;
      myArray[j] = tempi;
    }
+}
+
+function vibrate(ms)
+{
+    window.navigator.vibrate(ms);
 }

@@ -64,17 +64,17 @@ async function fb_get_user_data()
     }
     else
     {
-        get_user_data();
+        await get_user_data();
         FBLocalStorage.set('user',uid,5);
     }
 }
-function get_user_data()
+async function get_user_data()
 {
     FB.api('/me', function(response) {
         name = response.name;
         uid = response.id;
-        console.log(uid)
-        fb_get_user(uid)
+        console.log(uid);
+        fb_get_user(uid);
         FB.api("/" + uid +  "/picture?redirect=false", function (response) {
             console.log(response);
             console.log("ID: " + uid);
@@ -167,6 +167,6 @@ async function fb_get_user(user_id)
         console.log(user_id)
         fb_users[user_id]['id'] = response.id;
         fb_users[user_id]['name'] = response.name;
+        fb_users[user_id]['profile_pic'] = profile_src;
     });
-    return fb_users[user_id];
 }
