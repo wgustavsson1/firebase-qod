@@ -9,14 +9,20 @@
         <h2 class = "clear-font"></h2>
       </div>
 
-      <div id = "expansion" v-if="not_approved">
+      <div id = "approval-wrapper">
+        <div id = "approval" v-if="pre_approve_visible">
           <h4 class = "clear-font">Please read the disclaimers down below before approving</h4>
             <ul id = "disclaimers" v-cloak>
               <li v-for="disclaimer in disclaimers">
                 <h4 class = "clear-font">{{disclaimer}}</h4>
               </li> 
             </ul>
-        <button class = "button button-green clear-font" onclick="approve_disclaimers()">I Approve!</button>
+          <button class = "button button-green clear-font" onclick="approve_disclaimers()">I Approve!</button>
+        </div>
+        <div id = "approval-waiting" v-if = "post_approve_visible">
+          <h4 class = "clear-font">Waiting for everyone to approve!</h4>
+        </div>
+      
       </div>
     
     <div id = "card-box"  v-show="visible">
@@ -145,7 +151,13 @@
         margin: auto;
       }
 
-      #expansion
+      #approval-wrapper
+      {
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      #approval
       {
         border-radius: 1em 1em 1em 1em;
         margin: 0 auto;

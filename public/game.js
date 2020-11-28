@@ -36,14 +36,14 @@ async function start_game()
     });
 
 
-    exp = new Vue({el: '#expansion',
+    approval = new Vue({el: '#approval-wrapper',
     data: {
         name : expansion.name,
         description: expansion.description,
         disclaimers: expansion.disclaimers,
         tasks: expansion.tasks,
-        i_have_approved: false,
-        not_approved:true
+        pre_approve_visible:true,
+        post_approve_visible: false
         }
     });
 
@@ -366,9 +366,10 @@ function hand_cards()
 
 function approve_disclaimers()
 {
+    approval.post_approve_visible = true;
+    approval.pre_approve_visible = false;
     var ref = firebase.database().ref("users/" + host_id +  "/lobbies/" + lobby + "/players/" + uid);
     ref.update({status: "ready"});
-    exp.i_have_approved = true;
 }
 
 function firebase_wait_for_ready_status()
@@ -385,14 +386,14 @@ function firebase_wait_for_ready_status()
         }
         if(ready)
         {   
-            exp.not_approved = false;
+            approval.pre_approve_visible = false;
+            approval.post_approve_visible = false;
             card_box.visible = true;
             timer_div.visible = true;
             Vue.nextTick(function () {
             c = document.getElementById("card-box").querySelector(".card");
             card_width = c.offsetWidth;
             });
-            approve_disclaimers();
         }
     });
 }
