@@ -1,4 +1,5 @@
 var profile_id = null;
+var expansions_box = null;
 var achievement_box = null;
 
 var achievement_element = null;
@@ -9,7 +10,7 @@ var achive_map = {};
 
 //TODO: FIX non hardcoded solution
 const EXPANSIONS = ["vanilla","moonshine","dirty"];
-const EXPANSIONS_NAME_MAP = {vanilla:'Original', moonshine:'Hembränt',dirty:'Sex & Snusk'}
+const EXPANSIONS_NAME_MAP = {vanilla:'Original', moonshine:'Hembränt',dirty:'Sex & Snusk',flirt:'Flört'}
 
 var index_map = {};
 
@@ -27,6 +28,13 @@ async function setup_profile(p_id)
     
     achievements = [];
     achive_map = {};
+
+    expansions_box = new Vue ({el: '#expansions-wrapper',
+         data: {
+            exps: EXPANSIONS_NAME_MAP,
+            visible:false
+        }
+    });
     
     achievement_box = new Vue({el: '#achievements',
     data: {
@@ -54,6 +62,7 @@ async function setup_profile(p_id)
     }
     firebase_get_achievements().then(function(response){
         console.log(5)
+        expansions_box.visible = true;
         achievement_box.achievements = achive_map;
         achievement_box.visible = true;
         Vue.nextTick(function () {
@@ -75,6 +84,7 @@ function profile_clicked(profile_element)
 function show_settings()
 {
     account_settings.settings_visible = true;
+    expansions_box.visible = false;
     achievement_box.visible = false;
     account_settings.button_visible = false;
 }
@@ -108,7 +118,6 @@ async function firebase_get_achievements()
         }
     });
 }
-
 
 async function handle_achievement_swipes()
 {
@@ -144,7 +153,6 @@ async function handle_touch_move(evt) {
     console.log("4")
     var xUp = evt.touches[0].clientX;                                    
     var xDiff = xDown - xUp;
-
 
     //TODO: Make sure the touched card element is found not any child elements
     var element = document.elementFromPoint(evt.touches[0].clientX, evt.touches[0].clientY);

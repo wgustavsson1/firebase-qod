@@ -14,6 +14,13 @@
     </header>
 
     <div class = "clear-float"></div>
+    <div id = "expansions-wrapper" v-if = "visible">
+      <div  v-for="(value,key) in exps" class = "small-card">
+        <h4>{{exps[key]}}</h4>
+      </div>
+    </div>
+    
+    <div class = "clear-float"></div>
 
       <div id = "achievements" v-if = "visible">
         <div  v-for="(achievement,expansion) in achievements">
@@ -36,13 +43,7 @@
       </div>
     </div>
     <style>
-      .card-wrapper
-      {
-        clear:both;
-        width: 100%;
-        text-align: center;
-        margin:0;
-      }
+
       .card
       {
         width: 17.8370785vh;
@@ -74,6 +75,32 @@
         padding:0;
         font-family: 'Orbitron', bold;
       }
+      .small-card
+      {
+        padding: 2vh;
+        display: inline-block;
+        background-image: linear-gradient(180deg,#252525,black);
+        color:#f2f24b;
+        font-size:1em;
+        border-radius: 5vw;
+        border-width:0.5vh;
+        margin-left: 5vw;
+        border-color:white;
+        border-style:outset;;
+        text-align: center;
+        font-family: 'Orbitron', bold;
+      }
+      #expansions-wrapper
+      {
+        float:left;
+        text-align: center;
+        margin-top:5vh;
+        width:80vw;
+        margin-left: 10vw;
+        margin-right:10vw;
+        overflow: auto;
+        white-space: nowrap;
+      }
       #achievements
       {
        position: relative;
@@ -82,6 +109,7 @@
        margin-left: 5vw;
        height:70vh;
       }
+
 
       #sign-out
       {
