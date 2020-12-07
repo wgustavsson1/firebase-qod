@@ -8,6 +8,8 @@ var achievements = [];
 
 var achive_map = {};
 
+var selected_expansion = null;
+
 //TODO: FIX non hardcoded solution
 const EXPANSIONS = ["vanilla","moonshine","dirty"];
 const EXPANSIONS_NAME_MAP = {vanilla:'Original', moonshine:'Hembränt',dirty:'Sex & Snusk',flirt:'Flört'}
@@ -36,12 +38,9 @@ async function setup_profile(p_id)
         }
     });
     
-    achievement_box = new Vue({el: '#achievements',
+    achievement_box = new Vue({el: '#achievements-wrapper',
     data: {
-        es: EXPANSIONS,
-        achievements: null,
-        indexes: index_map,
-        text: null,
+        selected_expansion: null,
         visible: false
         }
     });
@@ -63,10 +62,10 @@ async function setup_profile(p_id)
     firebase_get_achievements().then(function(response){
         console.log(5)
         expansions_box.visible = true;
-        achievement_box.achievements = achive_map;
         achievement_box.visible = true;
+        //achievement_box.achievements = achive_map;
         Vue.nextTick(function () {
-            handle_achievement_swipes()
+            //handle_achievement_swipes()
         });
     });
 }
@@ -88,6 +87,15 @@ function show_settings()
     achievement_box.visible = false;
     account_settings.button_visible = false;
 }
+
+
+function expansion_clicked(element)
+{
+    selected_expansion = achive_map[element.id];
+    achievement_box.selected_expansion = selected_expansion
+}
+
+
 async function firebase_get_achievements()
 {
     db_ref_achievements = firebase.database().ref('users/' + profile_id + 
@@ -111,7 +119,6 @@ async function firebase_get_achievements()
                     if(achive_map[e] == undefined)
                         achive_map[e] = []
                     achive_map[e].push({expansion_name:EXPANSIONS_NAME_MAP[e],id:action.card_id,loser_id:action.loser_id,text:action.card_text});
-                    index_map[e] = 0;
                     console.log(achive_map);
                 }
             })
@@ -119,20 +126,23 @@ async function firebase_get_achievements()
     });
 }
 
+
 async function handle_achievement_swipes()
 {
-    /*achievement_element = document.getElementById('card');
-    achievement_element.addEventListener('touchstart', handle_touch_start, true);
-    achievement_element.addEventListener('touchmove', handle_touch_move, true);*/
 
-    card_elements = document.querySelectorAll('.card');
+    //achievement_element = document.getElementById('card');
+    //achievement_element.addEventListener('touchstart', handle_touch_start, true);
+    //achievement_element.addEventListener('touchmove', handle_touch_move, true);*/
 
-    card_elements.forEach(function(e){
-        e.addEventListener('touchstart', handle_touch_start, true);
-        e.addEventListener('touchmove', handle_touch_move, true);
-    });
+    //card_elements = document.querySelectorAll('.card');
 
+    //card_elements.forEach(function(e){
+        //e.addEventListener('touchstart', handle_touch_start, true);
+        //e.addEventListener('touchmove', handle_touch_move, true);
+    //});
 }
+
+/*
 
 function getTouches(evt) {
     console.log("2")
@@ -184,3 +194,5 @@ async function handle_touch_move(evt) {
     }                                                                                                 
     xDown = null;   
 };
+
+*/

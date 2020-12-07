@@ -15,20 +15,18 @@
 
     <div class = "clear-float"></div>
     <div id = "expansions-wrapper" v-if = "visible">
-      <div  v-for="(value,key) in exps" class = "small-card">
-        <h4>{{exps[key]}}</h4>
+      <div  v-for="(value,key) in exps" v-bind:id="key" class = "expansion-marker" onclick="expansion_clicked(this)">
+        <h4>{{value}}</h4>
       </div>
     </div>
     
     <div class = "clear-float"></div>
 
-      <div id = "achievements" v-if = "visible">
-        <div  v-for="(achievement,expansion) in achievements">
-          <div class = "card" v-bind:id="expansion">
-            <h4>{{achievements[expansion][indexes[expansion]].expansion_name}}</h4>
-            <h5>{{achievements[expansion][indexes[expansion]].text}}</h5>
+      <div id = "achievements-wrapper" v-if = "visible">
+        <div  v-for="(value,index) in selected_expansion" class = "card" v-bind:id="value.id">
+            <h4>{{value.expansion_name}}</h4>
+            <h5>{{value.text}}</h5>
           </div>
-        </div>
       </div>
 
     <div class = "clear-float"></div>
@@ -49,19 +47,27 @@
         width: 17.8370785vh;
         height:25vh;
         padding: 1vh;
-        display: inline-block;
+        margin-left:1vh;
+        margin-bottom:1vh;
         float:left;
         background-image: linear-gradient(180deg,#252525,black);
         color:#f2f24b;
         font-size:1em;
-        margin-left: 2vh;
-        margin-top: 1vh;
         border-radius: 5vw;
         border-width:0.5vh;
         border-color:white;
         border-style:outset;;
         text-align: center;
         font-family: 'Orbitron', bold;
+      }
+      #achievements-wrapper
+      {
+       width:90vw;
+       margin-top:5vh;
+       margin-left:5vw;
+       float:left;
+       text-align: center;
+       height:70vh;
       }
       .card h3,h4,h5
       {
@@ -75,9 +81,10 @@
         padding:0;
         font-family: 'Orbitron', bold;
       }
-      .small-card
+      .expansion-marker
       {
         padding: 2vh;
+        width:20vw;
         display: inline-block;
         background-image: linear-gradient(180deg,#252525,black);
         color:#f2f24b;
@@ -95,19 +102,11 @@
         float:left;
         text-align: center;
         margin-top:5vh;
-        width:80vw;
-        margin-left: 10vw;
+        width:90vw;
+        margin-left: 5vw;
         margin-right:10vw;
         overflow: auto;
         white-space: nowrap;
-      }
-      #achievements
-      {
-       position: relative;
-       width:90vw;
-       margin-top:5vh;
-       margin-left: 5vw;
-       height:70vh;
       }
 
 
