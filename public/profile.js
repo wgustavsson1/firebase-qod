@@ -93,6 +93,26 @@ function expansion_clicked(element)
 {
     selected_expansion = achive_map[element.id];
     achievement_box.selected_expansion = selected_expansion
+    if(!element.classList.contains("rotate"))
+    {
+        element.classList.add("rotate")
+    }
+    else
+    {
+        element.classList.remove("rotate")
+    }
+
+     Vue.nextTick(function () {
+        animate_achievements();
+     });
+}
+
+function animate_achievements()
+{
+    card_elements = document.querySelectorAll('.card');
+    card_elements.forEach(function(e){
+        e.classList.add("rotate")
+    });
 }
 
 
