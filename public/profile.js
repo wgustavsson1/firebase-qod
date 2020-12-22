@@ -61,8 +61,7 @@ async function setup_profile(p_id)
     }
     firebase_get_achievements().then(function(response){
         console.log(5)
-        expansions_box.visible = true;
-        achievement_box.visible = true;
+        expansions_box.visible = true; //TODO: Move to after then()
         //achievement_box.achievements = achive_map;
         Vue.nextTick(function () {
             //handle_achievement_swipes()
@@ -91,6 +90,8 @@ function show_settings()
 
 function expansion_clicked(element)
 {
+    achievement_box.selected_expansion = null;
+    achievement_box.visible = true;
     selected_expansion = achive_map[element.id];
     achievement_box.selected_expansion = selected_expansion
     if(!element.classList.contains("rotate"))
@@ -101,20 +102,44 @@ function expansion_clicked(element)
     {
         element.classList.remove("rotate")
     }
-
-     Vue.nextTick(function () {
+    Vue.nextTick(function () {
         animate_achievements();
      });
 }
 
 function animate_achievements()
 {
-    card_elements = document.querySelectorAll('.card');
-    card_elements.forEach(function(e){
-        e.classList.add("rotate")
+    achievement_box.selected_expansion.forEach(function(a,i) {
+    setTimeout(function(){
+        a.visible = true;
+        console.log(a);
+        Vue.nextTick(function () {
+            var element = document.getElementById(a.id);
+            console.log(element)
+            if(!element.classList.contains("shake"))
+            {
+                element.classList.add("shake")
+            }
+        });   
+    },1000*(i+1));
     });
+
+    setTimeout(function(){
+        card_elements = document.querySelectorAll('.shake');
+        card_elements.forEach(function(e){
+            e.classList.remove("shake")
+        });
+    },1000* (selected_expansion.length + 1));
+
 }
 
+function delay(delayInms) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(2);
+    }, delayInms);
+  });
+}
 
 async function firebase_get_achievements()
 {
@@ -122,7 +147,6 @@ async function firebase_get_achievements()
     "/actions/");
 
    await db_ref_achievements.once('value', function(snapshot) {
-       console.log(1)
         achievements.cards = [];
         for(key in snapshot.val())
         {
@@ -138,7 +162,8 @@ async function firebase_get_achievements()
                     console.log(4)
                     if(achive_map[e] == undefined)
                         achive_map[e] = []
-                    achive_map[e].push({expansion_name:EXPANSIONS_NAME_MAP[e],id:action.card_id,loser_id:action.loser_id,text:action.card_text});
+                    achive_map[e].push({expansion_name:EXPANSIONS_NAME_MAP[e],id:action.card_id,loser_id:action.loser_id,
+                        text:action.card_text,visible:false});
                     console.log(achive_map);
                 }
             })
