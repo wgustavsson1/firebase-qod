@@ -94,16 +94,19 @@
         border-width:0.5vh;
         margin-right: 5vw;
         border-color:white;
-        border-style:outset;;
+        border-style:outset;
         text-align: center;
         font-family: 'Orbitron', bold;
       }
 
       .rotate
       {
-        animation: rotation 3s ease-in forwards; 
+        animation: rotation 3s ease-in;
       }
-
+      .selected_expansion
+      {
+        border-color:pink;
+      }
       .shake
       {
         animation: shake 5s; 
@@ -138,7 +141,6 @@
         }
         to {
           transform: rotate(360deg);
-          border-color:green;
         }
       }
       #expansions-wrapper

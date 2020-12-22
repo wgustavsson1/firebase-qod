@@ -1,3 +1,4 @@
+
 var profile_id = null;
 var expansions_box = null;
 var achievement_box = null;
@@ -9,6 +10,7 @@ var achievements = [];
 var achive_map = {};
 
 var selected_expansion = null;
+var selected_expansion_name = null;
 
 //TODO: FIX non hardcoded solution
 const EXPANSIONS = ["vanilla","moonshine","dirty"];
@@ -90,9 +92,21 @@ function show_settings()
 
 function expansion_clicked(element)
 {
-    achievement_box.selected_expansion = null;
-    achievement_box.visible = true;
-    selected_expansion = achive_map[element.id];
+    //If the expansion is already rendered but pressed again
+    if(element.id == selected_expansion_name)
+        return;
+    
+    exp_markers = document.querySelectorAll('.expansion-marker');
+    exp_markers.forEach(function(e){
+        e.classList.remove("selected_expansion")
+    });
+
+    element.classList.add("selected_expansion");
+    selected_expansion_name = element.id;
+    selected_expansion = achive_map[selected_expansion_name];
+
+    clear_achievements_from_expansion(selected_expansion);
+
     achievement_box.selected_expansion = selected_expansion
     if(!element.classList.contains("rotate"))
     {
@@ -103,8 +117,21 @@ function expansion_clicked(element)
         element.classList.remove("rotate")
     }
     Vue.nextTick(function () {
+        achievement_box.visible = true;
         animate_achievements();
      });
+}
+
+function clear_achievements_from_expansion(expansion)
+{
+    if(expansion ==  null || expansion == undefined)
+        return;
+
+    expansion.forEach(function(e){
+        e.visible = false;
+        console.log("hide " + e);
+    });
+    achievement_box.selected_expansion = null;
 }
 
 function animate_achievements()
