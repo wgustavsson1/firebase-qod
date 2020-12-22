@@ -101,11 +101,13 @@
 
       .rotate
       {
-        animation: rotation 2s ease-in infinite;
+        animation: rotation 2s ease-out infinite;
       }
       .selected_expansion
       {
-        border-color:pink;
+        border-color:greenyellow;
+        padding: 3vh;
+        box-shadow: 10px 15px 15px rgba(255,255,255,0.3);
       }
       .shake
       {
@@ -116,6 +118,7 @@
       @keyframes shake {
         0% 
         {
+           box-shadow: 10px 15px 20px rgba(255,255,255,0.3);
            transform: translate(1px, 1px) rotate(0deg);
            opacity: 0;
         }
@@ -125,6 +128,7 @@
         40% { transform: translate(4px, -1px) rotate(1deg); }
         50% 
         {
+           box-shadow: 15px 20px 30px rgba(255,255,255,0.3);
            transform: translate(-1px, 2px) rotate(-1deg);
            opacity: 0.3;
         }
@@ -134,6 +138,7 @@
         90% { transform: translate(1px, 2px) rotate(0deg); }
         100% 
         {
+           box-shadow: 20px 30px 40px rgba(255,255,255,0.3);
            transform: translate(1px, -2px) rotate(-1deg); 
            opacity: 1;
         }
@@ -141,17 +146,19 @@
 
       @keyframes rotation {
         from {
-          transform: translate(-7px, 4px) rotate(0deg);
+          transform:  rotate(0deg);
+          box-shadow: 10px 15px 15px rgba(255,255,255,0.3);
         }
         to {
-          transform: translate(7px, -4px) rotate(360deg);
+          transform: rotate(360deg);
+          box-shadow: 10px 15px 15px rgba(255,255,255,0.3);
         }
       }
       #expansions-wrapper
       {
         float:left;
         text-align: center;
-        margin-top:3vh;
+        margin-top:2vh;
         padding-top:4vh;
         border-bottom: 1vh outset greenyellow;
         padding-bottom:4vh;
