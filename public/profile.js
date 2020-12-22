@@ -90,11 +90,17 @@ function show_settings()
 }
 
 
+var animation_completed = true;
+
 function expansion_clicked(element)
 {
     //If the expansion is already rendered but pressed again
-    if(element.id == selected_expansion_name)
+    if(element.id == selected_expansion_name || !animation_completed)
         return;
+
+    animation_completed = false;
+    //Start expansion animation
+    element.classList.add("rotate");
     
     exp_markers = document.querySelectorAll('.expansion-marker');
     exp_markers.forEach(function(e){
@@ -108,17 +114,10 @@ function expansion_clicked(element)
     clear_achievements_from_expansion(selected_expansion);
 
     achievement_box.selected_expansion = selected_expansion
-    if(!element.classList.contains("rotate"))
-    {
-        element.classList.add("rotate")
-    }
-    else
-    {
-        element.classList.remove("rotate")
-    }
+
     Vue.nextTick(function () {
         achievement_box.visible = true;
-        animate_achievements();
+        animate_achievements(element);
      });
 }
 
@@ -134,38 +133,54 @@ function clear_achievements_from_expansion(expansion)
     achievement_box.selected_expansion = null;
 }
 
-function animate_achievements()
+function animate_achievements(expansion_element)
 {
+    
+    const nr_of_achievements = achievement_box.selected_expansion.length;
+    const ANIMATION_SPEED_UP_FACTOR = 10;
+
+    var current_animation_time = 0;
     achievement_box.selected_expansion.forEach(function(a,i) {
-    setTimeout(function(){
-        a.visible = true;
-        console.log(a);
-        Vue.nextTick(function () {
-            var element = document.getElementById(a.id);
-            console.log(element)
-            if(!element.classList.contains("shake"))
+
+        current_animation_time = ((1000 - (nr_of_achievements * ANIMATION_SPEED_UP_FACTOR)) * (i+1));
+
+        console.log("index" + i)
+        console.log("achievements" + nr_of_achievements)
+
+
+        setTimeout(function(){
+            a.visible = true;
+            console.log(a);
+            Vue.nextTick(function () {
+                var element = document.getElementById(a.id);
+                if(element == null || element == null)
+                    return;
+                console.log(element)
+                if(!element.classList.contains("shake"))
+                {
+                    element.classList.add("shake")
+                }
+            });
+            if(i == nr_of_achievements - 1)
             {
-                element.classList.add("shake")
+                finish_animation();
             }
-        });   
-    },1000*(i+1));
-    });
+        },current_animation_time);
 
-    setTimeout(function(){
-        card_elements = document.querySelectorAll('.shake');
-        card_elements.forEach(function(e){
-            e.classList.remove("shake")
-        });
-    },1000* (selected_expansion.length + 1));
+     });
 
-}
-
-function delay(delayInms) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(2);
-    }, delayInms);
-  });
+    function finish_animation()
+    {
+        setTimeout(function(){
+            console.log("finished")
+            card_elements = document.querySelectorAll('.shake');
+            card_elements.forEach(function(e){
+                e.classList.remove("shake")
+            });
+            expansion_element.classList.remove("rotate");
+            animation_completed = true;
+        },3000);
+    }
 }
 
 async function firebase_get_achievements()
@@ -197,74 +212,3 @@ async function firebase_get_achievements()
         }
     });
 }
-
-
-async function handle_achievement_swipes()
-{
-
-    //achievement_element = document.getElementById('card');
-    //achievement_element.addEventListener('touchstart', handle_touch_start, true);
-    //achievement_element.addEventListener('touchmove', handle_touch_move, true);*/
-
-    //card_elements = document.querySelectorAll('.card');
-
-    //card_elements.forEach(function(e){
-        //e.addEventListener('touchstart', handle_touch_start, true);
-        //e.addEventListener('touchmove', handle_touch_move, true);
-    //});
-}
-
-/*
-
-function getTouches(evt) {
-    console.log("2")
-  return evt.touches ||             // browser API
-         evt.originalEvent.touches; // jQuery
-}                                                     
-
-function handle_touch_start(evt) {
-    console.log("3")
-    const firstTouch = getTouches(evt)[0];                                      
-    xDown = firstTouch.clientX;                                                                           
-};                                                
-
-async function handle_touch_move(evt) {
-    if (!xDown || is_moving) {
-        return;
-    }
-    console.log("4")
-    var xUp = evt.touches[0].clientX;                                    
-    var xDiff = xDown - xUp;
-
-    //TODO: Make sure the touched card element is found not any child elements
-    var element = document.elementFromPoint(evt.touches[0].clientX, evt.touches[0].clientY);
-    if(element.className != "card")
-        return;
-
-    var touched_expansion = element.id;
-
-    var i = index_map[touched_expansion]
-    //Right = + Left = -
-    if ( xDiff > 0 )
-    {
-        if(i + 1 <= achive_map[touched_expansion].length - 1)
-        {
-            console.log("5")
-            index_map[touched_expansion] += 1;
-            //TODO: A bit ugly approach
-            achievement_box.$forceUpdate();
-        }
-    } 
-    else
-    {  
-        if(i - 1 >= 0)
-        {
-            index_map[touched_expansion] -= 1;
-            //TODO: A bit ugly approach
-            achievement_box.$forceUpdate();
-        }
-    }                                                                                                 
-    xDown = null;   
-};
-
-*/
