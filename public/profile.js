@@ -179,7 +179,7 @@ function animate_achievements(expansion_element)
             });
             expansion_element.classList.remove("rotate");
             animation_completed = true;
-        },3000);
+        },3000); //TODO: Tweek timeout time to match the animation time
     }
 }
 
