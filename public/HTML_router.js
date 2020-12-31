@@ -45,7 +45,8 @@ function add_footer_menu_listeners()
 {
     document.getElementById("footer_menu_home").onclick = function()
     {       loadPage("play.html").then(function(){
-            fb_get_user_data();
+            fb_get_user_data(uid);
+            setup_profile_component(uid);
             add_home_click_listeners();
             leave_lobby();
         });
@@ -54,7 +55,7 @@ function add_footer_menu_listeners()
     document.getElementById("footer_menu_profile").onclick = function()
     {
         loadPage("profile.html").then(function(){
-             fb_get_user_data();
+             fb_get_user_data(uid);
              setup_profile(uid);
              leave_lobby();
         });
@@ -62,8 +63,7 @@ function add_footer_menu_listeners()
 
     document.getElementById("footer_menu_wall").onclick = function()
     {
-        loadPage("wall.html").then(function(){
-             fb_get_friends()
+        loadPage("wall.html").then(async function(){
              setupWall();
              leave_lobby();
         });
@@ -71,8 +71,7 @@ function add_footer_menu_listeners()
 
     document.getElementById("footer_menu_friends").onclick = function()
     {
-        loadPage("friends.html").then(function(){
-            fb_get_friends()
+        loadPage("friends.html").then( async function(){
             setup_friends();
             leave_lobby();
         });

@@ -78,7 +78,8 @@ function leave_lobby()
     player_list_db_ref = null;
     player_uid_list = [];
     loadPage("play.html").then(function(){
-            fb_get_user_data();
+            fb_get_user_data(uid);
+            setup_profile_component();
             add_home_click_listeners();
     });
 }
@@ -299,7 +300,7 @@ async function firebase_get_host_data()
         {
             loadExpansion(expan,"se");
             loadPage("game.html").then(function(){
-            fb_get_user_data();
+            fb_get_user_data(uid);
             start_game();
             clear_lobby();
         });

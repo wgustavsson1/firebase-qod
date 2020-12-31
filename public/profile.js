@@ -18,17 +18,22 @@ const EXPANSIONS_NAME_MAP = {vanilla:'Original', moonshine:'Hembränt',dirty:'Se
 
 var index_map = {};
 
-async function setup_profile(p_id)
-{   
-    profile_id = p_id;
+function setup_profile_component(p_id)
+{
     var profile = new Vue({
         el: '#header',
         data: {
-        profile_uid: profile_id,
-        name: fb_users[profile_id].name,
-        profile_src: fb_users[profile_id].profile_pic
+        profile_uid: p_id,
+        name: fb_users[p_id].name,
+        profile_src: fb_users[p_id].profile_pic
         }
-        });
+    });
+}
+
+async function setup_profile(p_id)
+{   
+    setup_profile_component(p_id)
+    profile_id = p_id;
     
     achievements = [];
     achive_map = {};
