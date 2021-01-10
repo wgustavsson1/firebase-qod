@@ -1,8 +1,11 @@
 var db_ref_actions = null;
 var wall = null;
 
-function setupWall()
+async function setupWall()
 {
+
+    await fb_get_friends();
+
      wall = new Vue({el: '#feed',
         data: {actions:[]
           }
