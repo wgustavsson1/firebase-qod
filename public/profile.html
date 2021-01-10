@@ -13,8 +13,11 @@
       </div>
     </header>
 
+
+
     <div class = "clear-float"></div>
     <div id = "expansions-wrapper" v-if = "visible">
+      <h3>Expansioner</h3>
       <div  v-for="(value,key) in exps" v-bind:id="key" class = "expansion-marker" onclick="expansion_clicked(this)">
         <h4>{{value}}</h4>
       </div>
@@ -23,9 +26,10 @@
     <div class = "clear-float"></div>
 
       <div id = "achievements-wrapper" v-if = "visible">
+        <h3>Avklarade utmaningar</h3>
         <div  v-for="(value,index) in selected_expansion" v-if="value.visible" class = "card" v-bind:id="value.id">
-            <h4>{{value.expansion_name}}</h4>
             <h5>{{value.text}}</h5>
+            <h5>{{users[value.loser_id].name}}</h5>
           </div>
       </div>
 
@@ -67,7 +71,8 @@
        margin-left:5vw;
        float:left;
        text-align: center;
-       height:70vh;
+       height:40vh;
+       margin-bottom: 5vh;
        overflow: auto;
       }
       .card h3,h4,h5

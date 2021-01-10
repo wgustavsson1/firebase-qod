@@ -55,6 +55,7 @@ function add_footer_menu_listeners()
     document.getElementById("footer_menu_profile").onclick = function()
     {
         loadPage("profile.html").then(function(){
+             fb_get_friends();
              fb_get_user_data(uid);
              setup_profile(uid);
              leave_lobby();

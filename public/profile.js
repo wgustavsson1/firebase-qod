@@ -48,6 +48,7 @@ async function setup_profile(p_id)
     achievement_box = new Vue({el: '#achievements-wrapper',
     data: {
         selected_expansion: null,
+        users: fb_users,
         visible: false
         }
     });
@@ -102,6 +103,12 @@ function expansion_clicked(element)
     //If the expansion is already rendered but pressed again
     if(element.id == selected_expansion_name || !animation_completed)
         return;
+
+    if(achive_map[element.id] == undefined)
+    {
+        selected_expansion_name = null;
+        return;
+    }
 
     animation_completed = false;
     //Start expansion animation

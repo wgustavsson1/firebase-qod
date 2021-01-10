@@ -291,14 +291,6 @@ async function firebase_swap_card(ref)
     new_card[card] = card_text
     db_ref_cards.update(new_card);
 
-    //Give achievement to me
-    db_ref_achievements = firebase.database().ref('users/' + uid + 
-    "/achievements/");
-    var new_card = {};
-    new_card['id'] = card;
-    new_card['text'] = card_text;
-    db_ref_achievements.push(new_card);
-
     //Remove the card from the enemy
     db_ref_cards = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby + 
     "/players/" + enemy_uid + "/cards/" + "/" + card);
@@ -333,7 +325,7 @@ async function firebase_on_swap()
 
 async function firebase_add_action(loser_id, winner_id,card_id,text)
 {
-    db_ref_actions = firebase.database().ref('users/' + uid + 
+    db_ref_actions = firebase.database().ref('users/' + winner_id + 
     "/actions/");
     console.log(text + " text")
     db_ref_actions.push({loser_id:loser_id,winner_id:winner_id,card_id:card_id,card_text:text});
