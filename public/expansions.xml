@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>  
+
 <expansions>
 	<expansion name = "vanilla">
 		<id>vanilla</id>
@@ -131,14 +132,14 @@
 
 		<task>
 			<id>dirty1</id>
-			<text lang = "se">Pussa någon på kinden</text>
-			<text lang = "eng">Give someone a kiss</text>
+			<text lang = "se">Bli knullad av dildo</text>
+			<text lang = "eng">Get fucked by a dildo</text>
 		</task>
 
 		<task>
 			<id>dirty2</id>
-			<text lang = "se">Gen någon en kram</text>
-			<text lang = "eng">Give someone a hug</text>
+			<text lang = "se">Ta fram lube</text>
+			<text lang = "eng">Get some lube</text>
 		</task>
 
 		<task>
@@ -146,7 +147,6 @@
 			<text lang = "se">Ge någon en komplimang över dens utseende</text>
 			<text lang = "eng">Give someone a compliment</text>
 		</task>
-
 
 		<task>
 			<id>dirty4</id>
