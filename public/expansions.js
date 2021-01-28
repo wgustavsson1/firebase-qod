@@ -1,6 +1,7 @@
 var expansion = null;
 var expansion_map = {};
 var expansion_list = [];
+var expansion_keys_list = [];
 
 function loadExpansion(name,lang) {
   var xmlhttp = new XMLHttpRequest();
@@ -61,6 +62,7 @@ async function getExpansions(xml,lang)
   {
     expansion_map[expansion_ids[i]] = expansion_names[i];
     expansion_list.push(expansion_names[i]);
+    expansion_keys_list.push(expansion_ids[i]);
   }
   console.log(expansion_map);
 }

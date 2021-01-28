@@ -156,4 +156,26 @@
 
 	</expansion>
 
+
+	<expansion name = "mjp">
+		<id>mjp</id>
+		<name lang ="se">MJP</name>
+		<name lang ="eng">MJP</name>
+
+		<description lang ="se">Mjölbypartiet</description>
+		<description lang ="eng">Mjölbypartiet</description>
+
+		<disclaimer lang = "se">Sexuella trakasserier</disclaimer>
+		<disclaimer lang = "eng">Sexual Harassments</disclaimer>
+
+		<disclaimer lang = "se">Våldprovokation</disclaimer>
+		<disclaimer lang = "eng"></disclaimer>
+
+		<task>
+			<id>mjp1</id>
+			<text lang = "se">Bli bjuden på snus</text>
+		</task>
+
+	</expansion>
+
 </expansions>

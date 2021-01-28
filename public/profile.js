@@ -12,10 +12,6 @@ var achive_map = {};
 var selected_expansion = null;
 var selected_expansion_name = null;
 
-//TODO: FIX non hardcoded solution
-const EXPANSIONS = ["vanilla","moonshine","dirty"];
-const EXPANSIONS_NAME_MAP = {vanilla:'Original', moonshine:'Hembränt',dirty:'Sex & Snusk',flirt:'Flört'}
-
 var index_map = {};
 
 function setup_profile_component(p_id)
@@ -40,7 +36,7 @@ async function setup_profile(p_id)
 
     expansions_box = new Vue ({el: '#expansions-wrapper',
          data: {
-            exps: EXPANSIONS_NAME_MAP,
+            exps: expansion_map,
             visible:false
         }
     });
@@ -119,6 +115,7 @@ function expansion_clicked(element)
         e.classList.remove("selected_expansion")
     });
 
+    console.log(element.id)
     element.classList.add("selected_expansion");
     selected_expansion_name = element.id;
     selected_expansion = achive_map[selected_expansion_name];
@@ -209,14 +206,14 @@ async function firebase_get_achievements()
             if(action.winner_id != profile_id)
                 continue
             console.log(action);
-            EXPANSIONS.forEach(function(e){
+            expansion_keys_list.forEach(function(e){
                 console.log(e)
                 if(action.card_id.includes(e))
                 {
                     console.log(4)
                     if(achive_map[e] == undefined)
                         achive_map[e] = []
-                    achive_map[e].push({expansion_name:EXPANSIONS_NAME_MAP[e],id:action.card_id,loser_id:action.loser_id,
+                    achive_map[e].push({expansion_name:expansion_map[e],id:action.card_id,loser_id:action.loser_id,
                         text:action.card_text,visible:false});
                     console.log(achive_map);
                 }
