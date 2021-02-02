@@ -111,19 +111,6 @@ function clear_lobby()
   }
 }); */
 
-function firebase_add_game(lobby)
-{
-    if(lobby == null)
-      lobby_id = document.getElementById("input-party-ref").value;
-    else
-      lobby_id = lobby;
-    console.log(lobby_id);
-    var database = firebase.database();
-    firebase.database().ref("users/" + uid +  "/current_game/" ).set({
-        lobby_id: lobby_id
-         });
-}
-
 function firebase_start_game()
 {   
     var database = firebase.database();
@@ -139,7 +126,7 @@ function setup_scanner()
             }
         );
         scanner.addListener('scan', function(content) {
-            join_lobby(content);
+            join_lobby(content,true);
         });
         Instascan.Camera.getCameras().then(cameras => 
         {
@@ -150,30 +137,48 @@ function setup_scanner()
             }
         });
 }
-function join_lobby(lobby)
+
+function firebase_add_game(lobby_id)
 {
-  if(lobby)
-  {
+    firebase.database().ref("users/" + uid +  "/current_game/" ).set({
+    lobby_id: lobby_id
+    });
+}
+
+async function lobby_exists(lobby)
+{
+
+    host_id = lobby_id.split("&&")[0]
+    lobby = lobby_id.split("&&")[1]
+    var exists = null;
+    db_ref = firebase.database().ref('users/' + host_id + '/lobbies/' + lobby);
+    await db_ref.once('value', function(snapshot) {
+        exists = snapshot.exists();
+        console.log("1: " + exists)
+    });
+    return exists;
+    console.log("2: " + exists)
+}
+
+async function join_lobby(lobby,created)
+{
+    lobby_id = lobby;
+
+    exists = await lobby_exists(lobby_id)
+
+    if(created == true && exists == false)
+    {
+        alert("That party does not exist! :(")
+        return false;
+    }
+
+    firebase_add_game(lobby);
     loadPage("lobby.html").then(function(){
-            firebase_add_game(lobby);
-            init_lobby();
-            setup_invite();
-            firebase_get_current_game();
-            if(is_host()) 
-            {
-                host.user_is_host = true;
-                game.user_is_host = true;
-            }
-            firebase_get_host_data();
-            firebase_add_user_as_player();
-            firebase_get_player_list();
-         });
-  }
-else
-{
+
     init_lobby();
     setup_invite();
     firebase_get_current_game();
+
     if(is_host()) 
     {
         host.user_is_host = true;
@@ -182,8 +187,8 @@ else
     firebase_get_host_data();
     firebase_add_user_as_player();
     firebase_get_player_list();
-}
-
+    });
+    return true;
 }
 
 function is_host()
@@ -255,12 +260,12 @@ async function firebase_get_player_list()
                 //else alert my friends
                 else
                 {
-                    alert(new_player_list[p].name + " joined the party!");
+                    console.log(new_player_list[p].name + " joined the party!");
                 }
             }
             else if(new_player_list[p].status == "disconnected" && new_player_list[p].uid != uid)
             {
-                alert(new_player_list[p].name + " disconnected :(");
+                console.log(new_player_list[p].name + " disconnected :(");
             }
         }
         players.players = new_player_list;

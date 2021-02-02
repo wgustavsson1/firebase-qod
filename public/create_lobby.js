@@ -62,5 +62,6 @@ function create_lobby()
         expansion:select['expansion'],
          });
         lobby_form.hide = true;
-        join_lobby(uid + "&&" + lobby_id);
+        lobby_id = uid + "&&" + lobby_id;
+        join_lobby(lobby_id,false);
 }

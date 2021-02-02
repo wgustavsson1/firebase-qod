@@ -32,15 +32,12 @@ function add_buttons_listeners()
                 setup_scanner();
                 document.getElementById("button-join-party").onclick = function()
                 {
-                    firebase_add_game(null);
-                    loadPage("lobby.html").then(function(){
-                    join_lobby();
-                });
+                    lobby_id = document.getElementById("input-party-ref").value
+                    join_lobby(lobby_id,true);
                 };
             });
         };
 }
-
 function add_footer_menu_listeners()
 {
     document.getElementById("footer_menu_home").onclick = function()
