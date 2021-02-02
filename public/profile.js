@@ -29,10 +29,12 @@ function setup_profile_component(p_id)
 async function setup_profile(p_id)
 {   
     setup_profile_component(p_id)
-    profile_id = p_id;
+    await fb_get_friends();
     
+    profile_id = p_id;
     achievements = [];
     achive_map = {};
+
 
     expansions_box = new Vue ({el: '#expansions-wrapper',
          data: {
