@@ -72,6 +72,8 @@ function leave_lobby()
     players = null;
     log_list = [];
     logs = null;
+    host_id = null;
+    lobby_id = null;
     db_ref.off();
     db_ref = null;
     player_list_db_ref.off();
@@ -98,6 +100,8 @@ function clear_lobby()
     player_list_db_ref.off();
     player_list_db_ref = null;
     player_uid_list = [];
+    host_id = null;
+    lobby_id = null;
     
 }
 
