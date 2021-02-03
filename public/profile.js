@@ -14,16 +14,23 @@ var selected_expansion_name = null;
 
 var index_map = {};
 
-function setup_profile_component(p_id)
+async function setup_profile_component(p_id)
 {
-    var profile = new Vue({
-        el: '#header',
-        data: {
-        profile_uid: p_id,
-        name: fb_users[p_id].name,
-        profile_src: fb_users[p_id].profile_pic
-        }
-    });
+    if(fb_users[p_id] != undefined)
+    {
+        var profile = new Vue({
+            el: '#header',
+            data: {
+            profile_uid: p_id,
+            name: fb_users[p_id].name,
+            profile_src: fb_users[p_id].profile_pic
+            }
+        });
+    }
+    else
+    {
+        get_my_user_data();
+    }
 }
 
 async function setup_profile(p_id)

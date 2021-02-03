@@ -9,11 +9,15 @@ async function loadPage(page) {
 }
 
 
-function add_home_click_listeners()
+async function add_home_click_listeners()
 {
-    setup_menu();
-    add_footer_menu_listeners();
-    add_buttons_listeners();
+    window.onload = function(){
+        setup_menu();
+        add_footer_menu_listeners();
+        add_buttons_listeners();
+        setup_lobby_reconnect()
+    // code goes here
+    };
 }
 
 function add_buttons_listeners()

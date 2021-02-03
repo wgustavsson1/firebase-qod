@@ -14,6 +14,9 @@
       <button id = "button-start" class = "button-start">Start Party!</button>
       <button id = "button-join" class = "button-start">Join party!</button>
 
+      <div id = "reconnect">
+      <h3 class = "button-start" v-if="is_visible" onclick = "reconnect(lobby_id)">Reconnect to {{host_name}} s lobby</h3>
+      </div>
 
       <style>
       .button-start

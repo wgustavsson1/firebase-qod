@@ -3,6 +3,7 @@ var lobby_id = null;
 
 var lobby = null;
 var host_id = null;
+var host_name = null;
 var settings = null;
 var players = null;
 var log_list = [];
@@ -23,6 +24,25 @@ var expan = null;
 let scanner = null;
 
 var game = null;
+
+var reconnect_button = null;
+
+
+async function setup_lobby_reconnect()
+{
+    reconnect_button = new Vue({el: '#reconnect',
+            data: {
+            is_visible : true,
+            party_name: "reconnect",
+            host_name: "sten"
+            }
+    });
+    console.log(reconnect_button)
+
+    exist = await lobby_exists(lobby_id);
+    reconnect_button.is_visible = exist;
+}
+
 
 function init_lobby()
 {
@@ -72,9 +92,9 @@ function leave_lobby()
     players = null;
     log_list = [];
     logs = null;
-    host_id = null;
-    lobby_id = null;
-    db_ref.off();
+    if(db_ref !=  null)
+        db_ref.off();
+
     db_ref = null;
     player_list_db_ref.off();
     player_list_db_ref = null;
@@ -95,14 +115,12 @@ function clear_lobby()
     players = null;
     log_list = [];
     logs = null;
-    db_ref.off();
+    if(db_ref !=  null)
+        db_ref.off();
     db_ref = null;
     player_list_db_ref.off();
     player_list_db_ref = null;
     player_uid_list = [];
-    host_id = null;
-    lobby_id = null;
-    
 }
 
 /*firebase.auth().onAuthStateChanged(function(user) {
@@ -114,6 +132,12 @@ function clear_lobby()
     console.log("no uid")
   }
 }); */
+
+function reconnect(lobby)
+{
+    reconnect_button.host_name = host_name
+    join_lobby(lobby)
+}
 
 function firebase_start_game()
 {   
@@ -151,6 +175,8 @@ function firebase_add_game(lobby_id)
 
 async function lobby_exists(lobby)
 {
+    if(lobby == null)
+        return false;
 
     host_id = lobby_id.split("&&")[0]
     lobby = lobby_id.split("&&")[1]
@@ -292,7 +318,7 @@ async function firebase_get_host_data()
     db_ref.on('value', function(snapshot) {
         console.log("host");
         console.log(snapshot.child("host").val());
-        var host_name = snapshot.child("host").val();
+        host_name = snapshot.child("host").val();
         var status = snapshot.child("status").val();
         var host_profile_src = snapshot.child("profile_picture").val();
         time = snapshot.child("time").val();
