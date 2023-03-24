@@ -1,3 +1,5 @@
+Mobile Party Card Game using Vue.js and firebase
+
 Install firebase hosting tools;
 npm install -g firebase-tools
 Make sure PATH includes path to npm firebase ( ex: C:\Users\wilhe\AppData\Roaming\npm)
