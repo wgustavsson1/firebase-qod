@@ -33,42 +33,31 @@
 			<text lang = "eng">Get someone to give you a drink</text>
 		</task>
 		
-		<task>
-			<id>vanilla4</id>
-			<text lang = "se">Ta på mina pattar</text>
-			<text lang = "eng">Grab my tits</text>
-		</task>
 		
 		<task>
-			<id>vanilla5</id>
+			<id>vanilla4</id>
 			<text lang = "se">Ta på min balle</text>
 			<text lang = "eng">Grab my dick</text>
 		</task>
 		
 		<task>
-			<id>vanilla6</id>
-			<text lang = "se">Knulla mig</text>
-			<text lang = "eng">Fuck me</text>
-		</task>
-		
-		<task>
-			<id>vanilla7</id>
+			<id>vanilla5</id>
 			<text lang = "se">Köp någons katt</text>
 			<text lang = "eng">Buy someone´s cat</text>
 		</task>
 		<task>
-			<id>vanilla8</id>
+			<id>vanilla6</id>
 			<text lang = "se">Skaka hand med någon</text>
 			<text lang = "eng">Shake someones hand</text>
 		</task>
 		<task>
-			<id>vanilla9</id>
+			<id>vanilla7</id>
 			<text lang = "se">Ge någon en komplimang</text>
 			<text lang = "eng">Give a compliment</text>
 		</task>
 		
 		<task>
-			<id>vanilla10</id>
+			<id>vanilla8</id>
 			<text lang = "se">Berätta en hemlighet för någon</text>
 			<text lang = "eng">Tell someone a secret</text>
 		</task>
@@ -115,67 +104,4 @@
 			<text lang = "eng">Make a drink for someone</text>
 		</task>
 	</expansion>
-
-	<expansion name = "dirty">
-		<id>dirty</id>
-		<name lang ="se">Snusk &amp; Vågat</name>
-		<name lang ="eng">Dirty &amp; Daring</name>
-
-		<description lang ="se">Quest or Drink Snusk &amp; Vågat</description>
-		<description lang ="eng">Quest or Drink Dirty &amp; Daring</description>
-
-		<disclaimer lang = "se">Sexuella trakasserier</disclaimer>
-		<disclaimer lang = "eng">Sexual Harassments</disclaimer>
-
-		<disclaimer lang = "se">Våldprovokation</disclaimer>
-		<disclaimer lang = "eng"></disclaimer>
-
-		<task>
-			<id>dirty1</id>
-			<text lang = "se">Bli knullad av dildo</text>
-			<text lang = "eng">Get fucked by a dildo</text>
-		</task>
-
-		<task>
-			<id>dirty2</id>
-			<text lang = "se">Ta fram lube</text>
-			<text lang = "eng">Get some lube</text>
-		</task>
-
-		<task>
-			<id>dirty3</id>
-			<text lang = "se">Ge någon en komplimang över dens utseende</text>
-			<text lang = "eng">Give someone a compliment</text>
-		</task>
-
-		<task>
-			<id>dirty4</id>
-			<text lang = "se">Kyss någon</text>
-			<text lang = "eng">Kiss someone</text>
-		</task>
-
-	</expansion>
-
-
-	<expansion name = "mjp">
-		<id>mjp</id>
-		<name lang ="se">MJP</name>
-		<name lang ="eng">MJP</name>
-
-		<description lang ="se">Mjölbypartiet</description>
-		<description lang ="eng">Mjölbypartiet</description>
-
-		<disclaimer lang = "se">Sexuella trakasserier</disclaimer>
-		<disclaimer lang = "eng">Sexual Harassments</disclaimer>
-
-		<disclaimer lang = "se">Våldprovokation</disclaimer>
-		<disclaimer lang = "eng"></disclaimer>
-
-		<task>
-			<id>mjp1</id>
-			<text lang = "se">Bli bjuden på snus</text>
-		</task>
-
-	</expansion>
-
 </expansions>
